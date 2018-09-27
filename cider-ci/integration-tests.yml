@@ -1,0 +1,34 @@
+task_defaults:
+
+  include:
+    - cider-ci/task_components/bundle.yml
+
+  max_trials: 3
+
+  git_options:
+    submodules:
+      include_match: ^.+$
+
+
+  scripts:
+    test:
+      timeout: 3 Minutes
+      body: |
+        set -eux
+        export PATH=~/.rubies/$RUBY/bin:$PATH
+        mkdir -p log
+        xvfb-run -a -e log/xvfb.log \
+          bundle exec rspec $CIDER_CI_TASK_FILE
+
+generate_tasks:
+  include_match: spec/.*_spec.rb
+
+# tasks-specific config:
+# tasks:
+#   spec/example_spec.rb:
+#     scripts:
+#       prepare-config:
+#         body: 'echo preparation'
+#       test:
+#         start_when:
+#           config is prepared: { script_key: prepare-config }

@@ -1,0 +1,15 @@
+jobs:
+   integration-tests:
+    name: Integration Tests
+
+    # TEMP
+    priority: 1337
+
+    run_when: &DEFAULT_TRIGGERS
+      any branch matches:
+        type: branch
+        include_match: ^.+$
+
+    context:
+      include:
+        - path: cider-ci/integration-tests.yml
