@@ -12,9 +12,9 @@ module InitialSteps
     expect(page.current_path).to eq url
   end
 
-  step "I fill out the form :form with:" do |form, table|
-    table.hashes.each do |row|
-      fill_in(row['field'], with: row['value'])
+  step "I fill out the form with:" do |table|
+    within('form:first-child') do
+      fill_form_with_table(table)
     end
   end
 
@@ -26,6 +26,12 @@ module InitialSteps
     expect(page).to have_content(txt.strip())
   end
 
+end
+
+def fill_form_with_table(table)
+  table.hashes.each do |row|
+    fill_in(row['field'], with: row['value'])
+  end
 end
 
 RSpec.configure { |c| c.include InitialSteps }

@@ -6,7 +6,7 @@ Feature: Initial Setup
     When I go to '/'
       Then I am redirected to '/first_admin_user'
 
-    When I fill out the form 'form[action="/first_admin_user"]' with:
+    When I fill out the form with:
       | field                   | value                   |
       | Last name               | Admin                   |
       | First name              | Super                   |
