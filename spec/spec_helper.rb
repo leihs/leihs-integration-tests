@@ -92,3 +92,22 @@ RSpec.configure do |config|
   Capybara.current_driver = :selenium
   Capybara.app_host = 'http://localhost:10080'
 end
+
+# helper methods
+require "sequel"
+def database_cleaner
+  db_url = "postgresql://root:root@localhost:10054/leihs?max-pool-size=5"
+  database = Sequel.connect(db_url)
+
+  tables = database[<<-SQL
+      SELECT table_name
+        FROM information_schema.tables
+      WHERE table_type = 'BASE TABLE'
+      AND table_schema = 'public'
+      AND table_name NOT IN ('schema_migrations','ar_internal_metadata')
+      ORDER BY table_type, table_name;
+    SQL
+  ].map { |r| r[:table_name] }
+
+  database.run "TRUNCATE TABLE #{tables.join(', ')} CASCADE;"
+end

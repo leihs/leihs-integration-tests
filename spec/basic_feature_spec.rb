@@ -1,6 +1,7 @@
 describe "initial setup", type: :feature, js: true do
+
   before :each do
-    # User.make(email: 'user@example.com', password: 'password')
+    database_cleaner
   end
 
   example "create first admin" do
