@@ -1,4 +1,6 @@
 require 'capybara/rspec'
+require 'turnip/rspec'
+require 'turnip/capybara'
 require 'selenium-webdriver'
 require 'active_support/all'
 require 'pry'
@@ -91,9 +93,17 @@ RSpec.configure do |config|
   Capybara.run_server = false
   Capybara.current_driver = :selenium
   Capybara.app_host = 'http://localhost:10080'
+
+  # Turnip:
+  config.raise_error_for_unimplemented_steps = true # TODO: fix
+  Dir.glob("spec/**/*.steps.rb") { |f| load f, true }
 end
 
 # helper methods
+def backdoor(cmd)
+  `vagrant ssh -- #{Shellwords.escape(cmd)}`
+end
+
 require "sequel"
 def database_cleaner
   db_url = "postgresql://root:root@localhost:10054/leihs?max-pool-size=5"
