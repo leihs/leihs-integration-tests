@@ -71,7 +71,7 @@ DEPENDENCIES
   activesupport (~> 5.2)
   capybara (~> 3.8)
   geckodriver-helper (= 0.21.0)
-  pry
+  pry (~> 0.11)
   rspec (~> 3.0)
   selenium-webdriver (~> 3.14)
 

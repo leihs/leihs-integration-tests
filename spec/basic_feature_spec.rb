@@ -1,15 +1,26 @@
-describe "the signin process", type: :feature, js: true do
+describe "initial setup", type: :feature, js: true do
   before :each do
     # User.make(email: 'user@example.com', password: 'password')
   end
 
-  it "signs me in" do
-    visit '/sessions/new'
-    within("#session") do
-      fill_in 'Email', with: 'user@example.com'
-      fill_in 'Password', with: 'password'
+  example "create first admin" do
+    visit '/'
+    expect(page.current_path).to eq "/first_admin_user"
+
+    within('form[action="/first_admin_user"]') do
+      fill_in 'Last name', with: 'Admin'
+      fill_in 'First name', with: 'Super'
+      fill_in 'E-Mail', with: 'admin@leihs.example.com'
+      fill_in 'Login', with: 'superadmin'
+      fill_in 'Password *', with: 'secret'
+      fill_in 'Password Confirmation *', with: 'secret'
     end
-    click_button 'Sign in'
-    expect(page).to have_content 'Success'
+
+    click_button 'Save'
+
+    expect(page.current_path).to eq "/"
+    expect(page).to have_content \
+      'First admin user has been created. Default database authentication system has been configured.'
   end
+
 end

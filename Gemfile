@@ -10,4 +10,4 @@ gem 'geckodriver-helper', '0.21.0'
 
 # helpers
 gem 'activesupport', '~> 5.2'
-gem 'pry', '~ 0.11'
+gem 'pry', '~> 0.11'
