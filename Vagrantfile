@@ -14,14 +14,6 @@ Vagrant.configure("2") do |config|
   # ports - test only
   config.vm.network "forwarded_port", guest: 5432, host: 10054, host_ip: "127.0.0.1"
 
-  # Share an additional folder to the guest VM. The first argument is
-  # the path on the host to the actual folder. The second argument is
-  # the path on the guest to mount the folder. And the optional third
-  # argument is a set of non-required options.
-  # config.vm.synced_folder "../data", "/vagrant_data"
-
-  config.vm.box_check_update = false
-
   config.vm.provision "shell", inline: <<-SHELL
     # from <leihs/deploy/container-test/bin/install-dependencies>
 
@@ -38,4 +30,7 @@ Vagrant.configure("2") do |config|
     apt-get update
     apt-get install -y -f ansible
   SHELL
+
+  # dont automatically check for updates
+  config.vm.box_check_update = false
 end
