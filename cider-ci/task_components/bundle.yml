@@ -1,6 +1,5 @@
 traits:
   ruby-install: yes
-  Firefox ESR 52: yes
 
 environment_variables:
   RUBY_ENGINE: ruby
