@@ -1,2 +1,5 @@
 /.vagrant
 *.log
+/inventory
+/leihs
+/leihs-instance

@@ -9,6 +9,7 @@ module InitialSteps
   end
 
   step "I am redirected to :url" do |url|
+    wait_until(12) { page.current_path == url }
     expect(page.current_path).to eq url
   end
 
@@ -26,11 +27,11 @@ module InitialSteps
     expect(page).to have_content(txt.strip())
   end
 
-end
 
-def fill_form_with_table(table)
-  table.hashes.each do |row|
-    fill_in(row['field'], with: row['value'])
+  def fill_form_with_table(table)
+    table.hashes.each do |row|
+      fill_in(row['field'], with: row['value'])
+    end
   end
 end
 

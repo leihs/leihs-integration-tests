@@ -1,38 +1,44 @@
-
 scripts:
 
   start-container:
+    exclusive_executor_resource: 'vagrant_updown'
     timeout: 10 Minutes
-    body: vagrant up
+    body: vagrant up --no-provision # this is locking, so keep it short and dont provision yet
 
   build-inventory:
+    timeout: 5 Minutes
     start_when:
       started: { script_key: start-container }
     body: |
-      vagrant ssh -c "sudo sh -c '$(cat ./scripts/build-inventory.sh)'"
+      vagrant provision
+      vagrant ssh -- sudo sh /vagrant/scripts/init-inventory.sh
 
   deploy-to-container:
     timeout: 60 Minutes
     start_when:
       inventory: { script_key: build-inventory }
     body: |
-      vagrant ssh -c "sudo sh -c 'cd leihs-instance && scripts/deploy'"
+      vagrant ssh -- sudo sh /vagrant/scripts/deploy-in-vagrant.sh
 
   tune-for-testing:
     start_when:
       deployed: { script_key: deploy-to-container }
     body: |
-      vagrant ssh -- sudo sh < ./scripts/config-postgres-for-vagrant.sh
+      vagrant ssh -- sudo sh /vagrant/scripts/config-postgres-for-vagrant.sh
 
   test:
     start_when:
       tuned: { script_key: tune-for-testing }
 
   stop-container:
+    exclusive_executor_resource: 'vagrant_updown'
     timeout: 1 hour
     start_when:
+      # deploy in failed state:
+      #   script_key: deploy-to-container
+      #   states: [aborted, failed, skipped]
       test in terminal state:
         script_key: test
         states: [aborted, passed, failed, skipped]
     ignore_abort: yes
-    body: vagrant destroy --force
+    body: vagrant halt --force ; vagrant destroy --force
