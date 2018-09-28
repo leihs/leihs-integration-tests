@@ -35,6 +35,4 @@ scripts:
         script_key: test
         states: [aborted, passed, failed, skipped]
     ignore_abort: yes
-    body: |
-      #!/usr/bin/env bash
-      vagrant destroy
+    body: vagrant destroy --force
