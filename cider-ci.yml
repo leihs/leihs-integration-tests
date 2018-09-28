@@ -5,6 +5,13 @@ jobs:
     # TEMP
     priority: 1337
 
+    task_defaults:
+      traits:
+        # TEMP
+        ci-g2016-01: yes
+        vagrant: yes
+        virtualbox: yes
+
     run_when: &DEFAULT_TRIGGERS
       any branch matches:
         type: branch
