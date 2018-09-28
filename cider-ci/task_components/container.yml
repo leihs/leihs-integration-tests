@@ -1,0 +1,38 @@
+
+scripts:
+
+  start-container:
+    timeout: 10 Minutes
+    body: vagrant up
+
+  build-inventory:
+    start_when:
+      started: { script_key: start-container }
+    body: |
+      vagrant ssh -c "sudo sh -c '$(cat ./scripts/build-inventory.sh)'"
+
+  deploy-to-container:
+    timeout: 60 Minutes
+    start_when:
+      inventory: { script_key: build-inventory }
+    body: |
+      vagrant ssh -c "sudo sh -c 'cd leihs-instance && scripts/deploy'"
+
+  tune-for-testing:
+    start_when:
+      deployed: { script_key: deploy-to-container }
+    body: |
+      vagrant ssh -- sudo sh < ./scripts/config-postgres-for-vagrant.sh
+
+  test:
+    start_when:
+      tuned: { script_key: tune-for-testing }
+
+  stop-container:
+    timeout: 1 hour
+    start_when:
+      test in terminal state:
+        script_key: test
+        states: [aborted, passed, failed, skipped]
+    ignore_abort: yes
+    body: vagrant destroy --force

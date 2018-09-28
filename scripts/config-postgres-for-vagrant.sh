@@ -1,4 +1,5 @@
 # run with `vagrant ssh -- sudo sh < ./config-postgres-for-vagrant.sh`
+
 # from https://github.com/jackdb/pg-app-dev-vm/blob/f31fc94556bfdcc6aab97f1918fd95fdc6064a8a/Vagrant-setup/bootstrap.sh#L72-L82
 
 export PG_VERSION=9.6
