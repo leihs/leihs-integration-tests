@@ -27,9 +27,10 @@ scripts:
     body: |
       vagrant ssh -- sudo sh /vagrant/scripts/config-postgres-for-vagrant.sh
       # FIXME: does not survive restarting of postgres, so restart the machine
-      vagrant reload
+      vagrant suspend && vagrant reload --no-provision
       # wait for webservice
-      until curl --fail -s http://localhost:10080; do sleep 3; done && curl -v http://localhost:10080 | head -25
+      until curl --fail -s http://localhost:10080; do sleep 3; done
+      curl -si http://localhost:10080 | head -50
 
   test:
     start_when:
