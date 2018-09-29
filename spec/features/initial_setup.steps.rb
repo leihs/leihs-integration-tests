@@ -27,6 +27,7 @@ module InitialSteps
     expect(page).to have_content(txt.strip())
   end
 
+  step :doc_screenshot, 'I document it with a screenshot named ":name"'
 
   def fill_form_with_table(table)
     table.hashes.each do |row|

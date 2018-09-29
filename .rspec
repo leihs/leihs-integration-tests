@@ -1,1 +1,1 @@
---require spec_helper
+--require turnip --require spec_helper
