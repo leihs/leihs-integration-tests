@@ -6,6 +6,21 @@ require 'active_support/all'
 require 'sequel'
 require 'pry'
 
+module TurnipExtensions
+  module ScreenshotPerStep
+    def run_step(*args)
+      super(*args)
+      begin; spec_screenshot(RSpec.current_example, args.second); rescue => e; end
+      # spec_screenshot(RSpec.current_example, args.second)
+    end
+  end
+end
+# monkey-patch Turnip
+Turnip::RSpec::Execute.prepend TurnipExtensions::ScreenshotPerStep
+
+
+BROWSER_WINDOW_SIZE = [ 1200, 800 ]
+
 # Capybara:
 if ENV['FIREFOX_PATH'].present?
   Selenium::WebDriver::Firefox.path = ENV['FIREFOX_PATH']
@@ -63,36 +78,60 @@ RSpec.configure do |config|
   config.before(type: :feature) do
     database_cleaner
     Capybara.current_driver = :firefox
-    page.driver.browser.manage.window.maximize
+    begin
+      # Capybara.current_session.current_window.resize_to(*BROWSER_WINDOW_SIZE)
+      page.driver.browser.manage.window.resize_to(*BROWSER_WINDOW_SIZE)
+    rescue => e
+      fail e
+      page.driver.browser.manage.window.maximize
+    end
   end
 
   config.after(type: :feature) do |example|
     if ENV['CIDER_CI_TRIAL_ID'].present?
       unless example.exception.nil?
-        take_screenshot
+        take_screenshot('tmp/error-screenshots')
       end
     end
     page.driver.quit # OPTIMIZE force close browser popups
     Capybara.current_driver = Capybara.default_driver
-    # PgTasks.truncate_tables()
   end
 
   def take_screenshot(screenshot_dir = nil, name = nil)
-    screenshot_dir ||= Rails.root.join('tmp', 'capybara')
-    name ||= "screenshot_#{Time.zone.now.iso8601.gsub(/:/, '-')}.png"
-    Dir.mkdir screenshot_dir rescue nil
-    path = screenshot_dir.join(name)
+    if !screenshot_dir.present?
+      fail 'no `screenshot_dir` given!' unless defined?(Rails)
+      screenshot_dir = Rails.root.join('tmp', 'capybara')
+    end
+
+    name ||= "screenshot_#{Time.zone.now.iso8601.tr(':', '-')}"
+    name = "#{name}.png" unless name.ends_with?('.png')
+
+    path = File.join(Dir.pwd, screenshot_dir, name)
+    FileUtils.mkdir_p(File.dirname(path))
+
     case Capybara.current_driver
     when :firefox
-      page.driver.browser.save_screenshot(path) rescue nil
+      page.driver.browser.save_screenshot(path)
     else
-      Rails
-        .logger
-        .warn "Taking screenshots is not implemented for \
-      #{Capybara.current_driver}."
+      fail "Taking screenshots is not implemented for \
+              #{Capybara.current_driver}."
     end
   end
 
+end
+
+def doc_screenshot(name)
+  fail unless name.is_a?(String) and name.present?
+  take_screenshot('tmp/doc-screenshots', name)
+end
+
+def spec_screenshot(example, step)
+  fail unless example.present?
+  dat = example.metadata
+  dir = "tmp/spec-screenshots/#{dat[:file_path]}"
+  stepname = step.text.gsub(/\W/, ' ').gsub(/\s+/, ' ').strip.gsub(' ', '-')
+  name = "#{dat[:example_group][:scoped_id].gsub(':','_')}_#{step.location.line}_#{stepname}"
+  take_screenshot(dir, name)
 end
 
 # test helpers

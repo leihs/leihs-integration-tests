@@ -3,7 +3,12 @@ task_defaults:
   traits:
     vagrant: yes
     virtualbox: yes
-    Firefox ESR 52: yes # TODO: ???
+    Firefox ESR 60: yes
+
+  environment_variables:
+    # force using only `FIREFOX_ESR_60_PATH` from executor
+    FIREFOX_PATH: ''
+    FIREFOX_ESR_PATH: ''
 
   include:
     - cider-ci/task_components/bundle.yml
@@ -15,6 +20,10 @@ task_defaults:
     submodules:
       include_match: ^.+$
 
+  trial_attachments:
+    screenshots:
+      include_match: tmp\/(.*-|)screenshots\/.*\.png$
+      content_type: image/png
 
   scripts:
     test:
