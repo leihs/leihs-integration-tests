@@ -3,7 +3,7 @@ scripts:
   start-container:
     exclusive_executor_resource: 'vagrant_updown'
     timeout: 10 Minutes
-    body: vagrant up --no-provision # this is locking, so keep it short and dont provision yet
+    body: vagrant up --no-provision # this is locking, so keep it fast and dont provision yet
 
   build-inventory:
     timeout: 5 Minutes
@@ -21,10 +21,15 @@ scripts:
       vagrant ssh -- sudo sh /vagrant/scripts/deploy-in-vagrant.sh
 
   tune-for-testing:
+    timeout: 5 Minutes
     start_when:
       deployed: { script_key: deploy-to-container }
     body: |
       vagrant ssh -- sudo sh /vagrant/scripts/config-postgres-for-vagrant.sh
+      # FIXME: does not survive restarting of postgres, so restart the machine
+      vagrant reload
+      # wait for webservice
+      until curl --fail -s http://localhost:10080; do sleep 3; done && curl -v http://localhost:10080 | head -25
 
   test:
     start_when:
@@ -34,9 +39,6 @@ scripts:
     exclusive_executor_resource: 'vagrant_updown'
     timeout: 1 hour
     start_when:
-      # deploy in failed state:
-      #   script_key: deploy-to-container
-      #   states: [aborted, failed, skipped]
       test in terminal state:
         script_key: test
         states: [aborted, passed, failed, skipped]
