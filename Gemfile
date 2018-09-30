@@ -3,6 +3,7 @@ source 'https://rubygems.org'
 # test
 gem 'rspec', '~> 3.0'
 gem 'turnip', '~> 3.1'
+gem 'turnip_formatter', '~> 0.7'
 
 # test in browser
 gem 'capybara', '~> 3.8'

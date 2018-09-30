@@ -65,6 +65,10 @@ GEM
     turnip (3.1.0)
       gherkin (~> 5.0)
       rspec (>= 3.0, < 4.0)
+    turnip_formatter (0.7.1)
+      activesupport (>= 4.2.7, < 6.0)
+      rspec (>= 3.3, < 4.0)
+      turnip (~> 3.1.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     xpath (3.1.0)
@@ -83,6 +87,7 @@ DEPENDENCIES
   selenium-webdriver (~> 3.14)
   sequel (~> 4.42, >= 4.42.1)
   turnip (~> 3.1)
+  turnip_formatter (~> 0.7)
 
 BUNDLED WITH
    1.16.5
