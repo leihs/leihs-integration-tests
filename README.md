@@ -5,7 +5,7 @@
 ## technology stack
 
 - [**Gherkin**](https://docs.cucumber.io/gherkin/reference/) Scenarios
-- [**RSpec**](https://rspec.info/) Test Runner (with [Turnip](https://github.com/jnicklas/turnip))
+- [**RSpec**](https://rspec.info/) Test Runner (with [Turnip](https://github.com/jnicklas/turnip), [Sequel](https://rubygems.org/gems/sequel) Database Toolkit)
 - [**Capybara**](https://teamcapybara.github.io/capybara/) (with [Selenium WebDriver](https://www.seleniumhq.org/projects/webdriver/), [geckodriver](https://github.com/mozilla/geckodriver))
 - [**Firefox**](https://www.mozilla.org/firefox/) Web browser
 - [**Vagrant**](https://www.vagrantup.com/) virtual machine and container management (with [VirtualBox](https://www.virtualbox.org/))
