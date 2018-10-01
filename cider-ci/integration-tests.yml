@@ -33,19 +33,25 @@ task_defaults:
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         xvfb-run -a -e log/xvfb.log \
-          bundle exec rspec $CIDER_CI_TASK_FILE
+          bundle exec rspec "$CIDER_CI_TASK_FILE"
 
-# generate_tasks:
-#   include_match: 'spec/(system\/.*_spec\.rb|features\/.*\.feature|)'
-
-# tasks-specific config:
+# TEMP: run all specs for now (setup is not cached yet and there are only few specs)
 tasks:
-  spec/features/initial_setup.feature:
-    environment_variables: { CIDER_CI_TASK_FILE: spec/features/initial_setup.feature }
-  # spec/example_spec.rb:
-  #   scripts:
-  #     prepare-config:
-  #       body: 'echo preparation'
-  #     test:
-  #       start_when:
-  #         config is prepared: { script_key: prepare-config }
+  all:
+    environment_variables:
+      CIDER_CI_TASK_FILE: 'spec'
+
+# # generate_tasks:
+# #   include_match: 'spec/(system\/.*_spec\.rb|features\/.*\.feature|)'
+#
+# # tasks-specific config:
+# tasks:
+#   spec/features/initial_setup.feature:
+#     environment_variables: { CIDER_CI_TASK_FILE: spec/features/initial_setup.feature }
+#   # spec/example_spec.rb:
+#   #   scripts:
+#   #     prepare-config:
+#   #       body: 'echo preparation'
+#   #     test:
+#   #       start_when:
+#   #         config is prepared: { script_key: prepare-config }
