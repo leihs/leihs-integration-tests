@@ -5,29 +5,31 @@ scripts:
     timeout: 10 Minutes
     body: vagrant up --no-provision # this is locking, so keep it fast and dont provision yet
 
-  build-inventory:
+  prepare-container:
     timeout: 5 Minutes
     start_when:
       started: { script_key: start-container }
     body: |
       vagrant provision
-      vagrant ssh -- sudo sh /vagrant/scripts/init-inventory.sh
+      ./scripts/build-inventory.sh
 
   deploy-to-container:
     timeout: 60 Minutes
     start_when:
-      inventory: { script_key: build-inventory }
+      inventory: { script_key: prepare-container }
     body: |
-      vagrant ssh -- sudo sh /vagrant/scripts/deploy-in-vagrant.sh
+      ./scripts/deploy-to-vagrant.sh
 
   tune-for-testing:
     timeout: 5 Minutes
     start_when:
       deployed: { script_key: deploy-to-container }
     body: |
-      vagrant ssh -- sudo sh /vagrant/scripts/config-postgres-for-vagrant.sh
+      vagrant ssh -- "systemctl stop postgresql; systemctl stop 'leihs*'"
+      vagrant ssh -- 'sudo sh /vagrant/scripts/config-postgres-for-vagrant.sh'
       # FIXME: does not survive restarting of postgres, so restart the machine
-      vagrant reload
+      vagrant suspend ; vagrant reload
+      vagrant ssh -- "sudo systemctl restart 'leihs*'"
       # wait for webservice
       until curl --fail -s http://localhost:10080; do sleep 3; done && curl -v http://localhost:10080 | head -25
 

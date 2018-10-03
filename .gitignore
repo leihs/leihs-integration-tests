@@ -4,3 +4,5 @@
 /leihs
 /leihs-instance
 reverse-proxy/tmp
+/tmp
+/vagrant-ssh-config

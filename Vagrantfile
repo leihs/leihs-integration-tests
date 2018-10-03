@@ -6,6 +6,8 @@
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
 Vagrant.configure("2") do |config|
+  config.vm.define 'leihs-integration'
+  config.vm.hostname = "leihs-integration.example.com"
   # base box
   config.vm.box = "bento/ubuntu-18.04"
   # ports - prod
@@ -13,6 +15,7 @@ Vagrant.configure("2") do |config|
   config.vm.network "forwarded_port", guest: 443, host: 10433, host_ip: "127.0.0.1"
   # ports - test only
   config.vm.network "forwarded_port", guest: 5432, host: 10054, host_ip: "127.0.0.1"
+
 
   config.vm.provision "shell", inline: <<-SHELL
     # from <leihs/deploy/container-test/bin/install-dependencies>
@@ -25,7 +28,8 @@ Vagrant.configure("2") do |config|
 
     # https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#latest-releases-via-apt-debian
     echo 'deb http://ppa.launchpad.net/ansible/ansible/ubuntu xenial main' > /etc/apt/sources.list.d/ansible-ppa.list
-    apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367 \
+    # FIXME: remove no-TLS fallback
+    apt-key adv --keyserver hkps.pool.sks-keyservers.net --recv-keys 93C4A3FD7BB9C367 \
       || apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 93C4A3FD7BB9C367
     apt-get update
     apt-get install -y -f ansible
