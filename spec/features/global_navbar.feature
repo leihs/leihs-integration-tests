@@ -14,7 +14,18 @@ Feature: Global navbar
     When I log in as an admin
     Then there is no section with subapps in the navbar
 
-  Scenario: Sysadmin vs admin
+  Scenario: Navbar for a sysadmin
+    When I log in as an admin
+    Then there is no section with subapps in the navbar
+
+  Scenario: Navbar for a sysadmin and manager
+    Given there is a user
+    And the user is sysadmin
+    And the user is inventory manager for a pool A
+    When I log in as the user
+    Then there is a section in the navbar with following subapps:
+      | Admin  |
+      | Pool A |
 
   Scenario: Navbar for a manager of different pools, an admin and procurer
     Given there is a user

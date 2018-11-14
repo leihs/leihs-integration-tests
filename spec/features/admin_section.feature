@@ -3,7 +3,9 @@ Feature: Admin section
   The admin section consists of two subapps. Every link in the admin menu redirects to the corresponding subapp.
 
   Scenario: Links going to new admin
-    Given I visit /admin
+    Given there is a user
+    And the user is a sysadmin
+    When I log in as the user
     Then I see the admin menu
     When I click on <menu entry>
     Then I am redirected to <path>
@@ -15,6 +17,7 @@ Feature: Admin section
       | Authentication-Systems | /admin/authentication-systems |
       | Delegations            | /admin/delegations            |
       | Groups                 | /admin/groups                 |
+      | System-Admins          | /admin/system-admins          |
       | Users                  | /admin/users                  |
 
   Scenario: Links going to old admin
@@ -37,3 +40,10 @@ Feature: Admin section
       | Settings               | /admin/settings               |
       | Statistics             | /admin/statistics             |
       | Suppliers              | /admin/suppliers              |
+
+  Scenario: No access to system-admins for a leihs admin
+    Given there is a user
+    And the user is an admin
+    When I log in as the user
+    And I visit /system-admins
+    Then there is an error message
