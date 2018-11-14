@@ -1,0 +1,1 @@
+Feature: Redirects after login
