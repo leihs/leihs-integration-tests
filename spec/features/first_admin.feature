@@ -1,4 +1,4 @@
-Feature: Initial Setup
+Feature: First Admin
   Background:
     Given there is an empty database
 
@@ -21,3 +21,12 @@ Feature: Initial Setup
         """
         First admin user has been created. Default database authentication system has been configured.
         """
+
+    When I enter "superadmin" in the login/email field
+    And I click on "Login"
+    Then the /sign-in page is loaded
+
+    When I enter my password
+    And click on "Login"
+    Then I am logged in 
+    And I have been redirected to /admin
