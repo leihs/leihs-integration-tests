@@ -2,7 +2,7 @@ Feature: Language
 
   User has the possibility to switch his or her language. Switching the language in any subapp should have a global effect across all subaps.
 
-  Scenario: Switch the language
+  Scenario Outline: Switch the language
     Given there is a user with an ultimate access
     And I log in as the user
     When I visit <subapp path>

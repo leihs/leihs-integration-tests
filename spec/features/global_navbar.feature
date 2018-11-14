@@ -27,7 +27,7 @@ Feature: Global navbar
       | Admin  |
       | Pool A |
 
-  Scenario: Navbar for a manager of different pools, an admin and procurer
+  Scenario Outline: Navbar for a manager of different pools, an admin and procurer
     Given there is a user
     And the user is "inventory_manager" for "Pool A"
     And the user is "group_manager" for "Pool B"
@@ -46,4 +46,41 @@ Feature: Global navbar
       | Pool A      | /manage/.*/daily  |
       | Pool B      | /manage/.*/orders |
 
-  Scenario: Links in the user section
+  Scenario Outline: Links in the user section
+    Given there is a user with ultimate access
+    And firstname of the user is "Foo"
+    And lastname of the user is "Bar"
+    When I visit <subapp path>
+    Then I see following entries in the user section:
+      | F. Bar       |
+      | User data    |
+      | My documents |
+      | Logout       |
+    When I click on "User data"
+    Then I am redirected to /borrow/user
+    When I visit <subapp path>
+    And I click on "My documents"
+    Then I am redirected to /borrow/user/documents
+    Examples:
+      | subapp path       |
+      | /admin            |
+      | /borrow           |
+      | /procure          |
+      | /manage           |
+      | /my               |
+
+  Scenario Outline: Languages
+    Given there is a user with ultimate access
+    And there is language "Foo"
+    And there is language "Bar"
+    When I visit <subapp path>
+    Then I see language entries as follows:
+      | Foo |
+      | Bar |
+    Examples:
+      | subapp path       |
+      | /admin            |
+      | /borrow           |
+      | /procure          |
+      | /manage           |
+      | /my               |

@@ -2,7 +2,7 @@ Feature: Admin section
 
   The admin section consists of two subapps. Every link in the admin menu redirects to the corresponding subapp.
 
-  Scenario: Links going to new admin
+  Scenario Outline: Links going to new admin
     Given there is a user
     And the user is a sysadmin
     When I log in as the user
@@ -20,7 +20,7 @@ Feature: Admin section
       | System-Admins          | /admin/system-admins          |
       | Users                  | /admin/users                  |
 
-  Scenario: Links going to old admin
+  Scenario Outline: Links going to old admin
     Given I visit /admin
     Then I see the admin menu
     When I click on <menu entry>
