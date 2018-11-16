@@ -37,7 +37,7 @@ end
 
 Capybara.run_server = false
 Capybara.current_driver = :selenium
-Capybara.app_host = 'http://localhost:10080'
+Capybara.app_host = ENV['LEIHS_HTTP_BASE_URL'] || 'http://localhost:10080'
 
 Capybara.configure do |config|
   config.default_max_wait_time = 15
@@ -73,10 +73,11 @@ RSpec.configure do |config|
 
   # Turnip:
   config.raise_error_for_unimplemented_steps = true # TODO: fix
-  Dir.glob("spec/**/*.steps.rb") { |f| load f, true }
 
   config.before(type: :feature) do
-    database_cleaner
+    f = self.class.name.split('::')[2].underscore
+    require "features/#{f}.steps"
+
     Capybara.current_driver = :firefox
     begin
       # Capybara.current_session.current_window.resize_to(*BROWSER_WINDOW_SIZE)
@@ -152,7 +153,9 @@ def backdoor(cmd)
 end
 
 def database_cleaner
-  db_url = "postgresql://root:root@localhost:10054/leihs?max-pool-size=5"
+  db_url =
+    ENV['LEIHS_DATABASE_URL'].try(:sub, 'jdbc:', '').presence ||
+    "postgresql://root:root@localhost:10054/leihs?max-pool-size=5"
   database = Sequel.connect(db_url)
 
   tables = database[<<-SQL
