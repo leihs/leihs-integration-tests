@@ -77,7 +77,7 @@ RSpec.configure do |config|
   config.before(type: :feature) do
     f = self.class.name.split('::')[2].underscore
     require "features/#{f}.steps"
-
+    database_cleaner
     Capybara.current_driver = :firefox
     begin
       # Capybara.current_session.current_window.resize_to(*BROWSER_WINDOW_SIZE)
