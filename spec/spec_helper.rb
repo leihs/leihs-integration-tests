@@ -76,6 +76,8 @@ RSpec.configure do |config|
   # Turnip:
   config.raise_error_for_unimplemented_steps = true # TODO: fix
 
+  Dir.glob("./spec/shared/*.steps.rb") { |f| require f }
+
   config.before(type: :feature) do
     f = self.class.name.split('::')[2].underscore
     require "features/#{f}.steps"
