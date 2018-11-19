@@ -33,3 +33,7 @@ step "I log in with the email :email" do |email|
   step "I enter 'password' in the 'password' field"
   click_on 'Weiter'
 end
+
+step "I log in as the user" do
+  step "I log in with the email '#{@user.email}'"
+end
