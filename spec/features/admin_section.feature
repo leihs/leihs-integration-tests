@@ -2,34 +2,39 @@ Feature: Admin section
 
   The admin section consists of two subapps. Every link in the admin menu redirects to the corresponding subapp.
 
+  Background:
+    Given there is an initial admin
+
   Scenario Outline: Links going to new admin
-    Given there is a user
-    And the user is a sysadmin
-    When I log in as the user
-    Then I see the admin menu
-    When I click on <menu entry>
-    Then I am redirected to <path>
-    And I see content of the page
+    When I log in as the initial admin
+    Then I am redirected to "/admin/"
+    And I see the admin menu
+    When I click on <menu entry> within the admin menu
+    Then I am redirected to "<path>"
+    And I see the content of the <menu entry> page
     When I click on "Admin"
-    Then I am redirected to /admin
+    Then I am redirected to "/admin/"
     And I see the admin menu
     Examples:
-      | Authentication-Systems | /admin/authentication-systems |
-      | Delegations            | /admin/delegations            |
-      | Groups                 | /admin/groups                 |
-      | System-Admins          | /admin/system-admins          |
-      | Users                  | /admin/users                  |
+      | menu entry             | path                           |
+      | Authentication-Systems | /admin/authentication-systems/ |
+      | Delegations            | /admin/delegations/            |
+      | Groups                 | /admin/groups/                 |
+      | System-Admins          | /admin/system-admins/          |
+      | Users                  | /admin/users/                  |
 
   Scenario Outline: Links going to old admin
-    Given I visit /admin
+    When I log in as the initial admin
+    Then I am redirected to "/admin/"
     Then I see the admin menu
-    When I click on <menu entry>
-    Then I am redirected to <path>
-    And I see content of the page
+    When I click on "<menu entry>" within the admin menu
+    Then I am redirected to "<path>"
+    And I see the content of the "<menu entry>" page in the old admin
     When I click on "Admin Top"
-    Then I am redirected to /admin
+    Then I am redirected to "/admin/"
     And I see the admin menu
     Examples:
+      | menu entry             | path                          |
       | Audits                 | /admin/audits                 |
       | Buildings              | /admin/buildings              |
       | Fields                 | /admin/fields_editor          |
@@ -42,8 +47,7 @@ Feature: Admin section
       | Suppliers              | /admin/suppliers              |
 
   Scenario: No access to system-admins for a leihs admin
-    Given there is a user
-    And the user is an admin
-    When I log in as the user
-    And I visit /system-admins
+    Given there is a leihs admin
+    When I log in as the leihs admin
+    And I visit "/admin/system-admins"
     Then there is an error message
