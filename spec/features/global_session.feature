@@ -11,17 +11,21 @@ Feature: Global session
       | subapp path       |
       | /admin/           |
       | /borrow           |
-      # | /procure          |
+      | /procure          |
       | /manage           |
-      | /my/user/me       |
+      | /my               |
 
   Scenario Outline: Log out from a particular subapp and thus everywhere
-    Given there is a user with ultimate access
+    Given there is a user with an ultimate access
     When I log in as the user
-    And I visit <subapp path>
-    And I click on "Log out" in the navbar
+    And I visit "<subapp path>"
+    And I log out from "<subapp path>"
     Then I am redirected to "/"
-    And I am logged out everywhere
+    And I am logged out from "/admin/"
+    And I am logged out from "/borrow"
+    And I am logged out from "/procure"
+    And I am logged out from "/manage"
+    And I am logged out from "/my"
     Examples:
       | subapp path       |
       | /admin            |
