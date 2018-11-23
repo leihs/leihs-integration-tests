@@ -17,7 +17,7 @@ Feature: Authentication systems
 
   Scenario: User with only password authentication
     Given there is a user
-    And the user is a customer of some pool
+    And the user is customer of some pool
     And the user has password authentication
     And the user's email is "user@example.com"
     When I visit "/"

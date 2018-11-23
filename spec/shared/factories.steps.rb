@@ -11,6 +11,10 @@ step 'there is a leihs admin' do
   @leihs_admin = FactoryBot.create(:user, is_admin: true)
 end
 
+step 'the user is leihs admin' do
+  User.where(id: @user.id).update(is_admin: true)
+end
+
 step "there is a user with an ultimate access" do
   @user = FactoryBot.create(:user, is_admin: true)
   FactoryBot.create(:system_admin, user_id: @user.id)
@@ -20,14 +24,50 @@ step "there is a user with an ultimate access" do
                     role: :inventory_manager)
 end
 
+step "the user does not have any pool access rights" do
+  AccessRight.where(user_id: @user.id).delete
+end
+
 step "there is a language :lang with locale name :l_name" do |lang, l_name|
   FactoryBot.create(:language,
                     name: lang,
                     locale_name: l_name)
 end
 
-step "the user is a customer of some pool" do
+step "the user is customer of some pool" do
   FactoryBot.create(:access_right, user_id: @user.id, role: :customer)
+end
+
+step "the user is inventory manager of some pool" do
+  @pool = FactoryBot.create(:inventory_pool)
+  FactoryBot.create(:access_right,
+                    user_id: @user.id,
+                    inventory_pool_id: @pool.id,
+                    role: :inventory_manager)
+end
+
+step "the user is inventory manager of pool :name" do |name|
+  pool = FactoryBot.create(:inventory_pool, name: name)
+  FactoryBot.create(:access_right,
+                    user_id: @user.id,
+                    inventory_pool_id: pool.id,
+                    role: :inventory_manager)
+end
+
+step "the user is group manager of pool :name" do |name|
+  pool = FactoryBot.create(:inventory_pool, name: name)
+  FactoryBot.create(:access_right,
+                    user_id: @user.id,
+                    inventory_pool_id: pool.id,
+                    role: :group_manager)
+end
+
+step "the user is procurement admin" do
+  FactoryBot.create(:procurement_admin, user_id: @user.id)
+end
+
+step "the user is procurement requester" do
+  FactoryBot.create(:procurement_requester, user_id: @user.id)
 end
 
 step "there is an external authentication system" do

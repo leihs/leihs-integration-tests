@@ -1,3 +1,7 @@
+step "I pry" do
+  binding.pry
+end
+
 step "there is an empty database" do
   database_cleaner
 end
@@ -19,6 +23,7 @@ step "I visit :url" do |url|
 end
 
 step "I am redirected to :url" do |url|
+  binding.pry if url == "?"
   expect(page.current_path).to eq url
 end
 
