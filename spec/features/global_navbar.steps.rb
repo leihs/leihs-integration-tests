@@ -44,8 +44,55 @@ step "there is a section in the navbar for :subapp with following subapps:" \
   end
 end
 
+def expect_user_sections(table)
+  subsecs = table.raw.flatten
+  expect(current_scope.text).to eq subsecs.join("\n")
+end
+
+step "I see following entries in the user section for the :subapp :" \
+  do |subapp, table|
+  case subapp
+  when "/borrow", /\/manage/
+    within find(".topbar-item", text: "F. Bar") do
+      expect_user_sections(table)
+    end
+  when "/admin/", "/my/user/me", "/procure"
+    within ".navbar-leihs" do
+      within ".dropdown-menu" do
+        expect_user_sections(table)
+      end
+    end
+  else
+    raise
+  end
+end
+
 step "I open the subapps dropdown" do
   within ".navbar-leihs" do
     find("svg[data-icon='chart-pie']").click
   end
+end
+
+step "I open the user dropdown for the :subapp" do |subapp|
+  case subapp
+  when "/admin/", "/my/user/me", "/procure"
+    within ".navbar-leihs" do
+      find("svg[data-icon='user-circle']").click
+    end
+  when "/borrow", /\/manage/
+    within find(".topbar-item", text: "F. Bar") do
+      current_scope.hover
+      find(".dropdown")
+    end
+  else
+    raise
+  end
+end
+
+step "firstname of the user is :name" do |name|
+  User.where(id: @user.id).update(firstname: name)
+end
+
+step "lastname of the user is :name" do |name|
+  User.where(id: @user.id).update(lastname: name)
 end

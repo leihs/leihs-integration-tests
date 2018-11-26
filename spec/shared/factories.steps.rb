@@ -1,3 +1,5 @@
+IP_UUID = "6bf7dc96-2b11-43c1-9f49-c58a5b332517"
+
 step 'there is a user' do
   @user = FactoryBot.create(:user)
 end
@@ -21,10 +23,12 @@ end
 
 step "there is a user with an ultimate access" do
   @user = FactoryBot.create(:user, is_admin: true)
+  ip = FactoryBot.create(:inventory_pool, id: IP_UUID)
   FactoryBot.create(:system_admin, user_id: @user.id)
   FactoryBot.create(:procurement_admin, user_id: @user.id)
   FactoryBot.create(:access_right,
                     user: @user,
+                    inventory_pool: ip,
                     role: :inventory_manager)
 end
 

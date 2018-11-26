@@ -108,31 +108,36 @@ Feature: Global navbar
       | Bedarfsermittlung |
       | Pool A            |
 
-  # Scenario Outline: Links in the user section
-  #   Given there is a user with ultimate access
-  #   And firstname of the user is "Foo"
-  #   And lastname of the user is "Bar"
-  #   When I visit <subapp path>
-  #   Then I see following entries in the user section:
-  #     | F. Bar       |
-  #     | User data    |
-  #     | My documents |
-  #     | Logout       |
-  #   When I click on "User data"
-  #   Then I am redirected to /borrow/user
-  #   When I visit <subapp path>
-  #   And I click on "My documents"
-  #   Then I am redirected to /borrow/user/documents
-  #   Examples:
-  #     | subapp path       |
-  #     | /admin            |
-  #     | /borrow           |
-  #     | /procure          |
-  #     | /manage           |
-  #     | /my               |
+  Scenario Outline: Links in the user section
+    Given there is a user with an ultimate access
+    And firstname of the user is "Foo"
+    And lastname of the user is "Bar"
+    And there is a language "Deutsch" with locale name "de-CH"
+    And user's preferred language is "Deutsch"
+    And I log in as the user
+    When I visit "<subapp path>"
+    And I open the user dropdown for the "<subapp path>"
+    Then I see following entries in the user section for the "<subapp path>" :
+      | F. Bar          |
+      | Benutzerdaten   |
+      | Meine Dokumente |
+      | Logout          |
+    When I click on "Benutzerdaten"
+    Then I am redirected to "/borrow/user"
+    When I visit "<subapp path>"
+    And I open the user dropdown for the "<subapp path>"
+    And I click on "Meine Dokumente"
+    Then I am redirected to "/borrow/user/documents"
+    Examples:
+      | subapp path                                            |
+      | /admin/                                                |
+      | /borrow                                                |
+      | /procure                                               |
+      | /manage/6bf7dc96-2b11-43c1-9f49-c58a5b332517/inventory |
+      | /my/user/me                                            |
 
   # Scenario Outline: Languages
-  #   Given there is a user with ultimate access
+  #   Given there is a user with an ultimate access
   #   And there is language "Foo"
   #   And there is language "Bar"
   #   When I visit <subapp path>

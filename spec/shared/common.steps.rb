@@ -42,3 +42,9 @@ end
 step "I log in as the user" do
   step "I log in with the email '#{@user.email}'"
 end
+
+step "user's preferred language is :lang" do |lang|
+  l = Language.find(name: lang)
+  @user.update(language_id: l.id)
+end
+
