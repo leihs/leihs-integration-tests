@@ -25,14 +25,14 @@ end
 step "there is a section in the navbar for :subapp with following subapps:" \
   do |subapp, table|
   case subapp
-  when "/admin"
+  when "/admin", "/procure"
     within ".navbar-leihs" do
       find("svg[data-icon='chart-pie']").click
       within ".dropdown-menu" do
         expect_subsections(table)
       end
     end
-  when "/borrow"
+  when "/borrow", "/manage"
     within "nav.topbar .topbar-navigation.float-right" do
       first(".topbar-item").hover
       within find(".dropdown-holder", match: :first) do
@@ -41,5 +41,11 @@ step "there is a section in the navbar for :subapp with following subapps:" \
     end
   else
     raise
+  end
+end
+
+step "I open the subapps dropdown" do
+  within ".navbar-leihs" do
+    find("svg[data-icon='chart-pie']").click
   end
 end

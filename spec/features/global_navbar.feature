@@ -36,6 +36,13 @@ Feature: Global navbar
     Then I am redirected to "/admin/"
     Then there is no section with subapps in the navbar for the "/admin" subapp
 
+  Scenario: Navbar for user with no access whatsoever
+    Given there is a user
+    And the user has no access whatsoever
+    When I log in as the user
+    Then I am redirected to "/my/user/me"
+    And there is no section with subapps in the navbar for the "/my" subapp
+
   Scenario: Navbar for a sysadmin and manager
     Given there is a user
     And the user is sysadmin
@@ -50,32 +57,56 @@ Feature: Global navbar
     And there is a section in the navbar for "/borrow" with following subapps:
       | Admin     |
       | Pool A    |
+    When I click on "Admin"
+    Then I am redirected to "/admin"
+    When I open the subapps dropdown
+    And I click on "Pool A"
+    Then I am redirected to the inventory path of pool "Pool A"
+    And there is a section in the navbar for "/admin" with following subapps:
+      | Ausleihen |
+      | Admin     |
+    When I click on "Admin"
+    Then I am redirected to "/admin"
 
-  Scenario: Navbar for user with no access whatsoever
+  Scenario: Navbar for a manager of different pools, an admin and procurer
     Given there is a user
-    And the user has no access whatsoever
+    And the user is inventory manager of pool "Pool A"
+    And the user is group manager of pool "Pool B"
+    And the user is leihs admin
+    And the user is procurement requester
     When I log in as the user
-    Then I am redirected to "/my/user/me"
-    And there is no section with subapps in the navbar for the "/my" subapp
-
-  # Scenario Outline: Navbar for a manager of different pools, an admin and procurer
-  #   Given there is a user
-  #   And the user is "inventory_manager" for "Pool A"
-  #   And the user is "group_manager" for "Pool B"
-  #   And the user is an admin
-  #   And the user is a procurer
-  #   When I log in as the user
-  #   Then there is a section for the subapps in the navbar
-  #   And it contains <subapp name>
-  #   When I click on <subapp name>
-  #   Then I am redirected to <subapp path>
-  #   Examples:
-  #     | subapp name | subapp path       |
-  #     | Admin       | /admin            |
-  #     | Borrow      | /borrow           |
-  #     | Procurement | /procure          |
-  #     | Pool A      | /manage/.*/daily  |
-  #     | Pool B      | /manage/.*/orders |
+    Then I am redirected to "/admin/"
+    And there is a section in the navbar for "/admin" with following subapps:
+      | Ausleihen         |
+      | Bedarfsermittlung |
+      | Pool A            |
+      | Pool B            |
+    When I click on "Ausleihen"
+    Then I am redirected to "/borrow"
+    And there is a section in the navbar for "/borrow" with following subapps:
+      | Admin             |
+      | Bedarfsermittlung |
+      | Pool A            |
+      | Pool B            |
+    When I click on "Admin"
+    Then I am redirected to "/admin"
+    And I open the subapps dropdown
+    And I click on "Bedarfsermittlung"
+    Then there is a section in the navbar for "/procure" with following subapps:
+      | Ausleihen         |
+      | Admin             |
+      | Pool A            |
+      | Pool B            |
+    When I click on "Admin"
+    Then I am redirected to "/admin"
+    And I open the subapps dropdown
+    And I click on "Pool A"
+    Then I am redirected to the inventory path of pool "Pool A"
+    Then there is a section in the navbar for "/manage" with following subapps:
+      | Ausleihen         |
+      | Admin             |
+      | Bedarfsermittlung |
+      | Pool A            |
 
   # Scenario Outline: Links in the user section
   #   Given there is a user with ultimate access
