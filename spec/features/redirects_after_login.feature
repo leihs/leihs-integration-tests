@@ -63,3 +63,9 @@ Feature: Redirects after login
     And the user is inventory manager of some pool
     When I log in as the user
     Then I am redirected to the inventory path of the pool
+
+  Scenario: User with no access whatsoever
+    Given there is a user
+    And the user has no access whatsoever
+    When I log in as the user
+    Then I am redirected to "/my/user/me"

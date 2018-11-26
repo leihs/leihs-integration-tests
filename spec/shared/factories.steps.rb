@@ -87,3 +87,13 @@ step "the user does not have password authentication" do
     .where(user_id: @user.id, authentication_system_id: 'password')
     .delete
 end
+
+step "the user has no access whatsoever" do
+  AccessRight.where(user_id: @user.id).delete
+  User.where(id: @user.id).update(is_admin: false)
+  SystemAdmin.where(user_id: @user.id).delete
+  ProcurementRequester.where(user_id: @user.id).delete
+  ProcurementAdmin.where(user_id: @user.id).delete
+  ProcurementInspector.where(user_id: @user.id).delete
+  ProcurementViewer.where(user_id: @user.id).delete
+end
