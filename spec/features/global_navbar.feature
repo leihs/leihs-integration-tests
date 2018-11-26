@@ -33,16 +33,30 @@ Feature: Global navbar
     And the user does not have any pool access rights
     And the user is sysadmin
     When I log in as the user
-    Then there is no section with subapps in the navbar
+    Then I am redirected to "/admin/"
+    Then there is no section with subapps in the navbar for the "/admin" subapp
 
   Scenario: Navbar for a sysadmin and manager
     Given there is a user
     And the user is sysadmin
-    And the user is inventory manager for a pool A
+    And the user is inventory manager of pool "Pool A"
     When I log in as the user
-    Then there is a section in the navbar with following subapps:
-      | Admin  |
-      | Pool A |
+    Then I am redirected to "/admin/"
+    And there is a section in the navbar for "/admin" with following subapps:
+      | Ausleihen |
+      | Pool A    |
+    When I click on "Ausleihen"
+    Then I am redirected to "/borrow"
+    And there is a section in the navbar for "/borrow" with following subapps:
+      | Admin     |
+      | Pool A    |
+
+  Scenario: Navbar for user with no access whatsoever
+    Given there is a user
+    And the user has no access whatsoever
+    When I log in as the user
+    Then I am redirected to "/my/user/me"
+    And there is no section with subapps in the navbar for the "/my" subapp
 
   # Scenario Outline: Navbar for a manager of different pools, an admin and procurer
   #   Given there is a user

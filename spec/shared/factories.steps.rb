@@ -15,6 +15,10 @@ step 'the user is leihs admin' do
   User.where(id: @user.id).update(is_admin: true)
 end
 
+step 'the user is sysadmin' do
+  FactoryBot.create(:system_admin, user_id: @user.id)
+end
+
 step "there is a user with an ultimate access" do
   @user = FactoryBot.create(:user, is_admin: true)
   FactoryBot.create(:system_admin, user_id: @user.id)
