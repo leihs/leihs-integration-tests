@@ -18,6 +18,6 @@ Feature: Initial admin
     Then the /sign-in page is loaded
     When I enter "secret" in the "password" field
     And I click on "Weiter"
-    Then I am logged in as user with email "admin@leihs.example.com"
+    Then I am logged in as the user "I. Admin"
     And I am redirected to "/admin/"
     And I see the admin interface

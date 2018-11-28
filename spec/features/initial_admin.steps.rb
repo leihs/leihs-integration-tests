@@ -13,9 +13,9 @@ step "I click the button :btn" do |btn|
   click_button(btn)
 end
 
-step 'I am logged in as user with email :email' do |email|
+step 'I am logged in as the user "I. Admin"' do
   find("a [data-icon='user-circle']").click
-  find(".navbar-leihs .dropdown-menu", text: "admin@leihs.example.com")
+  find(".navbar-leihs .dropdown-menu", text: "I. Admin")
 end
 
 step "I see the admin interface" do
