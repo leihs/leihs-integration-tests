@@ -12,7 +12,7 @@ Vagrant.configure("2") do |config|
   config.vm.box = "bento/ubuntu-18.04"
   # ports - prod
   config.vm.network "forwarded_port", guest: 80, host: 10080, host_ip: "127.0.0.1"
-  config.vm.network "forwarded_port", guest: 443, host: 10433, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port", guest: 443, host: 10443, host_ip: "127.0.0.1"
   # ports - test only
   config.vm.network "forwarded_port", guest: 5432, host: 10054, host_ip: "127.0.0.1"
 
