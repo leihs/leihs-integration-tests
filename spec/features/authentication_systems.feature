@@ -52,5 +52,5 @@ Feature: Authentication systems
     And the user's email is "user@example.com"
     When I visit "/"
     And I enter "user@example.com" in the "user" field
-    And I click on "Login"
+    And I click on "Login" *
     Then I am redirected to the url of that authentication system

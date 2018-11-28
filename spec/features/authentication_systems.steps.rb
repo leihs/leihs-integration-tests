@@ -39,11 +39,21 @@ step "there is an external authentication section with a button" do
 end
 
 step "I click on the button within the external authentication section" do
-  within("form[action='#{@action_url}']") do
-    find("button", text: @external_authentication_system.name).click
-  end
+  # WTF capybara
+  execute_script %( document.querySelector("form button").click() )
+  sleep 1
+  # within("form[action='#{@action_url}']") do
+  #   find("button", text: @external_authentication_system.name).click
+  # end
 end
 
 step "I am redirected to the url of that authentication system" do
   expect(current_url).to match /#{@external_authentication_system.external_url}/
+end
+
+step 'I click on "Login" *' do
+  # WTF capybara
+  # using `*` to distinguish it from common step
+  execute_script %( document.querySelector("button.btn-success").click() )
+  sleep 1
 end
