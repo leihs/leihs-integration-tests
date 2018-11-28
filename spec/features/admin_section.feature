@@ -20,7 +20,7 @@ Feature: Admin section
       | Authentication-Systems | /admin/authentication-systems/ |
       | Delegations            | /admin/delegations/            |
       | Groups                 | /admin/groups/                 |
-      | System-Admins          | /admin/system-admins/          |
+      | System-Admin           | /admin/system-admins/          |
       | Users                  | /admin/users/                  |
 
   Scenario Outline: Links going to old admin
