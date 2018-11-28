@@ -2,7 +2,7 @@
 
 # from https://github.com/jackdb/pg-app-dev-vm/blob/f31fc94556bfdcc6aab97f1918fd95fdc6064a8a/Vagrant-setup/bootstrap.sh#L72-L82
 
-export PG_VERSION=9.6
+export PG_VERSION=10
 export PG_CONF="/etc/postgresql/$PG_VERSION/main/postgresql.conf"
 export PG_HBA="/etc/postgresql/$PG_VERSION/main/pg_hba.conf"
 export PG_DIR="/var/lib/postgresql/$PG_VERSION/main"
