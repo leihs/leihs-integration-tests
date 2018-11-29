@@ -2,7 +2,7 @@
 
 # TODO: use what is checked into project or superproject if present
 GIT_REF='mfa/integration-tests' # git ref for leihs-instance project
-LEIHS_GIT_REF='v/5.0-staging'   # git ref for leihs project (inside leihs-instance)
+LEIHS_GIT_REF='mk/int-tests-no-ci'   # git ref for leihs project (inside leihs-instance)
 
 cd leihs-instance
 git fetch
