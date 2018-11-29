@@ -18,7 +18,7 @@ step "I am logged out from :subpath" do |subpath|
   case subpath
   when "/admin/", "/my", "/borrow", "/manage"
     within ".navbar-leihs" do
-      within "form[action='/sign-in'" do
+      within "form[action='/sign-in']" do
         find("input[name='user']")
       end
     end

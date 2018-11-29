@@ -28,7 +28,7 @@ Feature: Global session
     And I am logged out from "/my"
     Examples:
       | subapp path       |
-      | /admin            |
+      | /admin/           |
       | /borrow           |
       | /procure          |
       | /manage           |
