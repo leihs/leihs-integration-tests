@@ -48,3 +48,8 @@ step "user's preferred language is :lang" do |lang|
   @user.update(language_id: l.id)
 end
 
+step "I log out" do
+  visit "/my/user/me"
+  find(".fa-user-circle").click
+  click_on "Logout"
+end

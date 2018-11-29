@@ -11,16 +11,16 @@ Feature: Language
     And user's preferred language is "Deutsch"
     When I log in as the user
     And I visit "<subapp path>"
-    And I change the language to "English"
-    Then the language was changed to "English" in the current subapp
+    And I change the language to "English" in "<subapp path>"
+    Then the language was changed to "English" in "<subapp path>"
     And the language was changed to "English" everywhere
     When I log out
     And I log in as the user
     Then the current language is "English"
     Examples:
       | subapp path       |
-      # | /admin/           |
+      | /admin/           |
       | /borrow           |
-      # | /procure          |
-      # | /manage           |
-      # | /my               |
+      | /procure          |
+      | /manage           |
+      | /my               |
