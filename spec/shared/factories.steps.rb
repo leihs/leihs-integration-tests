@@ -37,9 +37,11 @@ step "the user does not have any pool access rights" do
 end
 
 step "there is a language :lang with locale name :l_name" do |lang, l_name|
-  FactoryBot.create(:language,
-                    name: lang,
-                    locale_name: l_name)
+  unless Language.find(name: lang)
+    FactoryBot.create(:language,
+                      name: lang,
+                      locale_name: l_name)
+  end
 end
 
 step "the user is customer of some pool" do

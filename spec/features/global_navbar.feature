@@ -136,18 +136,19 @@ Feature: Global navbar
       | /manage/6bf7dc96-2b11-43c1-9f49-c58a5b332517/inventory |
       | /my/user/me                                            |
 
+  # NOTE: this spec makes the server freeze!??
   # Scenario Outline: Languages
   #   Given there is a user with an ultimate access
-  #   And there is language "Foo"
-  #   And there is language "Bar"
-  #   When I visit <subapp path>
+  #   And there is a language "Deutsch" with locale name "de-CH"
+  #   And there is a language "English" with locale name "en-GB"
+  #   When I visit "<subapp path>"
   #   Then I see language entries as follows:
-  #     | Foo |
-  #     | Bar |
+  #     | Deutsch |
+  #     | English |
   #   Examples:
   #     | subapp path       |
-  #     | /admin            |
+  #     | /admin/           |
   #     | /borrow           |
   #     | /procure          |
   #     | /manage           |
-  #     | /my               |
+  #     | /my/user/me       |
