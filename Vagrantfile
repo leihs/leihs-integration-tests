@@ -27,7 +27,7 @@ Vagrant.configure("2") do |config|
     apt-get purge -y -f open-iscsi || true
 
     apt-get update
-    apt-get install -y -f curl build-essential libssl-dev default-jdk ruby git ifupdown
+    apt-get install -y -f curl build-essential libssl-dev default-jdk ruby git
 
     # https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html#latest-releases-via-apt-debian
     echo 'deb http://ppa.launchpad.net/ansible/ansible/ubuntu xenial main' > /etc/apt/sources.list.d/ansible-ppa.list
