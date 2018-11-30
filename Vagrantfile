@@ -6,6 +6,9 @@
 # backwards compatibility). Please don't change it unless you know what
 # you're doing.
 Vagrant.configure("2") do |config|
+  # https://superuser.com/a/1182104
+  config.ssh.shell = "bash -c 'BASH_ENV=/etc/profile exec bash'"
+
   config.vm.define 'leihs-integration'
   config.vm.hostname = "leihs-integration.example.com"
   # base box
