@@ -25,11 +25,9 @@ scripts:
     start_when:
       deployed: { script_key: deploy-to-container }
     body: |
-      vagrant ssh -- "systemctl stop postgresql; systemctl stop 'leihs*'"
+      vagrant ssh -- "sudo systemctl stop postgresql 'leihs*'"
       vagrant ssh -- 'sudo sh /vagrant/scripts/config-postgres-for-vagrant.sh'
-      # FIXME: does not survive restarting of postgres, so restart the machine
-      vagrant suspend ; vagrant reload
-      vagrant ssh -- "sudo systemctl restart 'leihs*'"
+      vagrant ssh -- "sudo systemctl start postgresql 'leihs*'"
       # wait for webservice
       until curl --fail -s http://localhost:10080; do sleep 3; done && curl -v http://localhost:10080 | head -25
 
@@ -45,4 +43,5 @@ scripts:
         script_key: test
         states: [aborted, passed, failed, skipped]
     ignore_abort: yes
-    body: vagrant halt --force ; vagrant destroy --force
+    body: echo 'disabled for debugging'
+    # body: vagrant halt --force ; vagrant destroy --force
