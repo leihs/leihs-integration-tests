@@ -27,7 +27,7 @@ task_defaults:
 
   scripts:
     test:
-      timeout: 3 Minutes
+      timeout: 30 Minutes # long timeout as long as we run all specs in 1 task
       body: |
         set -eux
         export PATH=~/.rubies/$RUBY/bin:$PATH
