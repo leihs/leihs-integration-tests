@@ -1,5 +1,9 @@
 task_defaults:
 
+  include:
+    - cider-ci/task_components/bundle.yml
+    - cider-ci/task_components/container.yml
+
   traits:
     vagrant: yes
     virtualbox: yes
@@ -10,9 +14,11 @@ task_defaults:
     FIREFOX_PATH: ''
     FIREFOX_ESR_PATH: ''
 
-  include:
-    - cider-ci/task_components/bundle.yml
-    - cider-ci/task_components/container.yml
+  ports:
+    LEIHS_HOST_PORT_HTTP: { min: 10101, max: 10200 }
+    LEIHS_HOST_PORT_HTTPS: { min: 10201, max: 10300 }
+    LEIHS_HOST_PORT_POSTGRES: { min: 10301, max: 10400 }
+    LEIHS_HOST_PORT_SSH: { min: 10401, max: 10500 }
 
   max_trials: 3
 

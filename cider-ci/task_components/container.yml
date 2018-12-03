@@ -26,10 +26,14 @@ scripts:
     body: |
       vagrant ssh -- "sudo systemctl stop postgresql 'leihs*'"
       vagrant ssh -- 'sudo sh /vagrant/scripts/config-postgres-for-vagrant.sh'
-      vagrant ssh -- "sudo systemctl start postgresql 'leihs*'"
+
+      # FIXME: should be possible to restart services without full reboot!
+      # vagrant ssh -- "sudo systemctl start postgresql 'leihs*'"
+      vagrant reload # TEMP
+
       # wait for webservice, print result for debugging
-      until curl --fail -s http://localhost:${LEIHS_HOST_PORT_HTTP}; do sleep 3; done \
-        && curl -v http://localhost:${LEIHS_HOST_PORT_HTTP} | head -25
+      until curl --fail -ks https://localhost:${LEIHS_HOST_PORT_HTTPS}; do sleep 3; done \
+        && curl -kv https://localhost:${LEIHS_HOST_PORT_HTTPS} | head -25
 
   test:
     start_when:
