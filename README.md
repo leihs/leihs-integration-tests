@@ -14,7 +14,7 @@
 
 ---
 
-## config
+## run locally
 
 expose ports from inside VM/container on host machine:
 
@@ -24,6 +24,20 @@ export LEIHS_HOST_PORT_HTTP='10080'
 export LEIHS_HOST_PORT_HTTPS='10443'
 export LEIHS_HOST_PORT_POSTGRES='10054' # DB backdoor for automated testing only
 export LEIHS_HOST_PORT_SSH='2200' # for vagrant ssh into guest
+```
+
+NOTE: only works if checked out as part of superproject! <https://github.com/leihs/leihs>
+
+```shell
+bundle install
+vagrant up
+./scripts/deploy-to-vagrant.sh
+./scripts/ansible-to-vagrant.sh stop_play.yml
+vagrant ssh -- 'sudo sh /vagrant/scripts/config-postgres-for-vagrant.sh'
+vagrant ssh -- "sudo systemctl restart postgresql"
+./scripts/ansible-to-vagrant.sh start_play.yml
+until curl -k --fail -s https://localhost:${LEIHS_HOST_PORT_HTTPS}; do sleep 3; done
+bundle exec rspec ./spec
 ```
 
 # TEMP
