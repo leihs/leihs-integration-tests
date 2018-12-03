@@ -14,6 +14,18 @@
 
 ---
 
+## config
+
+expose ports from inside VM/container on host machine:
+
+```shell
+# those are the default values:
+export LEIHS_HOST_PORT_HTTP='10080'
+export LEIHS_HOST_PORT_HTTPS='10443'
+export LEIHS_HOST_PORT_POSTGRES='10054' # DB backdoor for automated testing only
+export LEIHS_HOST_PORT_SSH='2200' # for vagrant ssh into guest
+```
+
 # TEMP
 
 ## Cider-CI traits install (ubuntu)

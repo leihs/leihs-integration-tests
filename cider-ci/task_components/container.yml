@@ -27,8 +27,9 @@ scripts:
       vagrant ssh -- "sudo systemctl stop postgresql 'leihs*'"
       vagrant ssh -- 'sudo sh /vagrant/scripts/config-postgres-for-vagrant.sh'
       vagrant ssh -- "sudo systemctl start postgresql 'leihs*'"
-      # wait for webservice
-      until curl --fail -s http://localhost:10080; do sleep 3; done && curl -v http://localhost:10080 | head -25
+      # wait for webservice, print result for debugging
+      until curl --fail -s http://localhost:${LEIHS_HOST_PORT_HTTP}; do sleep 3; done \
+        && curl -v http://localhost:${LEIHS_HOST_PORT_HTTP} | head -25
 
   test:
     start_when:

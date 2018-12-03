@@ -5,6 +5,7 @@
 LEIHS_HOST_PORT_HTTP = ENV['LEIHS_HOST_PORT_HTTP'] || '10080'
 LEIHS_HOST_PORT_HTTPS = ENV['LEIHS_HOST_PORT_HTTPS'] || '10443'
 LEIHS_HOST_PORT_POSTGRES = ENV['LEIHS_HOST_PORT_POSTGRES'] || '10054'
+LEIHS_HOST_PORT_SSH = ENV['LEIHS_HOST_PORT_SSH'] || '2200'
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
@@ -19,11 +20,12 @@ Vagrant.configure("2") do |config|
   # base box
   config.vm.box = "bento/ubuntu-18.04"
   # ports - prod
-  config.vm.network "forwarded_port", guest: 80, host: 10080, host_ip: "127.0.0.1"
-  config.vm.network "forwarded_port", guest: 443, host: 10443, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port", guest: 80, host: LEIHS_HOST_PORT_HTTP, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port", guest: 443, host: LEIHS_HOST_PORT_HTTPS, host_ip: "127.0.0.1"
   # ports - test only
-  config.vm.network "forwarded_port", guest: 5432, host: 10054, host_ip: "127.0.0.1"
-
+  config.vm.network "forwarded_port", guest: 5432, host: LEIHS_HOST_PORT_POSTGRES, host_ip: "127.0.0.1"
+  # ports - vagrant only
+  config.vm.network "forwarded_port", guest: 22, host: LEIHS_HOST_PORT_SSH, id: 'ssh'
 
   config.vm.provision "shell", inline: <<-SHELL
     # from <leihs/deploy/container-test/bin/install-dependencies>
