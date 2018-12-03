@@ -12,6 +12,7 @@ Feature: Global navbar
     Then I am redirected to "/borrow"
     And there is no section with subapps in the navbar for the "/borrow" subapp
 
+  @pending
   Scenario: Navbar for a procurer only
     Given there is a user
     And the user does not have any pool access rights
@@ -20,6 +21,7 @@ Feature: Global navbar
     Then I am redirected to "/procure/requests"
     And there is no section with subapps in the navbar for the "/procure" subapp
 
+  @pending
   Scenario: Navbar for an leihs admin only
     Given there is a user
     And the user does not have any pool access rights
@@ -28,6 +30,7 @@ Feature: Global navbar
     Then I am redirected to "/admin/"
     And there is no section with subapps in the navbar for the "/admin" subapp
 
+  @pending
   Scenario: Navbar for a sysadmin
     Given there is a user
     And the user does not have any pool access rights
@@ -36,6 +39,7 @@ Feature: Global navbar
     Then I am redirected to "/admin/"
     Then there is no section with subapps in the navbar for the "/admin" subapp
 
+  @pending
   Scenario: Navbar for user with no access whatsoever
     Given there is a user
     And the user has no access whatsoever
@@ -43,6 +47,7 @@ Feature: Global navbar
     Then I am redirected to "/my/user/me"
     And there is no section with subapps in the navbar for the "/my" subapp
 
+  @pending
   Scenario: Navbar for a sysadmin and manager
     Given there is a user
     And the user is sysadmin
@@ -68,6 +73,7 @@ Feature: Global navbar
     When I click on "Admin"
     Then I am redirected to "/admin"
 
+  @pending
   Scenario: Navbar for a manager of different pools, an admin and procurer
     Given there is a user
     And the user is inventory manager of pool "Pool A"

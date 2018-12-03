@@ -92,6 +92,10 @@ RSpec.configure do |config|
     end
   end
 
+  config.before(pending: true) do |example|
+    example.pending
+  end
+
   config.after(type: :feature) do |example|
     if ENV['CIDER_CI_TRIAL_ID'].present?
       unless example.exception.nil?
