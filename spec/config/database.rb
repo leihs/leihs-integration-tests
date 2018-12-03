@@ -1,11 +1,15 @@
 require 'sequel'
 
+LEIHS_DB_NAME = ENV['LEIHS_DB_NAME'] || 'leihs'
+LEIHS_HOST_PORT_POSTGRES = ENV['LEIHS_HOST_PORT_POSTGRES'] || '10054'
+
 def database
-  @database ||= 
+  @database ||=
     begin
       db_url =
         ENV['LEIHS_DATABASE_URL'].try(:sub, 'jdbc:', '').presence ||
-        "postgresql://root:root@localhost:10054/leihs?max-pool-size=5"
+        "postgresql://root:root@localhost:#{LEIHS_HOST_PORT_POSTGRES}/#{LEIHS_DB_NAME}?max-pool-size=5"
+      puts "[leihs] using DB URL: '#{db_url}'"
       Sequel.connect(db_url)
     end
 end

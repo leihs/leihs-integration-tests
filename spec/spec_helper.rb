@@ -10,6 +10,7 @@ require 'turnip/capybara'
 require 'turnip/rspec'
 
 BROWSER_WINDOW_SIZE = [ 1200, 800 ]
+LEIHS_HOST_PORT_HTTPS = ENV['LEIHS_HOST_PORT_HTTPS'] || '10443'
 
 # Capybara:
 if ENV['FIREFOX_PATH'].present?
@@ -27,7 +28,7 @@ end
 
 Capybara.run_server = false
 Capybara.current_driver = :selenium
-Capybara.app_host = ENV['LEIHS_HTTP_BASE_URL'] || 'http://localhost:10080'
+Capybara.app_host = ENV['LEIHS_HTTP_BASE_URL'] || "https://localhost:#{LEIHS_HOST_PORT_HTTPS}"
 
 Capybara.configure do |config|
   config.default_max_wait_time = 15
