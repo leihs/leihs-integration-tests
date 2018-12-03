@@ -17,6 +17,7 @@ end
 step "I am logged out from :subpath" do |subpath|
   case subpath
   when "/admin/", "/my", "/borrow", "/manage"
+    visit subpath
     within ".navbar-leihs" do
       within "form[action='/sign-in']" do
         find("input[name='user']")
@@ -26,6 +27,7 @@ step "I am logged out from :subpath" do |subpath|
       expect(current_path).to eq "/"
     end
   when "/procure"
+    visit subpath
     expect(page).to have_content "NOT_AUTHENTICATED"
   else
     raise
