@@ -26,7 +26,7 @@ export LEIHS_HOST_PORT_POSTGRES='10054' # DB backdoor for automated testing only
 export LEIHS_HOST_PORT_SSH='2200' # for vagrant ssh into guest
 ```
 
-NOTE: only works if checked out as part of superproject! <https://github.com/leihs/leihs>
+NOTE: only works if checked out as part of [superproject][leihs]!
 
 ```shell
 bundle install

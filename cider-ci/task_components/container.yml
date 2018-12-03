@@ -3,13 +3,18 @@ scripts:
   start-container:
     exclusive_executor_resource: 'vagrant_updown'
     timeout: 10 Minutes
-    body: vagrant up --no-provision # this is locking, so keep it fast and dont provision yet
+    body: |
+      #!/bin/sh -exu
+      cd ./integration-tests
+      vagrant up --no-provision # this is locking, so keep it fast and dont provision yet
 
   prepare-container:
     timeout: 5 Minutes
     start_when:
       started: { script_key: start-container }
     body: |
+      #!/bin/sh -exu
+      cd ./integration-tests
       vagrant provision
 
   deploy-to-container:
@@ -17,6 +22,8 @@ scripts:
     start_when:
       inventory: { script_key: prepare-container }
     body: |
+      #!/bin/sh -exu
+      cd ./integration-tests
       ./scripts/deploy-to-vagrant.sh
 
   tune-for-testing:
@@ -24,6 +31,8 @@ scripts:
     start_when:
       deployed: { script_key: deploy-to-container }
     body: |
+      #!/bin/sh -exu
+      cd ./integration-tests
       vagrant ssh -- "sudo systemctl stop postgresql 'leihs*'"
       vagrant ssh -- 'sudo sh /vagrant/scripts/config-postgres-for-vagrant.sh'
 
@@ -47,4 +56,7 @@ scripts:
         script_key: test
         states: [aborted, passed, failed, skipped]
     ignore_abort: yes
-    body: vagrant halt --force ; vagrant destroy --force
+    body: |
+      #!/bin/sh -exu
+      cd ./integration-tests
+      vagrant halt --force ; vagrant destroy --force

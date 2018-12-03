@@ -36,6 +36,7 @@ task_defaults:
       timeout: 30 Minutes # long timeout as long as we run all specs in 1 task
       body: |
         set -eux
+        cd ./integration-tests
         export PATH=~/.rubies/$RUBY/bin:$PATH
         mkdir -p log
         xvfb-run -a -e log/xvfb.log \
