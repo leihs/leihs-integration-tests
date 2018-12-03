@@ -1,0 +1,10 @@
+---
+ansible_host: leihs-integration.example.com
+ansible_user: root
+
+leihs_send_mails: Yes
+
+db_backup_nigthly_enabled: No
+db_backup_on_deploy: No
+
+settings_file_path: '{{inventory_dir}}/settings/leihs-integration.example.com.yml'

@@ -11,7 +11,6 @@ scripts:
       started: { script_key: start-container }
     body: |
       vagrant provision
-      ./scripts/build-inventory.sh
 
   deploy-to-container:
     timeout: 60 Minutes
@@ -43,5 +42,4 @@ scripts:
         script_key: test
         states: [aborted, passed, failed, skipped]
     ignore_abort: yes
-    body: echo 'disabled for debugging'
-    # body: vagrant halt --force ; vagrant destroy --force
+    body: vagrant halt --force ; vagrant destroy --force

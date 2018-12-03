@@ -1,8 +1,6 @@
 /.vagrant
 *.log
-/inventory
-/leihs
-/leihs-instance
 reverse-proxy/tmp
 /tmp
 /vagrant-ssh-config
+/inventory/master_secret.txt
