@@ -2,24 +2,12 @@ require 'active_support/all'
 require 'capybara/rspec'
 require 'config/database'
 require 'config/factories'
+require 'config/screenshots'
 require 'pry'
 require 'selenium-webdriver'
 require 'sequel'
 require 'turnip/capybara'
 require 'turnip/rspec'
-
-module TurnipExtensions
-  module ScreenshotPerStep
-    def run_step(*args)
-      super(*args)
-      begin; spec_screenshot(RSpec.current_example, args.second); rescue => e; end
-      # spec_screenshot(RSpec.current_example, args.second)
-    end
-  end
-end
-# monkey-patch Turnip
-Turnip::RSpec::Execute.prepend TurnipExtensions::ScreenshotPerStep
-
 
 BROWSER_WINDOW_SIZE = [ 1200, 800 ]
 
@@ -76,7 +64,7 @@ RSpec.configure do |config|
   # Turnip:
   config.raise_error_for_unimplemented_steps = true # TODO: fix
 
-  Dir.glob("./spec/shared/*.steps.rb") { |f| require f }
+  Dir.glob("./spec/shared/*.rb") { |f| require f }
 
   config.before(type: :feature) do
     f = self.class.name.split('::')[2].underscore
@@ -97,65 +85,7 @@ RSpec.configure do |config|
   end
 
   config.after(type: :feature) do |example|
-    if ENV['CIDER_CI_TRIAL_ID'].present?
-      unless example.exception.nil?
-        take_screenshot('tmp/error-screenshots')
-      end
-    end
     page.driver.quit # OPTIMIZE force close browser popups
     Capybara.current_driver = Capybara.default_driver
   end
-
-  def take_screenshot(screenshot_dir = nil, name = nil)
-    if !screenshot_dir.present?
-      fail 'no `screenshot_dir` given!' unless defined?(Rails)
-      screenshot_dir = Rails.root.join('tmp', 'capybara')
-    end
-
-    name ||= "screenshot_#{Time.zone.now.iso8601.tr(':', '-')}"
-    name = "#{name}.png" unless name.ends_with?('.png')
-
-    path = File.join(Dir.pwd, screenshot_dir, name)
-    FileUtils.mkdir_p(File.dirname(path))
-
-    case Capybara.current_driver
-    when :firefox
-      page.driver.browser.save_screenshot(path)
-    else
-      fail "Taking screenshots is not implemented for \
-              #{Capybara.current_driver}."
-    end
-  end
-
-end
-
-def doc_screenshot(name)
-  fail unless name.is_a?(String) and name.present?
-  take_screenshot('tmp/doc-screenshots', name)
-end
-
-def spec_screenshot(example, step)
-  fail unless example.present?
-  dat = example.metadata
-  dir = "tmp/spec-screenshots/#{dat[:file_path]}"
-  stepname = step.text.gsub(/\W/, ' ').gsub(/\s+/, ' ').strip.gsub(' ', '-')
-  name = "#{dat[:example_group][:scoped_id].gsub(':','_')}_#{step.location.line}_#{stepname}"
-  take_screenshot(dir, name)
-end
-
-# test helpers
-def wait_until(wait_time = 6, &block)
-  Timeout.timeout(wait_time) do
-    until value = yield
-      sleep(0.2)
-    end
-    value
-  end
-rescue Timeout::Error => e
-  raise Timeout::Error.new(block.source)
-end
-
-# non-test helper methods
-def backdoor(cmd)
-  `vagrant ssh -- #{Shellwords.escape(cmd)}`
 end
