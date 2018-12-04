@@ -9,7 +9,7 @@ scripts:
       vagrant up --no-provision # this is locking, so keep it fast and dont provision yet
 
   prepare-container:
-    timeout: 5 Minutes
+    timeout: 15 Minutes
     start_when:
       started: { script_key: start-container }
     body: |
@@ -24,29 +24,21 @@ scripts:
     body: |
       #!/bin/sh -exu
       cd ./integration-tests
-      ./scripts/deploy-to-vagrant.sh
+      date
+      time ./scripts/deploy-to-vagrant.sh
 
-  tune-for-testing:
-    timeout: 5 Minutes
-    start_when:
-      deployed: { script_key: deploy-to-container }
-    body: |
-      #!/bin/sh -exu
-      cd ./integration-tests
-      vagrant ssh -- "sudo systemctl stop postgresql 'leihs*'"
-      vagrant ssh -- 'sudo sh /vagrant/scripts/config-postgres-for-vagrant.sh'
-
-      # FIXME: should be possible to restart services without full reboot!
-      # vagrant ssh -- "sudo systemctl start postgresql 'leihs*'"
-      vagrant reload # TEMP
+      ./scripts/ansible-to-vagrant.sh stop_play.yml
+      sh -c 'cd ../deploy && bin/ansible leihs_server -i ../integration-tests/inventory/hosts -mshell -a /vagrant/scripts/config-postgres-for-vagrant.sh'
+      ./scripts/ansible-to-vagrant.sh start_play.yml
 
       # wait for webservice, print result for debugging
-      until curl --fail -ks https://localhost:${LEIHS_HOST_PORT_HTTPS}; do sleep 3; done \
+      until curl --fail -k https://localhost:${LEIHS_HOST_PORT_HTTPS}; do sleep 5; done \
         && curl -kv https://localhost:${LEIHS_HOST_PORT_HTTPS} | head -25
 
   test:
+    timeout: 20 Minutes
     start_when:
-      tuned: { script_key: tune-for-testing }
+      deployed: { script_key: deploy-to-container }
 
   stop-container:
     exclusive_executor_resource: 'vagrant_updown'
