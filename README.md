@@ -34,7 +34,6 @@ vagrant up
 ./scripts/deploy-to-vagrant.sh
 ./scripts/ansible-to-vagrant.sh stop_play.yml
 vagrant ssh -- 'sudo sh /vagrant/scripts/config-postgres-for-vagrant.sh'
-vagrant ssh -- "sudo systemctl restart postgresql"
 ./scripts/ansible-to-vagrant.sh start_play.yml
 until curl -k --fail -s https://localhost:${LEIHS_HOST_PORT_HTTPS}; do sleep 3; done
 bundle exec rspec ./spec
@@ -73,7 +72,7 @@ sudo sh -c "echo 'deb http://download.virtualbox.org/virtualbox/debian '$(lsb_re
 wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox.asc -O- | sudo apt-key add -
 wget -q http://download.virtualbox.org/virtualbox/debian/oracle_vbox_2016.asc -O- | sudo apt-key add -
 apt update
-apt install virtualbox-5.1 -y
+apt install -y virtualbox-5.1 virtualbox-dkms
 usermod -a -G vboxusers ci-exec-user
 
 # virtualbox kernel modules

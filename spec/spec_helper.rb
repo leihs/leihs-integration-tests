@@ -91,7 +91,6 @@ RSpec.configure do |config|
   Dir.glob("./spec/shared/*.rb") { |f| require f }
 
   config.before(type: :feature) do
-    puts 'DEBUG: config.before(type: :feature)'
     f = self.class.name.split('::')[2].underscore
     require "features/#{f}.steps"
     database_cleaner

@@ -16,6 +16,13 @@ export PG_CONF="/etc/postgresql/$PG_VERSION/main/postgresql.conf"
 export PG_HBA="/etc/postgresql/$PG_VERSION/main/pg_hba.conf"
 export PG_DIR="/var/lib/postgresql/$PG_VERSION/main"
 
+# DEBUG
+uname -a
+ls -la "/etc/"
+ls -la "/etc/postgresql/"
+ls -la "/etc/postgresql/$PG_VERSION/"
+ls -la "/etc/postgresql/$PG_VERSION/main"
+
 # Edit postgresql.conf to change listen address to '*':
 sed -i "s/#listen_addresses = 'localhost'/listen_addresses = '*'/" "$PG_CONF"
 
