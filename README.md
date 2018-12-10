@@ -40,6 +40,25 @@ until curl -k --fail -s https://localhost:${LEIHS_HOST_PORT_HTTPS}; do sleep 3; 
 bundle exec rspec ./spec
 ```
 
+## debug selenium/webdriver/geckodriver/firefox setup
+
+```sh
+# start ruby repl
+xvfb-run -a -e log/xvfb.log bundle exec irb -W --verbose
+```
+
+```ruby
+require 'selenium-webdriver'
+
+opts = Selenium::WebDriver::Firefox::Options.new(
+  log_level: :trace, binary: ENV['FIREFOX_ESR_60_PATH'])
+
+driver = Selenium::WebDriver.for :firefox, options: opts
+
+# should now accept commands:
+driver.manage.window.resize_to(1024,768)
+```
+
 # TEMP
 
 ## Cider-CI traits install (ubuntu)

@@ -20,14 +20,37 @@ if ENV['FIREFOX_ESR_60_PATH'].present?
   Selenium::WebDriver::Firefox.path = ENV['FIREFOX_ESR_60_PATH']
 end
 
-[:firefox].each do |browser|
-  Capybara.register_driver browser do |app|
-    Capybara::Selenium::Driver.new app, browser: browser
-  end
+
+Capybara.register_driver :firefox do |app|
+  capabilities = Selenium::WebDriver::Remote::Capabilities.firefox(
+    # TODO: trust the cert used in container and remove this:
+    acceptInsecureCerts: true
+  )
+
+  profile = Selenium::WebDriver::Firefox::Profile.new
+  # TODO: configure language for locale testing
+  # profile["intl.accept_languages"] = "en"
+
+  opts = Selenium::WebDriver::Firefox::Options.new(
+    # binary: ENV['FIREFOX_ESR_60_PATH'],
+    profile: profile,
+    log_level: :trace)
+
+  # opts.args << '--headless' # TODO: try this instead of xvfb-run
+
+  # driver = Selenium::WebDriver.for :firefox, options: opts
+  # Capybara::Selenium::Driver.new(app, browser: browser, options: opts)
+  Capybara::Selenium::Driver.new(
+    app,
+    browser: :firefox,
+    options: opts,
+    desired_capabilities: capabilities
+  )
 end
 
-Capybara.run_server = false
-Capybara.current_driver = :selenium
+# Capybara.run_server = false
+Capybara.default_driver = :firefox
+Capybara.current_driver = :firefox
 Capybara.app_host = ENV['LEIHS_HTTP_BASE_URL'] || "https://localhost:#{LEIHS_HOST_PORT_HTTPS}"
 
 Capybara.configure do |config|
@@ -68,6 +91,7 @@ RSpec.configure do |config|
   Dir.glob("./spec/shared/*.rb") { |f| require f }
 
   config.before(type: :feature) do
+    puts 'DEBUG: config.before(type: :feature)'
     f = self.class.name.split('::')[2].underscore
     require "features/#{f}.steps"
     database_cleaner
