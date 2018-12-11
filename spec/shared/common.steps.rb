@@ -3,7 +3,7 @@ step "I pry" do
 end
 
 step "there is an empty database" do
-  database_cleaner
+  reset_database
 end
 
 step "I click on :txt" do |txt|
