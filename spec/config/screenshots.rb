@@ -20,7 +20,7 @@ def take_screenshot(screenshot_dir = nil, name = nil)
     screenshot_dir = Rails.root.join('tmp', 'capybara')
   end
 
-  name ||= "screenshot_#{Time.zone.now.iso8601.tr(':', '-')}"
+  name ||= "screenshot_#{DateTime.now.utc.iso8601.tr(':', '-')}"
   name = "#{name}.png" unless name.ends_with?('.png')
 
   path = File.join(Dir.pwd, screenshot_dir, name)

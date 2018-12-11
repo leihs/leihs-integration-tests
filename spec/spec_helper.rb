@@ -10,7 +10,12 @@ require 'turnip/capybara'
 require 'turnip/rspec'
 
 BROWSER_WINDOW_SIZE = [ 1200, 800 ]
+
+# FIXME: use https!
+LEIHS_HOST_PORT_HTTP = ENV['LEIHS_HOST_PORT_HTTP'] || '10080'
 LEIHS_HOST_PORT_HTTPS = ENV['LEIHS_HOST_PORT_HTTPS'] || '10443'
+# LEIHS_HTTP_BASE_URL = ENV['LEIHS_HTTP_BASE_URL'] || "https://localhost:#{LEIHS_HOST_PORT_HTTPS}"
+LEIHS_HTTP_BASE_URL = ENV['LEIHS_HTTP_BASE_URL'] || "http://localhost:#{LEIHS_HOST_PORT_HTTP}"
 
 # Capybara:
 if ENV['FIREFOX_PATH'].present?
@@ -37,6 +42,7 @@ Capybara.register_driver :firefox do |app|
     log_level: :trace)
 
   # opts.args << '--headless' # TODO: try this instead of xvfb-run
+  # opts.args << '--devtools' # NOTE: useful for local debug
 
   # driver = Selenium::WebDriver.for :firefox, options: opts
   # Capybara::Selenium::Driver.new(app, browser: browser, options: opts)
@@ -51,7 +57,7 @@ end
 # Capybara.run_server = false
 Capybara.default_driver = :firefox
 Capybara.current_driver = :firefox
-Capybara.app_host = ENV['LEIHS_HTTP_BASE_URL'] || "https://localhost:#{LEIHS_HOST_PORT_HTTPS}"
+Capybara.app_host = LEIHS_HTTP_BASE_URL
 
 Capybara.configure do |config|
   config.default_max_wait_time = 15
@@ -93,7 +99,7 @@ RSpec.configure do |config|
   config.before(type: :feature) do
     f = self.class.name.split('::')[2].underscore
     require "features/#{f}.steps"
-    database_cleaner
+    reset_database
     Capybara.current_driver = :firefox
     begin
       # Capybara.current_session.current_window.resize_to(*BROWSER_WINDOW_SIZE)

@@ -13,6 +13,13 @@ def database
     end
 end
 
+def reset_database
+  database_cleaner
+  set_settings_external_base_url
+end
+
+private
+
 def database_cleaner
   tables = database[<<-SQL
       SELECT table_name
@@ -25,4 +32,9 @@ def database_cleaner
   ].map { |r| r[:table_name] }
 
   database.run "TRUNCATE TABLE #{tables.join(', ')} CASCADE;"
+end
+
+def set_settings_external_base_url
+  fail unless LEIHS_HTTP_BASE_URL.present?
+  database.run "UPDATE settings SET external_base_url='#{LEIHS_HTTP_BASE_URL}'"
 end
