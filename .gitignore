@@ -4,3 +4,4 @@ reverse-proxy/tmp
 /tmp
 /vagrant-ssh-config
 /inventory/master_secret.txt
+reverse-proxy/tmp/
