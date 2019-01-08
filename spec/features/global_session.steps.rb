@@ -1,4 +1,4 @@
-step "I am logged in :subapp" do |subapp|
+step "I am logged in for the subapp :subapp" do |subapp|
   case subapp
   when "/admin/", "/my", "/procure"
     within ".navbar-leihs" do

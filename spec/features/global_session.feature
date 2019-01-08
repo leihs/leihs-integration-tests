@@ -6,7 +6,7 @@ Feature: Global session
     Given there is a user with an ultimate access
     When I log in as the user
     And I visit "<subapp path>"
-    Then I am logged in "<subapp path>"
+    Then I am logged in for the subapp "<subapp path>"
     Examples:
       | subapp path       |
       | /admin/           |
