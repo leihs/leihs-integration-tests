@@ -12,6 +12,7 @@ gem 'geckodriver-helper', '0.21.0'
 # helpers
 gem 'activesupport', '~> 5.2'
 gem 'pry', '~> 0.11'
+gem 'rb-readline'
 
 # DB
 gem 'sequel', '~> 4.42', '>= 4.42.1'
