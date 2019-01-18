@@ -1,7 +1,6 @@
 scripts:
-
   start-container:
-    exclusive_executor_resource: 'vagrant_updown'
+    exclusive_executor_resource: "vagrant_updown"
     timeout: 10 Minutes
     body: |
       #!/bin/sh -exu
@@ -24,24 +23,41 @@ scripts:
     body: |
       #!/bin/sh -exu
       cd ./integration-tests
-      date
-      time ./scripts/deploy-to-vagrant.sh
+
+      ./scripts/deploy-to-vagrant.sh
+
+  tune-for-testing:
+    timeout: 10 Minutes
+    start_when:
+      deployed: { script_key: deploy-to-container }
+    body: |
+      #!/bin/sh -exu
+      cd ./integration-tests
 
       ./scripts/ansible-to-vagrant.sh stop_play.yml
-      sh -c 'cd ../deploy && bin/ansible leihs_server -i ../integration-tests/inventory/hosts -mshell -a /vagrant/scripts/config-postgres-for-vagrant.sh'
+      # sh -c 'cd ../deploy && bin/ansible leihs_server -i ../integration-tests/inventory/hosts -mshell -a /vagrant/scripts/config-postgres-for-vagrant.sh'
+      vagrant ssh -- 'sudo sh /vagrant/scripts/config-postgres-for-vagrant.sh'
       ./scripts/ansible-to-vagrant.sh start_play.yml
+
+  wait-for-webservice:
+    timeout: 10 Minutes
+    start_when:
+      deployed: { script_key: tune-for-testing }
+    body: |
+      #!/bin/sh -exu
+      cd ./integration-tests
 
       # wait for webservice, print result for debugging
       until curl --fail -k https://localhost:${LEIHS_HOST_PORT_HTTPS}; do sleep 5; done \
         && curl -kv https://localhost:${LEIHS_HOST_PORT_HTTPS} | head -25
 
   test:
-    timeout: 20 Minutes
+    timeout: 30 Minutes
     start_when:
       deployed: { script_key: deploy-to-container }
 
   stop-container:
-    exclusive_executor_resource: 'vagrant_updown'
+    exclusive_executor_resource: "vagrant_updown"
     timeout: 1 hour
     start_when:
       test in terminal state:

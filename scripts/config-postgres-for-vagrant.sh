@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/sh -exu
 
 # check for vagrant
 { test $(id -u) = 0 && cd /vagrant ;} 2> /dev/null || {
