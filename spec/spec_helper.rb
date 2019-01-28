@@ -41,7 +41,10 @@ Capybara.register_driver :firefox do |app|
     profile: profile,
     log_level: :trace)
 
-  # opts.args << '--headless' # TODO: try this instead of xvfb-run
+  # NOTE: good for local dev
+  if ENV['LEIHS_TEST_HEADLESS'].present?
+    opts.args << '--headless'
+  end
   # opts.args << '--devtools' # NOTE: useful for local debug
 
   # driver = Selenium::WebDriver.for :firefox, options: opts
