@@ -50,7 +50,7 @@ step "the language was changed to :lang in :subapp" do |lang, subapp|
   when '/admin/', '/procure', '/my'
     find('.fa-globe').click
     find('.navbar-leihs .dropdown-menu')
-      .find('button.disabled', text: lang)
+      .find('button b', text: lang)
   when '/manage', '/borrow'
     find('footer strong', text: lang)
   else
@@ -72,7 +72,7 @@ step "the language was changed to :lang everywhere" do |lang|
     when '/admin/', '/procure', '/my'
       find('.fa-globe').click
       find('.navbar-leihs .dropdown-menu')
-        .find('button.disabled', text: lang)
+        .find('button b', text: lang)
     when '/manage', '/borrow'
       find('footer strong', text: lang)
     else
@@ -85,5 +85,5 @@ step "the current language is :lang" do |lang|
   visit "/my/user/me"
   find('.fa-globe').click
   find('.navbar-leihs .dropdown-menu')
-    .find('button.disabled', text: lang)
+    .find('button b', text: lang)
 end
