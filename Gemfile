@@ -11,8 +11,8 @@ gem 'geckodriver-helper', '0.21.0'
 
 # helpers
 gem 'activesupport', '~> 5.2'
-gem 'pry', '~> 0.11'
 gem 'rb-readline'
+gem 'pry', '~> 0.11'
 
 # DB
 gem 'sequel', '~> 4.42', '>= 4.42.1'
@@ -21,3 +21,5 @@ gem 'pg', '~> 1.1', platform: :mri
 # factories
 gem 'factory_bot'
 gem 'faker'
+
+gem 'relish', group: :development

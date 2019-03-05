@@ -33,10 +33,15 @@ end
 
 step "I log in with the email :email" do |email|
   visit '/'
-  step "I enter '#{email}' in the 'user' field"
   click_on 'Login'
-  step "I enter 'password' in the 'password' field"
-  click_on 'Weiter'
+  within('.ui-form-signin') do
+    step "I enter '#{email}' in the 'user' field"
+    find('button[type="submit"]').click
+  end
+  within('.ui-form-signin') do
+    step "I enter 'password' in the 'password' field"
+    find('button[type="submit"]').click
+  end
 end
 
 step "I log in as the user" do
@@ -46,6 +51,10 @@ end
 step "user's preferred language is :lang" do |lang|
   l = Language.find(name: lang)
   @user.update(language_id: l.id)
+end
+
+step "user does not have a prefered language" do
+  expect(@user.language_id).to be_nil
 end
 
 step "I log out" do

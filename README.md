@@ -1,4 +1,5 @@
-# 🥒 [leihs][] Integration-Tests
+🥒 [leihs][] Integration-Tests
+==============================
 
 [Executable Specifications](https://en.wikipedia.org/wiki/Behavior-driven_development#Behavioral_specifications) for the [**leihs** software system][leihs].
 
@@ -12,9 +13,44 @@
 - [**Ubuntu**](https://www.ubuntu.com/server) linux operation system
 - [**Ansible**](https://www.ansible.com/) software deployment, server provisioning, configuration management
 
----
 
-## run locally
+
+Reverse Proxy 
+-------------
+
+### Caching 
+
+Prototyping and testing caching:
+
+* must retrieve the whole file, i.e. use `tee` 
+* retrieve at least two times 
+* headers should correspond to the browner headers, e.g. "copy as curl" 
+* we announce caching via header for easier debugging rep verification 
+
+    curl -i 'http://localhost:3200/my/css/fontawesome-free-5.0.13/css/fontawesome-all.css' -H 'Referer: http://localhost:3200/' -H 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/72.0.3626.121 Safari/537.36' -H 'DNT: 1' --compressed | tee tmp/fontawesome-all.css | head -n 20
+
+    ...
+    X-Cache: HIT from localhost
+    ...
+
+
+### Caveats 
+
+* disk cache seems only to work with absolute paths
+* disk cache doesn't work if the "subdirectory" does not exists, e.g. `/tmp/apche-cache` will not work .i.g.; 
+
+* memory cache shmcb seems to work just by file size; don't know if there is any management at all 
+
+Whenever something is no right, you will get a "cache miss" and possibly some
+"unwilling" note in the logs.  
+
+
+
+
+Vagrant
+-------
+
+### run locally
 
 expose ports from inside VM/container on host machine:
 
@@ -39,7 +75,7 @@ until curl -k --fail -s https://localhost:${LEIHS_HOST_PORT_HTTPS}; do sleep 3; 
 bundle exec rspec ./spec
 ```
 
-## debug selenium/webdriver/geckodriver/firefox setup
+### debug selenium/webdriver/geckodriver/firefox setup
 
 ```sh
 # start ruby repl
@@ -58,9 +94,8 @@ driver = Selenium::WebDriver.for :firefox, options: opts
 driver.manage.window.resize_to(1024,768)
 ```
 
-# TEMP
 
-## Cider-CI traits install (ubuntu)
+### Cider-CI traits install (ubuntu)
 
 ```sh
 # vagrant

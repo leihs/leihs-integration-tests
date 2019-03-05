@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -exu
+export PATH=~/.rubies/$RUBY/bin:$PATH
+export RELISH_GLOBAL_OPTIONS_FILE="$(pwd)/secrets/relish"
+export BUNDLE_GEMFILE="$(pwd)/Gemfile"
+cd spec/
+bundle exec relish push leihs/Integration
