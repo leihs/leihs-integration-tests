@@ -1,0 +1,78 @@
+RSpec.configure do |config|
+  config.expect_with :rspec do |expectations|
+    # This option will default to `true` in RSpec 4.
+    expectations.include_chain_clauses_in_custom_matcher_descriptions = true
+  end
+  # This option will default to `:apply_to_host_groups` in RSpec 4
+  config.shared_context_metadata_behavior = :apply_to_host_groups
+
+  config.disable_monkey_patching!
+  config.expose_dsl_globally = true
+
+  config.warnings = false # sequel is just too noisy
+
+  # Many RSpec users commonly either run the entire suite or an individual
+  # file, and it's useful to allow more verbose output when running an
+  # individual spec file.
+  if config.files_to_run.one?
+    # Use the documentation formatter for detailed output,
+    # unless a formatter has already been configured
+    # (e.g. via a command-line flag).
+    config.default_formatter = "doc"
+  end
+
+  config.before :each do
+    srand 1
+  end
+
+
+  config.default_max_wait_time = 15
+
+  # Turnip:
+  config.raise_error_for_unimplemented_steps = true # TODO: fix
+
+  config.before(type: :feature) do
+
+    fp = self.class.superclass.file_path
+    bn = File.basename(fp, '.feature')
+    dn = File.dirname(fp)
+
+    require_shared_files(dn)
+
+    feature_steps_file = "#{dn}/#{bn}.steps.rb"
+    require(feature_steps_file) if File.exist?(feature_steps_file)
+
+    Capybara.current_driver = :firefox
+    begin
+      page.driver.browser.manage.window.resize_to(*BROWSER_WINDOW_SIZE)
+    rescue => e
+      fail e
+      page.driver.browser.manage.window.maximize
+    end
+  end
+
+  config.before(pending: true) do |example|
+    example.pending
+  end
+
+  config.after(type: :feature) do |example|
+    page.driver.quit # OPTIMIZE force close browser popups
+    Capybara.current_driver = Capybara.default_driver
+  end
+end
+
+
+# require files from any shared folders down the directory path
+def require_shared_files(dirpath)
+  shared_folders = []
+
+  dirpath.split("/").reduce do |acc, el|
+    sub_dir = "#{acc}/#{el}"
+    shared_folders.push "#{sub_dir}/shared"
+    sub_dir
+  end
+
+  shared_folders.each do |sf|
+    Dir.glob("#{sf}/*.rb") { |f| require f }
+  end
+end

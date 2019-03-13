@@ -1,23 +1,17 @@
 traits:
-  ruby-install: yes
-
-environment_variables:
-  RUBY_ENGINE: ruby
-  RUBY_VERSION: 2.5.0
-  RUBY: '{{RUBY_ENGINE}}-{{RUBY_VERSION}}'
+  ruby-install: true
+  Bash: true
 
 scripts:
 
-  bundle:
+  integration-tests-bundle-rspec-ruby:
     exclusive_executor_resource: ruby-install_{{$RUBY}}
     timeout: 20 Minutes
     body: |
       #!/usr/bin/env bash
-      set -eux
-
+      set -euxo
+      cd $LEIHS_INTEGRATION_TESTS_DIR
       export PATH=~/.rubies/$RUBY/bin:$PATH
-
-      rm -f .bundle/config
 
       if [ ! -d ~/.rubies/$RUBY ]; then
         ruby-install --no-install-deps $RUBY_ENGINE $RUBY_VERSION
@@ -31,5 +25,6 @@ scripts:
 
   test:
     start_when:
-      bundled:
-        script_key: bundle
+      gems are bundled:
+        script_key: integration-tests-bundle-rspec-ruby
+        states: [passed]

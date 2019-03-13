@@ -2,8 +2,8 @@
 # vi: set ft=ruby :
 
 # Leihs: supported config vars and their defaults:
-LEIHS_HOST_PORT_HTTP = ENV['LEIHS_HOST_PORT_HTTP'] || '10080'
-LEIHS_HOST_PORT_HTTPS = ENV['LEIHS_HOST_PORT_HTTPS'] || '10443'
+LEIHS_HTTP_PORT = ENV['LEIHS_HTTP_PORT'] || '10080'
+LEIHS_HTTPS_PORT = ENV['LEIHS_HTTPS_PORT'] || '10443'
 LEIHS_HOST_PORT_POSTGRES = ENV['LEIHS_HOST_PORT_POSTGRES'] || '10054'
 LEIHS_HOST_PORT_SSH = ENV['LEIHS_HOST_PORT_SSH'] || '2200'
 
@@ -20,8 +20,8 @@ Vagrant.configure("2") do |config|
   # base box
   config.vm.box = "bento/ubuntu-18.04"
   # ports - prod
-  config.vm.network "forwarded_port", guest: 80, host: LEIHS_HOST_PORT_HTTP, host_ip: "127.0.0.1"
-  config.vm.network "forwarded_port", guest: 443, host: LEIHS_HOST_PORT_HTTPS, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port", guest: 80, host: LEIHS_HTTP_PORT, host_ip: "127.0.0.1"
+  config.vm.network "forwarded_port", guest: 443, host: LEIHS_HTTPS_PORT, host_ip: "127.0.0.1"
   # ports - test only
   config.vm.network "forwarded_port", guest: 5432, host: LEIHS_HOST_PORT_POSTGRES, host_ip: "127.0.0.1"
   # ports - vagrant only

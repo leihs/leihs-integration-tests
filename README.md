@@ -56,8 +56,8 @@ expose ports from inside VM/container on host machine:
 
 ```shell
 # those are the default values:
-export LEIHS_HOST_PORT_HTTP='10080'
-export LEIHS_HOST_PORT_HTTPS='10443'
+export LEIHS_HTTP_PORT='10080'
+export LEIHS_HTTP_PORTS='10443'
 export LEIHS_HOST_PORT_POSTGRES='10054' # DB backdoor for automated testing only
 export LEIHS_HOST_PORT_SSH='2200' # for vagrant ssh into guest
 ```
@@ -72,7 +72,7 @@ vagrant up
 # `vagrant reload` if the following command does not work
 vagrant ssh -- 'sudo sh /vagrant/scripts/config-postgres-for-vagrant.sh'
 ./scripts/ansible-to-vagrant.sh start_play.yml
-until curl -k --fail -s https://localhost:${LEIHS_HOST_PORT_HTTPS}; do sleep 3; done
+until curl -k --fail -s https://localhost:${LEIHS_HTTP_PORTS}; do sleep 3; done
 bundle exec rspec ./spec
 ```
 
