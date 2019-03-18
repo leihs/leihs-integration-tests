@@ -10,6 +10,10 @@ step "I click on :txt" do |txt|
   click_on txt
 end
 
+step "I click on :txt and accept the alert" do |txt|
+  accept_alert { click_on txt }
+end
+
 step "I enter :value in the :name field" do |value, name|
   fill_in name, with: value
 end
@@ -29,6 +33,10 @@ end
 
 step "I see the text:" do |txt|
   expect(page).to have_content(txt.strip())
+end
+
+step "I see :txt" do |txt|
+  expect(page).to have_content txt
 end
 
 step "I log in with the email :email" do |email|

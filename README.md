@@ -69,6 +69,7 @@ bundle install
 vagrant up
 ./scripts/deploy-to-vagrant.sh
 ./scripts/ansible-to-vagrant.sh stop_play.yml
+# `vagrant reload` if the following command does not work
 vagrant ssh -- 'sudo sh /vagrant/scripts/config-postgres-for-vagrant.sh'
 ./scripts/ansible-to-vagrant.sh start_play.yml
 until curl -k --fail -s https://localhost:${LEIHS_HOST_PORT_HTTPS}; do sleep 3; done

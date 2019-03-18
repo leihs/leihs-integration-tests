@@ -13,6 +13,10 @@ step 'there is a leihs admin' do
   @leihs_admin = FactoryBot.create(:user, is_admin: true)
 end
 
+step 'there is a procurement admin' do
+  @procurement_admin = FactoryBot.create(:procurement_admin).user
+end
+
 step 'the user is leihs admin' do
   User.where(id: @user.id).update(is_admin: true)
 end
@@ -106,4 +110,17 @@ step "the user has no access whatsoever" do
   ProcurementAdmin.where(user_id: @user.id).delete
   ProcurementInspector.where(user_id: @user.id).delete
   ProcurementViewer.where(user_id: @user.id).delete
+end
+
+step "there is a supplier :supplier" do |supplier|
+  FactoryBot.create(:supplier, name: supplier)
+end
+
+step "there is a building :building" do |building|
+  FactoryBot.create(:building, name: building)
+end
+
+step "there is a room :room for building :building" do |room, building|
+  b = Building.find(name: building)
+  FactoryBot.create(:room, name: room, building: b)
 end

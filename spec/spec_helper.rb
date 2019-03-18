@@ -2,6 +2,7 @@ require 'active_support/all'
 require 'capybara/rspec'
 require 'config/database'
 require 'config/factories'
+require 'config/metadata_extractor'
 require 'config/screenshots'
 require 'pry'
 require 'selenium-webdriver'
@@ -97,13 +98,21 @@ RSpec.configure do |config|
   # Turnip:
   config.raise_error_for_unimplemented_steps = true # TODO: fix
 
-  Dir.glob("./spec/shared/*.rb") { |f| require f }
-
   config.before(type: :feature) do
-    f = self.class.name.split('::')[2].underscore
-    require "features/#{f}.steps"
+    # the shared files lower in the tree are required last
+    fp = self.class.superclass.file_path
+    bn = File.basename(fp, '.feature')
+    dn = File.dirname(fp)
+
+    require_shared_files(dn)
+
+    feature_steps_file = "#{dn}/#{bn}.steps.rb"
+    require(feature_steps_file) if File.exist?(feature_steps_file)
+
     reset_database
+
     Capybara.current_driver = :firefox
+
     begin
       # Capybara.current_session.current_window.resize_to(*BROWSER_WINDOW_SIZE)
       page.driver.browser.manage.window.resize_to(*BROWSER_WINDOW_SIZE)
@@ -120,5 +129,20 @@ RSpec.configure do |config|
   config.after(type: :feature) do |example|
     page.driver.quit # OPTIMIZE force close browser popups
     Capybara.current_driver = Capybara.default_driver
+  end
+end
+
+# require files from any shared folders down the directory path
+def require_shared_files(dirpath)
+  shared_folders = []
+
+  dirpath.split("/").reduce do |acc, el|
+    sub_dir = "#{acc}/#{el}"
+    shared_folders.push "#{sub_dir}/shared"
+    sub_dir
+  end
+
+  shared_folders.each do |sf|
+    Dir.glob("#{sf}/*.rb") { |f| require f }
   end
 end

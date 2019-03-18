@@ -1,4 +1,5 @@
 require 'sequel'
+require_relative '../../../legacy/database/lib/leihs/constants'
 
 LEIHS_DB_NAME = ENV['LEIHS_DB_NAME'] || 'leihs'
 LEIHS_HOST_PORT_POSTGRES = ENV['LEIHS_HOST_PORT_POSTGRES'] || '10054'
@@ -16,6 +17,8 @@ end
 def reset_database
   database_cleaner
   set_settings_external_base_url
+  resurrect_general_building
+  resurrect_general_room_for_general_building
 end
 
 private
@@ -37,4 +40,18 @@ end
 def set_settings_external_base_url
   fail unless LEIHS_HTTP_BASE_URL.present?
   database.run "UPDATE settings SET external_base_url='#{LEIHS_HTTP_BASE_URL}'"
+end
+
+def resurrect_general_building
+  database.run <<-SQL
+    INSERT INTO buildings (id, name)
+    VALUES ('#{Leihs::Constants::GENERAL_BUILDING_UUID}', 'general building')
+  SQL
+end
+
+def resurrect_general_room_for_general_building
+  database.run <<-SQL
+    INSERT INTO rooms (name, building_id, general)
+    VALUES ('general room', '#{Leihs::Constants::GENERAL_BUILDING_UUID}', TRUE)
+  SQL
 end

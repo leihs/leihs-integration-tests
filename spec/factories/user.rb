@@ -1,8 +1,15 @@
 class User < Sequel::Model
+  one_to_one :procurement_admin
+
+  def name
+    "#{firstname} #{lastname}"
+  end
 end
 
 FactoryBot.define do
   factory :user do
+    firstname { Faker::Name.first_name }
+    lastname { Faker::Name.last_name }
     email { Faker::Internet.email }
 
     after(:create) do |user|
