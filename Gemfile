@@ -22,5 +22,4 @@ gem 'pg', '~> 1.1', platform: :mri
 gem 'factory_bot'
 gem 'faker'
 
-gem 'relish', group: :development
 gem 'exiftool_vendored'
