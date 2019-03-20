@@ -26,7 +26,6 @@ RSpec.configure do |config|
   end
 
 
-  config.default_max_wait_time = 15
 
   # Turnip:
   config.raise_error_for_unimplemented_steps = true # TODO: fix

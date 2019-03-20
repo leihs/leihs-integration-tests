@@ -52,3 +52,7 @@ end
 # Capybara.run_server = false
 Capybara.default_driver = :firefox
 Capybara.current_driver = :firefox
+
+Capybara.configure do |config|
+  config.default_max_wait_time = 15
+end
