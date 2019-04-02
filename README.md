@@ -14,6 +14,50 @@
 - [**Ansible**](https://www.ansible.com/) software deployment, server provisioning, configuration management
 
 
+Status Integration Testing on Cider-CI
+--------------------------------------
+
+as of 2019-04-02:
+
+* all services are integrated and used very much like in the deployment case
+* main reverse proxy configuration uses the template from deployment! 
+* 11 out of 17 tests are green 
+* we use S3 storage for uberjars, and checked in assets for `my`
+
+### DONE
+
+* get all running
+
+* `my` and very much `procurement` have been alinged with general strategy: one
+  independent uberjar
+
+* in git check-ed  builds vs S3 storage evaluated; both work; 
+
+  * in git checked in builds 
+
+    * are a bit anyoing for the developer
+
+    * the uberjars would be too big; 
+
+  * S3 works
+
+    * well from the CI scripting and usage point
+
+    * the "ad hoc" used S3 technology `Minio` is neither flexible enaugh nor
+      reliable, would need to try Ceph 
+
+
+### TODO:
+
+* Assets handling in `my` service needs to be finished
+
+* deploy needs to be adjusted: changed building and service handling; but
+  generally be simpler and more similar among services
+
+* get tests green
+
+* continue with S3 (?, depends on Ceph), or check in builds (how and where?)
+
 
 Reverse Proxy 
 -------------
