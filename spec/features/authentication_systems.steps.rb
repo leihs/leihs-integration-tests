@@ -24,7 +24,7 @@ end
 
 step "I am logged in successfully" do
   within "nav.topbar" do
-    expect(current_scope).to have_content @user.email
+    expect(current_scope).to have_content @user.short_name
   end
 end
 

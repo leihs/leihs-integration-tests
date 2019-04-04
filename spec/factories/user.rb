@@ -4,6 +4,13 @@ class User < Sequel::Model
   def name
     "#{firstname} #{lastname}"
   end
+
+  def short_name
+    "#{firstname.presence && firstname[0] + '.'} #{lastname}"
+      .strip.presence \
+    || login.to_s.strip.presence \
+    || email
+  end
 end
 
 FactoryBot.define do
