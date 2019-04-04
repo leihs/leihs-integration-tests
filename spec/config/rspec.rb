@@ -55,6 +55,12 @@ RSpec.configure do |config|
   end
 
   config.after(type: :feature) do |example|
+    if ENV['CIDER_CI_TRIAL_ID'].present?
+      unless example.exception.nil?
+        take_screenshot('tmp/error-screenshots')
+      end
+    end
+
     page.driver.quit # OPTIMIZE force close browser popups
     Capybara.current_driver = Capybara.default_driver
   end
