@@ -4,7 +4,7 @@ step "there is no section with subapps in the navbar " \
   when "/borrow"
     expect(all(".topbar-navigation.float-right .topbar-item").count).to eq 1
     expect(find(".topbar-navigation.float-right .topbar-item"))
-      .to have_content @user.email
+      .to have_content @user.short_name
   when "/procure", "/admin", "/my"
     within ".navbar-leihs" do
       expect(current_scope).not_to have_selector "svg[data-icon='chart-pie']"

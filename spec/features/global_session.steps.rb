@@ -3,11 +3,11 @@ step "I am logged in for the subapp :subapp" do |subapp|
   when "/admin/", "/my", "/procure"
     within ".navbar-leihs" do
       find(".fa-user-circle").click
-      expect(current_scope).to have_content @user.email
+      expect(current_scope).to have_content @user.short_name
     end
   when "/borrow", "/manage"
     within "nav.topbar" do
-      expect(current_scope).to have_content @user.email
+      expect(current_scope).to have_content @user.short_name
     end
   else
     raise
@@ -43,7 +43,7 @@ step "I log out from :subpath" do |subpath|
     end
   when"/borrow", "/manage"
     within "nav.topbar" do
-      find(".topbar-item", text: @user.email).hover
+      find(".topbar-item", text: @user.short_name).hover
       click_on "Logout"
     end
   else
