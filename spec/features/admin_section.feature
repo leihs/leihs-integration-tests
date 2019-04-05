@@ -17,10 +17,9 @@ Feature: Admin section
     And I see the admin menu
     Examples:
       | menu entry             | path                           |
-      | Authentication-Systems | /admin/authentication-systems/ |
       | Delegations            | /admin/delegations/            |
       | Groups                 | /admin/groups/                 |
-      | System-Admin           | /admin/system-admins/          |
+      | System                 | /admin/system/                 |
       | Users                  | /admin/users/                  |
 
   Scenario Outline: Links going to old admin
