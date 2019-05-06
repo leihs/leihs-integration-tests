@@ -22,6 +22,20 @@ def database
   )
 end
 
+def reset_database
+  clean_db
+  set_settings
+  resurrect_general_building
+  resurrect_general_room_for_general_building
+end
+
+RSpec.configure do |config|
+  config.before :each  do
+    reset_database
+  end
+end
+
+private
 
 def clean_db
   database[ <<-SQL.strip_heredoc
@@ -40,6 +54,7 @@ end
 
 def set_settings
   fail unless LEIHS_HTTP_BASE_URL.present?
+  Setting.first || Setting.create # ensure existance!
   database.run "UPDATE settings SET external_base_url='#{LEIHS_HTTP_BASE_URL}'"
 end
 
@@ -55,17 +70,4 @@ def resurrect_general_room_for_general_building
     INSERT INTO rooms (name, building_id, general)
     VALUES ('general room', '#{Leihs::Constants::GENERAL_BUILDING_UUID}', TRUE)
   SQL
-end
-
-def reset_database
-  clean_db
-  set_settings
-  resurrect_general_building
-  resurrect_general_room_for_general_building
-end
-
-RSpec.configure do |config|
-  config.before :each  do
-    reset_database
-  end
 end

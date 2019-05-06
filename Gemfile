@@ -9,11 +9,6 @@ gem 'capybara', '~> 3.8'
 gem 'selenium-webdriver', '~> 3.14'
 gem 'geckodriver-helper', '0.21.0'
 
-# helpers
-gem 'activesupport', '~> 5.2'
-gem 'rb-readline'
-gem 'pry', '~> 0.11'
-
 # DB
 gem 'sequel', '~> 4.42', '>= 4.42.1'
 gem 'pg', '~> 1.1', platform: :mri
@@ -22,4 +17,10 @@ gem 'pg', '~> 1.1', platform: :mri
 gem 'factory_bot'
 gem 'faker'
 
+# helpers
+gem 'activesupport', '~> 5.2'
 gem 'exiftool_vendored'
+gem 'rb-readline'
+gem 'pry', '~> 0.11'
+gem 'mail', '~>2.7'
+gem "post_office"
