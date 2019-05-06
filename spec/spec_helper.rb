@@ -2,6 +2,7 @@ require 'active_support/all'
 require 'pry'
 
 require 'config/database'
+require 'config/emails'
 require 'config/factories'
 require 'config/metadata_extractor'
 require 'config/screenshots'
@@ -20,4 +21,3 @@ Capybara.app_host = LEIHS_HTTP_BASE_URL
 
 require 'config/rspec'
 require 'config/browser'
-

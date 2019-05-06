@@ -6,6 +6,7 @@ scripts:
       cat $LEIHS_INTEGRATION_TESTS_DIR/reverse-proxy/conf/httpd.conf
 
   run-reverse-proxy:
+    ignore_state: true # because we kill the server mercilessly
     body: |
       set -eux
       cd $LEIHS_INTEGRATION_TESTS_DIR

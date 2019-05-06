@@ -26,6 +26,10 @@ step "I visit :url" do |url|
   visit url
 end
 
+step "I am on :path" do |path|
+  expect(page.current_path).to eq path
+end
+
 step "I am redirected to :url" do |url|
   binding.pry if url == "?"
   expect(page.current_path).to eq url

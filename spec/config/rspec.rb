@@ -64,6 +64,17 @@ RSpec.configure do |config|
     page.driver.quit # OPTIMIZE force close browser popups
     Capybara.current_driver = Capybara.default_driver
   end
+
+  #
+  config.after(:each) do |example|
+    # auto-pry after failures, except in CI!
+    unless ENV['CIDER_CI_TRIAL_ID'].present?
+      unless example.exception.nil?
+        puts decorate_exception(example.exception)
+        binding.pry if example.exception
+      end
+    end
+  end
 end
 
 
@@ -80,4 +91,17 @@ def require_shared_files(dirpath)
   shared_folders.each do |sf|
     Dir.glob("#{sf}/*.rb") { |f| require f }
   end
+end
+
+
+def decorate_exception(ex)
+  div = Array.new(80, '-').join
+  msg = case true
+  when ex.is_a?(Turnip::Pending)
+    "MISSING STEP! try this:\n\n"\
+    "step \"#{ex.message}\" do\n  binding.pry\nend"
+  else
+    "GOT ERROR: #{ex.class}: #{ex.message}"
+  end
+  "\n\n#{div}\n\n#{msg}\n\n#{div}\n\n"
 end
