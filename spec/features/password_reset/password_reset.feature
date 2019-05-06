@@ -42,7 +42,6 @@ Feature: Password Reset
       | email           |
       | login           |
 
-
   Scenario Outline: Via Email, typing the token manually
     Given I am "Normin"
       And my mailbox is empty
@@ -68,7 +67,8 @@ Feature: Password Reset
     #   And I click "Weiter"
     # Then I see my "<login_or_email>" filled out
     #   And I see the token filled out
-    When I click on "reset the password"
+    # When I click on "reset the password"
+    When I go to "/reset-password"
     Then I am on "/reset-password"
     When I fill out the secret token
       And I fill out a new password in the password field
@@ -80,7 +80,6 @@ Feature: Password Reset
       | login_or_email  |
       | email           |
       | login           |
-
 
   Scenario Outline: Can not start password reset if user can not sign in with password
     Given I am "Externer"
@@ -94,32 +93,19 @@ Feature: Password Reset
       | email           |
       | login           |
 
-
-  # FIXME: backend
-  @pending
   Scenario: Can not start password reset if user has no email in DB
     Given I am "Nomailer"
     When I go to "/sign-in"
       And I fill out my "login"
       And I click "Weiter"
-    Then I see the login form with a password field
     When I click on "forgot password"
-    Then I am on "/forgot-password"
-      And I see my "login" filled out
-    When I click "Weiter"
-    Then I see the message "keine Email"
+    Then I see the message "user does not have an email"
 
-
-  # FIXME: backend
-  @pending
   Scenario: Fails if the token is invalid
     Given I am "Normin"
     When I go to "/reset-password?token=AAAAAAAAAAAAAAAAAAAA"
-    Then I see the message "ungültig"
+    Then I see the message "the token is invalid"
 
-
-  # FIXME: backend - should redirect
-  @pending
   Scenario: Fails if the token is expired
     Given I am "Normin"
       And I have a current password reset with expiry_time "{ Time.now - 1.second }"
@@ -127,5 +113,4 @@ Feature: Password Reset
       And I fill out the secret token from my current password reset
       And I fill out a new password in the password field
       And I click "Weiter"
-    Then I am redirected to "/forgot-password"
-      And I see the message "expired"
+      And I see the message "the token has expired"
