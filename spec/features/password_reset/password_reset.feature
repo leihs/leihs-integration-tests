@@ -35,7 +35,7 @@ Feature: Password Reset
       And I see the token filled out
     When I fill out a new password in the password field
       And I click "Weiter"
-    Then I see the message "password reset successful"
+    Then I see the message "erfolgreich gespeichert"
       And I can log in with the new password
     Examples:
       | login_or_email  |
@@ -49,7 +49,7 @@ Feature: Password Reset
       And I fill out my "<login_or_email>"
       And I click "Weiter"
     Then I see the login form with a password field
-      # And I see the "forgot password" button
+      And I see the "forgot password" button
     When I click on "forgot password"
     Then I am on "/forgot-password"
       And I see my "<login_or_email>" filled out
@@ -62,19 +62,17 @@ Feature: Password Reset
       And the email body contains the password reset link and token
 
 
-    # FIXME: ui flow!
-    # When I fill out the secret token
-    #   And I click "Weiter"
-    # Then I see my "<login_or_email>" filled out
-    #   And I see the token filled out
-    # When I click on "reset the password"
-    When I go to "/reset-password"
-    Then I am on "/reset-password"
-    When I fill out the secret token
-      And I fill out a new password in the password field
-      And I click "Weiter"
+    When I click on 'reset the password'
+      Then I am on "/reset-password"
 
-    Then I see the message "password reset successful"
+    When I fill out the secret token
+      And I click "Weiter"
+    Then I see my "<login_or_email>" filled out
+      And I see the token filled out
+
+    When I fill out a new password in the password field
+      And I click "Weiter"
+    Then I see the message "erfolgreich gespeichert"
       And I can log in with the new password
     Examples:
       | login_or_email  |
@@ -108,9 +106,11 @@ Feature: Password Reset
 
   Scenario: Fails if the token is expired
     Given I am "Normin"
-      And I have a current password reset with expiry_time "{ Time.now - 1.second }"
+      And I have a current password reset with props "{ valid_until: Time.now - 1.second }"
     When I go to "/reset-password"
       And I fill out the secret token from my current password reset
+      And I click "Weiter"
+      # TODO: should the error come in the first step already?
       And I fill out a new password in the password field
       And I click "Weiter"
       And I see the message "the token has expired"

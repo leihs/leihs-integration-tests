@@ -43,7 +43,7 @@ step "I see :pfx :field filled out" do |pfx, field|
     when ['my', 'login']
       expect(find_field_val('user', @user.login)).to be
     when ['the', 'token']
-      expect(find_field_val('secret-token', @the_password_reset_token)).to be
+      expect(find_field_val('token', @the_password_reset_token)).to be
     else
       fail 'dont know which field to check!'
     end
@@ -93,7 +93,7 @@ step "I open the password reset link" do
 end
 
 step "I fill out the secret token" do
-  fill_in 'secret-token', with: @the_password_reset_token
+  fill_in 'token', with: @the_password_reset_token
 end
 
 step "I fill out a new password in the password field" do
@@ -125,16 +125,13 @@ step "I can log in with the new password" do
   end
 end
 
-step "I have a current password reset with :key :value" do |key, value|
-  closure = value.to_s.match(/{(.*)}/)[1]
-  if closure.present?
-    value = eval(closure)
-  end
-  @my_current_password_reset = create(:user_password_reset, user: @user)
+step "I have a current password reset with props :code" do |code|
+  @my_current_password_reset = create(
+    :user_password_reset, user: @user, **eval(code))
 end
 
 step "I fill out the secret token from my current password reset" do
-  fill_in 'secret-token', with: @my_current_password_reset.token
+  fill_in 'token', with: @my_current_password_reset.token
 end
 
 placeholder :whether_to do

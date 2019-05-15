@@ -2,6 +2,10 @@ step "I pry" do
   binding.pry
 end
 
+step "I debug :code" do |code|
+  eval(code)
+end
+
 step "there is an empty database" do
   reset_database
 end
