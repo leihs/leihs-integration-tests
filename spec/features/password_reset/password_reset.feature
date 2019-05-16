@@ -2,7 +2,8 @@ Feature: Password Reset
 
   Background:
     Given there is an initial admin
-    Given the following Users exist:
+    And the smtp default from address is "noreply@nsa.gov"
+    And the following Users exist:
        | name       | login     | email               | password_sign_in  |
        | Normin     | normin    | normin@example.com  | TRUE              |
        | Nomailer   | nomailer  | NULL                | TRUE              |
@@ -24,7 +25,7 @@ Feature: Password Reset
       And I receive an email
 
       # FIXME: check correct email from!
-      And the email is from "password.reset@example.com"
+      And the email is from "noreply@nsa.gov"
 
       And the email has a subject of "Password reset"
       And the email body contains "Password reset click this link"
@@ -56,7 +57,7 @@ Feature: Password Reset
     When I click "Weiter"
     Then I see the message "check your email"
       And I receive an email
-      And the email is from "password.reset@example.com"
+      And the email is from "noreply@nsa.gov"
       And the email has a subject of "Password reset"
       And the email body contains "Password reset click this link"
       And the email body contains the password reset link and token

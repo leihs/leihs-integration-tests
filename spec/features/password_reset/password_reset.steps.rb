@@ -12,6 +12,10 @@ step "the following Users exist:" do |table|
   end
 end
 
+step "the smtp default from address is :email" do |email|
+  Setting.first.update(smtp_default_from_address: email)
+end
+
 step "I am :user" do |user|
   @user = User.find(firstname: user, lastname: user)
 end
