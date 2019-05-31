@@ -11,7 +11,7 @@ FactoryBot.define do
 
     trait :external do
       type { 'external' }
-      external_url { 'https://example.com/sign-in' }
+      external_sign_in_url { 'https://example.com/sign-in' }
       internal_private_key do <<-KEY.strip_heredoc
       -----BEGIN EC PRIVATE KEY-----
       MHcCAQEEIHErTjw8Z1yNisngEuZ5UvBn1qM2goN3Wd1V4Pn3xQeYoAoGCCqGSM49

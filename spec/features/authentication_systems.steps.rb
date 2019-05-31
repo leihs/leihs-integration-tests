@@ -48,7 +48,7 @@ step "I click on the button within the external authentication section" do
 end
 
 step "I am redirected to the url of that authentication system" do
-  expect(current_url).to match /#{@external_authentication_system.external_url}/
+  expect(current_url).to match /#{@external_authentication_system.external_sign_in_url}/
 end
 
 step 'I click on "Login" *' do
