@@ -7,6 +7,7 @@ step "the following Users exist:" do |table|
       lastname: user['name'],
       login: user['login'],
       email: yamlval(user['email']),
+      password: yamlval(user['password']),
       password_sign_in_enabled: yamlval(user['password_sign_in'])
     })
   end

@@ -4,10 +4,11 @@ Feature: Password Reset
     Given there is an initial admin
     And the smtp default from address is "noreply@nsa.gov"
     And the following Users exist:
-       | name       | login     | email               | password_sign_in  |
-       | Normin     | normin    | normin@example.com  | TRUE              |
-       | Nomailer   | nomailer  | NULL                | TRUE              |
-       | Externer   | external  | ext@example.com     | FALSE             |
+       | name       | login     | email               | password_sign_in  | password
+       | Normin     | normin    | normin@example.com  | TRUE              | 1234
+       | Nopasser   | nopwyet   | nopass@example.com  | TRUE              | NULL
+       | Nomailer   | nomailer  | NULL                | TRUE              | NULL
+       | Externer   | external  | ext@example.org     | FALSE             | NULL
 
   Scenario Outline: Via Email, following the link
     Given I am "Normin"

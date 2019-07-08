@@ -19,7 +19,12 @@ FactoryBot.define do
     lastname { Faker::Name.last_name }
     email { Faker::Internet.email }
 
+    transient do
+        password { 'password' }
+      end
+
     after(:create) do |user|
+      next unless user.password.present?
       pw_hash = database[<<-SQL]
         SELECT crypt(
           #{database.literal('password')},
@@ -29,7 +34,7 @@ FactoryBot.define do
         .first[:pw_hash]
 
       database[:authentication_systems_users].insert(
-        user_id: user.id, 
+        user_id: user.id,
         authentication_system_id: 'password',
         data: pw_hash
       )
