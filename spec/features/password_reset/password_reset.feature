@@ -4,19 +4,19 @@ Feature: Password Reset
     Given there is an initial admin
     And the smtp default from address is "noreply@nsa.gov"
     And the following Users exist:
-       | name       | login     | email               | password_sign_in  |
-       | Normin     | normin    | normin@example.com  | TRUE              |
-       | Nomailer   | nomailer  | NULL                | TRUE              |
-       | Externer   | external  | ext@example.com     | FALSE             |
+       | name       | login     | email               | password_sign_in  | password |
+       | Normin     | normin    | normin@example.com  | TRUE              | password |
+       | Hans       | hans      | hans@example.com    | TRUE              |          |
+       | Nomailer   | nomailer  | NULL                | TRUE              | password |
+       | Externer   | external  | ext@example.com     | FALSE             | password |
 
   Scenario Outline: Via Email, following the link
-    Given I am "Normin"
+    Given I am "<user>"
       And my mailbox is empty
     When I go to "/sign-in"
       And I fill out my "<login_or_email>"
       And I click "Weiter"
-    Then I see the login form with a password field
-      And I see the "forgot password" button
+    Then I see the "forgot password" button
     When I click on "forgot password"
     Then I am on "/forgot-password"
       And I see my "<login_or_email>" filled out
@@ -39,9 +39,11 @@ Feature: Password Reset
     Then I see the message "erfolgreich gespeichert"
       And I can log in with the new password
     Examples:
-      | login_or_email  |
-      | email           |
-      | login           |
+      | user   | login_or_email  |
+      | Normin | email           |
+      | Normin | login           |
+      | Hans   | email           |
+      | Hans   | login           |
 
   Scenario Outline: Via Email, typing the token manually
     Given I am "Normin"

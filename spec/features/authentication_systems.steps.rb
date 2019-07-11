@@ -6,6 +6,10 @@ step "there is no authentication system enabled for the user" do
   AuthenticationSystemUser.where(user_id: @user.id).delete
 end
 
+step "password sign in is disabled for the user" do
+  @user.update(password_sign_in_enabled: false)
+end
+
 step "there is an error message saying that " \
      "login with this account is not possible" do
   expect(page).to have_content \

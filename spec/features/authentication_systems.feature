@@ -8,6 +8,7 @@ Feature: Authentication systems
   Scenario: No authentication system enabled for a user
     Given there is a user
     And there is no authentication system enabled for the user
+    And password sign in is disabled for the user
     And the user's email is "user@example.com"
     When I visit "/"
     And I enter "user@example.com" in the "user" field
