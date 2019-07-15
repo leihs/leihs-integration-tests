@@ -6,7 +6,7 @@ step "there is no section with subapps in the navbar " \
     expect(find(".topbar-navigation.float-right .topbar-item"))
       .to have_content @user.short_name
   when "/procure", "/admin", "/my"
-    within ".navbar-leihs" do
+    within ".navbar-leihs .navbar-collapse" do
       expect(current_scope).not_to have_selector "svg[data-icon='chart-pie']"
     end
   else
@@ -26,7 +26,7 @@ step "there is a section in the navbar for :subapp with following subapps:" \
   do |subapp, table|
   case subapp
   when "/admin", "/procure"
-    within ".navbar-leihs" do
+    within ".navbar-leihs .navbar-collapse" do
       find("svg[data-icon='chart-pie']").click
       within ".dropdown-menu" do
         expect_subsections(table)

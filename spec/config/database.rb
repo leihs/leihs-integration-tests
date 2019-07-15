@@ -16,10 +16,10 @@ def database
           + ':' + (http_uri.port.presence || ENV['PGPORT'].presence || 5432).to_s \
           + '/' + ( http_uri.path.presence.try(:gsub,/^\//,'') || ENV['PGDATABASE'].presence || 'leihs') \
           + '?pool=5'
-  else
-    'postgresql://leihs:leihs@localhost:5432/leihs?pool=5'
-  end
-  )
+      else
+        'postgresql://leihs:leihs@localhost:5432/leihs?pool=5'
+      end
+    )
 end
 
 def reset_database

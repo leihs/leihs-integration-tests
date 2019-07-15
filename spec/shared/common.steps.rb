@@ -36,7 +36,7 @@ end
 
 step "I am redirected to :url" do |url|
   binding.pry if url == "?"
-  expect(page.current_path).to eq url
+  wait_until(10) { expect(page.current_path).to eq url }
 end
 
 step "I see the text:" do |txt|

@@ -50,6 +50,8 @@ export LEIHS_HTTP_PORT='10080'
 export LEIHS_HTTP_PORTS='10443'
 export LEIHS_HOST_PORT_POSTGRES='10054' # DB backdoor for automated testing only
 export LEIHS_HOST_PORT_SSH='2200' # for vagrant ssh into guest
+export LEIHS_DATABASE_URL="postgresql://root:root@localhost:${LEIHS_HOST_PORT_POSTGRES}/leihs?pool=5"
+export LEIHS_HTTP_BASE_URL="http://localhost:${LEIHS_HTTP_PORT}"
 # make sure to set correct Firefox Path
 export FIREFOX_ESR_60_PATH="/Applications/Firefox ESR 60.app/Contents/MacOS/firefox-bin"
 ```
