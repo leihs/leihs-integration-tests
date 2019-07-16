@@ -100,7 +100,7 @@ Feature: Password Reset
       And I fill out my "login"
       And I click "Weiter"
     When I click on "forgot password"
-    Then I see the message "user does not have an email"
+    Then I see the message "Keine Email-Adresse vorhanden!"
 
   Scenario: Fails if the token is invalid
     Given I am "Normin"
