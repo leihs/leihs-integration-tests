@@ -14,10 +14,14 @@ class User < Sequel::Model
 end
 
 FactoryBot.define do
-  factory :user do
+  trait :base do
     firstname { Faker::Name.first_name }
     lastname { Faker::Name.last_name }
     email { Faker::Internet.email }
+  end
+
+  factory :user do
+    base
 
     transient do
       password { 'password' }
@@ -40,5 +44,9 @@ FactoryBot.define do
         )
       end
     end
+  end
+
+  factory :user_without_password, class: User do
+    base
   end
 end

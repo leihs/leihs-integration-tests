@@ -26,6 +26,11 @@ step "there is a password authentication section with a password field" do
   end
 end
 
+step "there is no password authentication section with a password field" do
+  expect(page).not_to have_content "Anmelden mit Passwort"
+  expect(page).not_to have_selector "input#inputPassword"
+end
+
 step "I am logged in successfully" do
   within "nav.topbar" do
     expect(current_scope).to have_content @user.short_name
@@ -60,4 +65,12 @@ step 'I click on "Login" *' do
   # using `*` to distinguish it from common step
   execute_script %( document.querySelector("button.btn-success").click() )
   sleep 1
+end
+
+step "there is a forgot password button" do
+  find("button", text: "forgot password?")
+end
+
+step "password sign in is disabled for the user" do
+  @user.update(password_sign_in_enabled: false)
 end

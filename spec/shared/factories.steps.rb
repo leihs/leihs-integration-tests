@@ -4,6 +4,10 @@ step 'there is a user' do
   @user = FactoryBot.create(:user)
 end
 
+step 'there is a user without password' do
+  @user = FactoryBot.create(:user_without_password)
+end
+
 step 'there is an initial admin' do
   @initial_admin = FactoryBot.create(:user, is_admin: true)
   FactoryBot.create(:system_admin, user_id: @initial_admin.id)
