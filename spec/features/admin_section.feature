@@ -37,7 +37,6 @@ Feature: Admin section
       | Audits                 | /admin/audits                 |
       | Buildings              | /admin/buildings              |
       | Fields                 | /admin/fields_editor          |
-      | Inventory Pools        | /admin/inventory_pools        |
       | Languages              | /admin/languages              |
       | Mail Templates         | /admin/mail_templates         |
       | Rooms                  | /admin/rooms                  |
