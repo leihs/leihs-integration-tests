@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/leihs/turnip.git
+  revision: c2411d1f14e47bf1862651372c15db8ba4f43275
+  branch: ambiguous-steps
+  specs:
+    turnip (3.1.0)
+      gherkin (~> 5.0)
+      rspec (>= 3.0, < 4.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -75,9 +84,6 @@ GEM
       rubyzip (~> 1.2)
     sequel (4.49.0)
     thread_safe (0.3.6)
-    turnip (3.1.0)
-      gherkin (~> 5.0)
-      rspec (>= 3.0, < 4.0)
     tzinfo (1.2.5)
       thread_safe (~> 0.1)
     xpath (3.1.0)
@@ -101,7 +107,7 @@ DEPENDENCIES
   rspec (~> 3.0)
   selenium-webdriver (~> 3.14)
   sequel (~> 4.42, >= 4.42.1)
-  turnip (~> 3.1)
+  turnip!
 
 BUNDLED WITH
    1.17.2

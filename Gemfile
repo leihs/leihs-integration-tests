@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 # test
 gem 'rspec', '~> 3.0'
-gem 'turnip', '~> 3.1'
+gem 'turnip', github: 'leihs/turnip', branch: 'ambiguous-steps'
 
 # test in browser
 gem 'capybara', '~> 3.8'

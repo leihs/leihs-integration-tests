@@ -65,7 +65,9 @@ step "the user is inventory manager of some pool" do
 end
 
 step "the user is inventory manager of pool :name" do |name|
-  pool = FactoryBot.create(:inventory_pool, name: name)
+  pool = InventoryPool.find(name: name) ||
+    FactoryBot.create(:inventory_pool, name: name)
+
   FactoryBot.create(:workday, inventory_pool_id: pool.id)
   FactoryBot.create(:access_right,
                     user_id: @user.id,
@@ -128,4 +130,12 @@ end
 step "there is a room :room for building :building" do |room, building|
   b = Building.find(name: building)
   FactoryBot.create(:room, name: room, building: b)
+end
+
+step 'there is an inventory pool :name' do |name|
+  FactoryBot.create(:inventory_pool, name: name)
+end
+
+step 'there is a model :name' do |name|
+  FactoryBot.create(:leihs_model, product: name)
 end
