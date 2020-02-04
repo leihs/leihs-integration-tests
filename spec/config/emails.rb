@@ -13,7 +13,10 @@ end
 private
 
 def empty_mailbox
-  Mail.delete_all
+  begin
+    Mail.delete_all
+  rescue
+  end
 end
 
 def setup_email_client

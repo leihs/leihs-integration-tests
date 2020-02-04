@@ -10,5 +10,7 @@ windows:
           /opt/local/sbin/httpd -d reverse-proxy -f conf/httpd.conf -e info -DFOREGROUND
         sleep 1
       done
-  7: 
+  7:
     name: tests
+    command: |
+      export LEIHS_MAIL_FAKE_SMTP_SERVER_POP3_PORT=110
