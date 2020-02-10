@@ -114,7 +114,7 @@ Feature: Global navbar
     Given there is a user with an ultimate access
     And firstname of the user is "Foo"
     And lastname of the user is "Bar"
-    And there is a language "Deutsch" with locale name "de-CH"
+    And there is a default language "Deutsch" with locale name "de-CH"
     And user's preferred language is "Deutsch"
     And I log in as the user
     When I visit "<subapp path>"

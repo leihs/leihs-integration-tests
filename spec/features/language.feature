@@ -7,10 +7,9 @@ Feature: Language
 
   Background:
     Given there is a user with an ultimate access
-    And there is a language "Deutsch" with locale name "de-CH"
+    And there is a default language "Deutsch" with locale name "de-CH"
     And there is a language "English" with locale name "en-GB"
     And there is a language "French" with locale name "fr-CH"
-    And the default language is "Deutsch"
 
   Scenario: Default language is used if user has no setting for it
     Given user does not have a prefered language
