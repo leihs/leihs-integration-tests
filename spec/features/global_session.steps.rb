@@ -28,7 +28,8 @@ step "I am logged out from :subpath" do |subpath|
     end
   when "/procure"
     visit subpath
-    expect(page).to have_content "NOT_AUTHENTICATED"
+    expect(current_path).to eq "/sign-in"
+    expect(page).to have_content "Anmelden bei leihs"
   else
     raise
   end
