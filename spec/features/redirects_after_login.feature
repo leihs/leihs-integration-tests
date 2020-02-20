@@ -61,13 +61,18 @@ Feature: Redirects after login
     When I log in as the user
     Then I am redirected to "/my/user/me"
 
-  Scenario: Redirect with return-to param
+  Scenario Outline: Redirect with return-to param
     Given there is an external authentication system "test ext auth"
+    And there is a user with an ultimate access
     And the external authentication system is configured for the user
-    When I visit "/app/borrow/about?foo=bar&baz=quux"
+    When I visit "<path>"
     Then I am redirected to sign in page
     When I enter my email address
     And I click on "Weiter"
     And I click on "test ext auth"
     And I confirm my identity
-    Then I am redirected to "/app/borrow/about?foo=bar&baz=quux"
+    Then I am redirected to "<path>"
+    Examples:
+      | path                               |
+      | /app/borrow/about?foo=bar&baz=quux |
+      | /procure/requests                  |
