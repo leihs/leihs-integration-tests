@@ -24,12 +24,12 @@ step 'I choose next next working day as end date' do
 end
 
 step 'I see one model with the title :name' do |name|
-  expect(all('.ui-model-grid-item').count).to eq 1
-  find('.ui-model-grid-item', text: name)
+  expect(all('.ui-models-list-item').count).to eq 1
+  find('.ui-models-list-item', text: name)
 end
 
 step 'I click on the model with the title :name' do |name|
-  find('.ui-model-grid-item', text: name).click
+  find('.ui-models-list-item', text: name).click
 end
 
 step 'the show page of the model :name was loaded' do |name|
