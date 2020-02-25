@@ -7,6 +7,7 @@ def wait_until(wait_time = 6, &block)
     value
   end
 rescue Timeout::Error => e
+  binding.pry
   raise Timeout::Error.new(block.source)
 end
 

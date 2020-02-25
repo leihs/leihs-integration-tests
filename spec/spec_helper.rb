@@ -6,6 +6,7 @@ require 'config/emails'
 require 'config/factories'
 require 'config/metadata_extractor'
 require 'config/screenshots'
+require 'shared/helpers'
 
 
 ACCEPTED_FIREFOX_ENV_PATHS = ['FIREFOX_ESR_60_PATH']

@@ -32,14 +32,16 @@ RSpec.configure do |config|
 
   config.before(type: :feature) do
 
-    fp = self.class.superclass.file_path
-    bn = File.basename(fp, '.feature')
-    dn = File.dirname(fp)
+    if ARGV.first.match? %r"feature$" # TURNIP FEATURE
+      fp = self.class.superclass.file_path
+      bn = File.basename(fp, '.feature')
+      dn = File.dirname(fp)
+      require_shared_files(dn)
+      feature_steps_file = "#{dn}/#{bn}.steps.rb"
+      require(feature_steps_file) if File.exist?(feature_steps_file)
+    elsif ARGV.first.match? %r"_spec\.rb$" # plain RSPEC FEATURE
 
-    require_shared_files(dn)
-
-    feature_steps_file = "#{dn}/#{bn}.steps.rb"
-    require(feature_steps_file) if File.exist?(feature_steps_file)
+    end
 
     Capybara.current_driver = :firefox
     begin
@@ -60,8 +62,7 @@ RSpec.configure do |config|
         take_screenshot('tmp/error-screenshots')
       end
     end
-
-    page.driver.quit # OPTIMIZE force close browser popups
+    page.driver.quit
     Capybara.current_driver = Capybara.default_driver
   end
 

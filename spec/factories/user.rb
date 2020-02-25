@@ -1,4 +1,5 @@
 class User < Sequel::Model
+  attr_accessor :password
   one_to_one :procurement_admin
 
   def name
@@ -38,7 +39,7 @@ FactoryBot.define do
           .first[:pw_hash]
 
         database[:authentication_systems_users].insert(
-          user_id: user.id, 
+          user_id: user.id,
           authentication_system_id: 'password',
           data: pw_hash
         )

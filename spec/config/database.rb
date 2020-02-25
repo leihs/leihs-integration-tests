@@ -1,6 +1,7 @@
 require 'sequel'
 require 'addressable'
 require_relative '../../../legacy/database/lib/leihs/constants'
+require '../database/lib/leihs/fields.rb'
 
 
 def database
@@ -24,18 +25,33 @@ end
 
 def reset_database
   clean_db
+  setup_fields
   set_settings
   resurrect_general_building
   resurrect_general_room_for_general_building
 end
 
 RSpec.configure do |config|
+  database.extension :pg_json
   config.before :each  do
     reset_database
   end
 end
 
 private
+
+def setup_fields
+  fields = Leihs::Fields.load
+  %w(fields_insert_check_trigger).each do |trigger|
+    database.run("ALTER TABLE fields DISABLE TRIGGER #{trigger}")
+  end
+  fields.each do |field|
+    Field.create(field)
+  end
+  %w(fields_insert_check_trigger).each do |trigger|
+    database.run("ALTER TABLE fields ENABLE TRIGGER #{trigger}")
+  end
+end
 
 def clean_db
   database[ <<-SQL.strip_heredoc
