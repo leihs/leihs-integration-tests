@@ -70,7 +70,7 @@ step "user's preferred language is :lang" do |lang|
 end
 
 step "user does not have a prefered language" do
-  expect(@user.language_id).to be_nil
+  expect(@user.reload.language_id).to be_nil
 end
 
 step "I log out" do

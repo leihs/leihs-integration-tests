@@ -32,7 +32,7 @@ RSpec.configure do |config|
 
   config.before(type: :feature) do
 
-    if ARGV.first.match? %r"feature$" # TURNIP FEATURE
+    if ARGV.first.match? %r"feature.*$" # TURNIP FEATURE
       fp = self.class.superclass.file_path
       bn = File.basename(fp, '.feature')
       dn = File.dirname(fp)
@@ -69,7 +69,7 @@ RSpec.configure do |config|
   #
   config.after(:each) do |example|
     # auto-pry after failures, except in CI!
-    unless (ENV['CIDER_CI_TRIAL_ID'].present? or ENV['NOPRY'].present?)
+    unless (ENV['CIDER_CI_TRIAL_ID'].present? or ENV['NOPRY_ON_EXCEPTION'].present?)
       unless example.exception.nil?
         puts decorate_exception(example.exception)
         binding.pry if example.exception

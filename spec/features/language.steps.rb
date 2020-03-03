@@ -3,6 +3,11 @@ step 'the saved language in my user profile is :lang' do |lang|
   expect(@user.reload.language_id).to eq l.id
 end
 
+step 'the saved language in my user profile is the default language' do
+  dl = Language.find(default: true)
+  expect(@user.reload.language_id).to eq dl.id
+end
+
 step 'the used language is the default language' do
   within '.ui-lang-selection' do
     current_scope.click
@@ -22,6 +27,10 @@ end
 
 step 'the default language is :lang' do |lang|
   Language.find(name: lang).update(default: true)
+end
+
+step 'the language :lang is deactivated' do |lang|
+  Language.find(name: lang).update(active: false)
 end
 
 step 'I switch the language to :lang' do |lang|

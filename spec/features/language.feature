@@ -68,3 +68,15 @@ Feature: Language
       | /procure          |
       | /manage           |
       | /my               |
+
+  Scenario: User with deactivated language should be able to change his language
+    Given user's preferred language is "English"
+    And the language "English" is deactivated
+    When I visit "/"
+    Then the used language is the default language
+    When I log in as the user
+    Then the used language is the default language
+    And user does not have a prefered language
+    When I switch the language to "French"
+    Then the used language is "French"
+    And the saved language in my user profile is "French"
