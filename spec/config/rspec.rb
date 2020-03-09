@@ -32,7 +32,7 @@ RSpec.configure do |config|
 
   config.before(type: :feature) do
 
-    if ARGV.first.match? %r"feature.*$" # TURNIP FEATURE
+    if ARGV.first.match? %r"feature[^/]*$" # TURNIP FEATURE
       fp = self.class.superclass.file_path
       bn = File.basename(fp, '.feature')
       dn = File.dirname(fp)
