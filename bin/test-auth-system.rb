@@ -65,8 +65,8 @@ get '/sign-in' do
 
   url = (token_data.first["server_base_url"] || 'http://localhost:3240') + token_data.first['path'] 
 
-  success_url = "#{url}?#{ {:token => success_token, :'return-to' => return_to}.to_param }"
-  fail_url = "#{url}?#{ {:token => fail_token, :'return-to' => return_to}.to_param }"
+  success_url = "#{url}?#{ {:token => success_token}.to_param }"
+  fail_url = "#{url}?#{ {:token => fail_token}.to_param }"
 
   html = 
     Haml::Engine.new(
