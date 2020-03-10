@@ -32,16 +32,9 @@ RSpec.configure do |config|
 
   config.before(type: :feature) do
 
-    if ARGV.first.match? %r"feature[^/]*$" # TURNIP FEATURE
-      fp = self.class.superclass.file_path
-      bn = File.basename(fp, '.feature')
-      dn = File.dirname(fp)
-      require_shared_files(dn)
-      feature_steps_file = "#{dn}/#{bn}.steps.rb"
-      require(feature_steps_file) if File.exist?(feature_steps_file)
-    elsif ARGV.first.match? %r"_spec\.rb$" # plain RSPEC FEATURE
-
-    end
+    feature_file_absolute = absolute_feature_file()
+    require_feature_steps feature_file_absolute
+    require_shared_files feature_file_absolute
 
     Capybara.current_driver = :firefox
     begin
@@ -79,18 +72,40 @@ RSpec.configure do |config|
 end
 
 
-# require files from any shared folders down the directory path
-def require_shared_files(dirpath)
-  shared_folders = []
+def absolute_feature_file
+    spec_file_argument = ARGV.first.split(':').first
 
-  dirpath.split("/").reduce do |acc, el|
-    sub_dir = "#{acc}/#{el}"
-    shared_folders.push "#{sub_dir}/shared"
-    sub_dir
-  end
+    feature_file_absolute =
+      if Pathname.new(spec_file_argument).absolute?
+        Pathname.new(spec_file_argument)
+      else
+        Pathname.pwd.join(spec_file_argument)
+      end
 
-  shared_folders.each do |sf|
-    Dir.glob("#{sf}/*.rb") { |f| require f }
+    unless feature_file_absolute.absolute? and feature_file_absolute.exist?
+      raise <<~ERR.strip
+        feature_file_absolute #{feature_file_absolute} must exist and be absolute
+        check arguments and #{__FILE__} code
+      ERR
+    end
+
+    feature_file_absolute
+end
+
+def require_feature_steps feature_file_absolute
+  feature_steps_file = feature_file_absolute.sub_ext(".steps.rb")
+  require(feature_steps_file) if feature_steps_file.exist?
+end
+
+
+def require_shared_files(feature_file_absolute)
+  features_dir = Pathname.pwd.join("spec", "features")
+  relative_dirs_to_feature_file = feature_file_absolute.relative_path_from(features_dir)
+  ([features_dir] + relative_dirs_to_feature_file.to_s.split(File::Separator)).reduce do |current_dir, sub|
+    current_dir.join("shared").glob('**/*.rb').each do |ruby_file|
+      require(ruby_file)
+    end
+    current_dir.join(sub)
   end
 end
 
