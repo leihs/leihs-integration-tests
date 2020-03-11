@@ -21,3 +21,12 @@ def assign_user_to_pool user, pool, role = 'customer'
   wait_until{ current_path == "/admin/inventory-pools/#{pool.id}/users/#{user.id}" }
 end
 
+
+def assign_group_to_pool group, pool, role = 'customer'
+  visit "/admin/inventory-pools/#{pool.id}/groups/#{group.id}/roles"
+  uncheck role
+  check role
+  click_on 'Save'
+  wait_until { GroupAccessRight.find(group_id: group.id, role: role) }
+end
+
