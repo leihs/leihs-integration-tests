@@ -1,3 +1,21 @@
+def set_pool_opening_hours pool, opening_hours = {}
+  opening_hours = {
+    "Monday": "Open",
+    "Tuesday": "Open",
+    "Wednesday": "Open",
+    "Thursday": "Open",
+    "Friday": "Open",
+    "Saturday": "Open",
+    "Sunday": "Open"
+  }.merge(opening_hours)
+  visit "/manage/inventory_pools/#{pool.id}/edit"
+  opening_hours.each do |day, status|
+    find('div.row.emboss', text: day).find(:option, status).select_option
+  end
+  click_on 'Save'
+  wait_until { page.has_content? "Inventory pool successfully updated" }
+end
+
 def create_a_model pool
   visit "/manage/#{@pool.id}/models/new"
   product = Faker::Commerce.unique.product_name
@@ -6,6 +24,7 @@ def create_a_model pool
   wait_until { page.has_content? 'Model saved'}
   LeihsModel.find(product: product)
 end
+
 
 def create_an_item pool, model
   visit "/manage/#{@pool.id}/items/new"
