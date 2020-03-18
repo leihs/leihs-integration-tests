@@ -46,6 +46,7 @@ feature 'full cycle' do
     #################################################################
 
     sign_in_as @inventory_manager, @pool
+    set_pool_opening_hours @pool
     @model = create_a_model @pool
     @item = create_an_item @pool, @model
     sign_out
