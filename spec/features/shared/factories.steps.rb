@@ -77,7 +77,6 @@ step "the user is inventory manager of pool :name" do |name|
   pool = InventoryPool.find(name: name) ||
     FactoryBot.create(:inventory_pool, name: name)
 
-  FactoryBot.create(:workday, inventory_pool_id: pool.id)
   FactoryBot.create(:access_right,
                     user_id: @user.id,
                     inventory_pool_id: pool.id,
