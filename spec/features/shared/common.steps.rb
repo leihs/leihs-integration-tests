@@ -78,3 +78,15 @@ step "I log out" do
   find(".fa-user-circle").click
   click_on "Logout"
 end
+
+step "I wait for :n seconds?" do |n|
+  sleep(n.to_i)
+end
+
+step "I eval :code" do |code|
+  eval(code)
+end
+
+step "I click button :name" do |name|
+  click_button(name)
+end

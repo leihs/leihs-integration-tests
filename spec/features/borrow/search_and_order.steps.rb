@@ -108,3 +108,21 @@ end
 step 'the maximum quantity shows :n' do |n|
   expect(page).to have_content /#{n}.max/
 end
+
+step 'the search filters are persisted in the url' do
+  p_hash = Rack::Utils.parse_nested_query(URI.parse(current_url).query)
+  expect(p_hash).to eq({
+    "start-date" => Date.today.to_s,
+    "end-date" => Date.tomorrow.to_s,
+    "term" => "Kamera"
+  })
+end
+
+step "I clear ls from the borrow app-db" do
+  find('.ui-menu-icon').click
+  click_on('Clear :ls')
+end
+
+step 'I visit the url with query params for dates as before but :m_name as term' do |m_name|
+  visit "/app/borrow/?start-date=#{Date.today}&end-date=#{Date.tomorrow}&term=#{m_name}"
+end

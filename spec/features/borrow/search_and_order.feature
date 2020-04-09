@@ -19,8 +19,9 @@ Feature: Search and order
     And I enter "Kamera" in the search field
     And I choose next working day as start date
     And I choose next next working day as end date
-    And I click on "Get Results"
+    And I click button "Get Results"
     Then I see one model with the title "Kamera"
+    And the search filters are persisted in the url
 
     # make a reservation
     When I click on the model with the title "Kamera"
@@ -49,8 +50,13 @@ Feature: Search and order
     Then "Kamera" is pre-filled as the search term
     And the start date chosen on the previous screen is pre-filled
     And the end date chosen on the previous screen is pre-filled
-    When I enter "Beamer" in the search field
-    And I click on "Get Results"
+      # test query params and filters
+      When I clear ls from the borrow app-db
+      And I visit the url with query params for dates as before but "Beamer" as term
+      Then "Beamer" is pre-filled as the search term
+      And the start date chosen on the previous screen is pre-filled
+      And the end date chosen on the previous screen is pre-filled
+    And I click button "Get Results"
     Then I see one model with the title "Beamer"
     When I click on the model with the title "Beamer"
     And I set the quantity to 1
