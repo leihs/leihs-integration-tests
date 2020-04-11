@@ -14,7 +14,7 @@ end
 
 
 def assign_user_to_pool user, pool, role = 'customer'
-  visit "/admin/inventory-pools/#{pool.id}/users/#{user.id}/roles"
+  visit "/admin/inventory-pools/#{pool.id}/users/#{user.id}/direct-roles"
   uncheck role
   check role
   click_on 'Save'

@@ -1,16 +1,17 @@
-def add_user
+def add_user opts={}
+  opts= opts.with_indifferent_access
   visit '/admin/'
   click_on 'Users'
   click_on 'Add'
-  email = Faker::Internet.unique.email
+  email = opts[:email] || Faker::Internet.unique.email
   fill_in 'email', with: email
-  fill_in 'firstname', with: Faker::Name.unique.first_name
-  fill_in 'lastname', with: Faker::Name.unique.last_name
+  fill_in 'firstname', with: (opts[:firstname] || Faker::Name.unique.first_name)
+  fill_in 'lastname', with: (opts[:lastname] || Faker::Name.unique.last_name)
   click_on 'Create'
   wait_until { current_path.match? %r'/admin/users/[^/]+' }
   wait_until { User.where(email: email).first }
   user = User.where(email: email).first
-  user.password = Faker::Internet.password
+  user.password = (opts[:password] || Faker::Internet.password)
   click_on 'User-Home'
   click_on 'Password'
   fill_in 'New password', with: user.password
