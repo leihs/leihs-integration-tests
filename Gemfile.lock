@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/leihs/turnip.git
+  remote: https://github.com/leihs/turnip
   revision: c2411d1f14e47bf1862651372c15db8ba4f43275
   branch: ambiguous-steps
   specs:
