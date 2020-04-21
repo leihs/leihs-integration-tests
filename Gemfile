@@ -16,6 +16,7 @@ gem 'pg', '~> 1.1', platform: :mri
 # factories
 gem 'factory_bot'
 gem 'faker'
+gem 'timecop'
 
 # helpers
 gem 'activesupport', '~> 5.2'
@@ -28,3 +29,4 @@ gem "post_office"
 gem 'haml'
 gem 'jwt'
 gem 'sinatra'
+
