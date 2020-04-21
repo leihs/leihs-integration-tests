@@ -42,9 +42,6 @@ Feature: Search and order
     # And the start date is the one chosen before
     # And the end date is the one chosen before
 
-    # change the quantity and the dates of a reservation in the cart
-    # ...
-    
     # make a reservation for another model
     When I click on "LEIHS"
     Then "Kamera" is pre-filled as the search term
@@ -53,6 +50,7 @@ Feature: Search and order
       # test query params and filters
       When I clear ls from the borrow app-db
       And I visit the url with query params for dates as before but "Beamer" as term
+      And I wait for "1" second
       Then "Beamer" is pre-filled as the search term
       And the start date chosen on the previous screen is pre-filled
       And the end date chosen on the previous screen is pre-filled
@@ -68,9 +66,17 @@ Feature: Search and order
     Then the cart page is loaded
     And I see one reservation for model "Beamer"
 
+    # change the quantity and the dates of a reservation in the cart
+    When I click on "Edit" for the model "Kamera"
+    When I increase the start date by 1 day for the model "Kamera"
+    And I increase the end date by 1 day for the model "Kamera"
+    And I set the quantity to 4
+    And I click on "Update"
+    Then the reservation data was updated successfully for model "Kamera"
+
     # delete a reservation
-    And I delete the reservation for model "Kamera"
-    Then the reservation for model "Kamera" was deleted from the cart
+    And I delete the reservation for model "Beamer"
+    Then the reservation for model "Beamer" was deleted from the cart
 
     # submit the order
     When I name the order as "My order"
@@ -86,3 +92,7 @@ Feature: Search and order
     And I click on the menu
     And I click on "Orders"
     Then I see the order "My order" under approved orders
+
+    # check the content of the order
+    When I click on "My order"
+    Then I see "4" times "Kamera"

@@ -79,8 +79,12 @@ step "I log out" do
   click_on "Logout"
 end
 
-step "I wait for :n seconds?" do |n|
-  sleep(n.to_i)
+step "(I )sleep :n" do |n|
+  sleep n.to_f
+end
+
+step "I wait for :n second(s)" do |n|
+  step "sleep #{n}"
 end
 
 step "I eval :code" do |code|

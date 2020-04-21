@@ -126,3 +126,33 @@ end
 step 'I visit the url with query params for dates as before but :m_name as term' do |m_name|
   visit "/app/borrow/?start-date=#{Date.today}&end-date=#{Date.tomorrow}&term=#{m_name}"
 end
+
+step 'I click on :label for the model :name' do |label, name|
+  find(".flex-row", text: name).click_button("Edit")
+end
+
+step 'I increase the start date by 1 day for the model :name' do |name|
+  fill_in('from', with: Date.tomorrow.to_s)
+end
+
+step 'I increase the end date by 1 day for the model :name' do |name|
+  fill_in('until', with: (Date.tomorrow + 1.day).to_s)
+end
+
+step 'the reservation data was updated successfully for model :name' do |name|
+  within find('.flex-1', text: 'Kamera') do
+    s = Date.tomorrow.strftime('%-m/%d/%Y')
+    e = (Date.tomorrow + 1.day).strftime('%-m/%d/%Y')
+    expect(current_scope).to have_content(/#{s}...#{e}/)
+    expect(current_scope).to have_content('4 Items')
+  end
+end
+
+step "I see :n times :name" do |n, name|
+  pre = find("pre").text
+  o = JSON.parse(pre).deep_symbolize_keys
+  rs = o[:subOrdersByPool].first[:reservations]
+  expect(rs.count).to eq 4
+  m = LeihsModel.find(product: name)
+  expect(rs.map { |r| r[:model][:id] }.uniq).to eq [m.id]
+end
