@@ -30,3 +30,4 @@ gem 'haml'
 gem 'jwt'
 gem 'sinatra'
 
+gem 'prettier'
