@@ -3,6 +3,7 @@ require 'pry'
 
 require 'config/database'
 require 'config/emails'
+require 'config/file_artefacts'
 require 'config/factories'
 require 'config/metadata_extractor'
 require 'config/screenshots'

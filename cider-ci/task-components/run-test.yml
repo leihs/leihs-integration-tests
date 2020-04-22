@@ -1,4 +1,10 @@
 trial_attachments:
+  artefacts:
+    include_match: tmp\/spec-artefacts\/.*$
+    content_type: application/octet-stream
+  artefacts_json:
+    include_match: tmp\/spec-artefacts\/.*\.json$
+    content_type: application/json
   screenshots:
     include_match: tmp\/(.*-|)screenshots\/.*\.png$
     content_type: image/png
