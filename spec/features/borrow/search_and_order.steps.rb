@@ -141,8 +141,8 @@ end
 
 step 'the reservation data was updated successfully for model :name' do |name|
   within find('.flex-1', text: 'Kamera') do
-    s = Date.tomorrow.strftime('%-m/%d/%Y')
-    e = (Date.tomorrow + 1.day).strftime('%-m/%d/%Y')
+    s = Date.tomorrow.strftime('%-m/%-d/%Y')
+    e = (Date.tomorrow + 1.day).strftime('%-m/%-d/%Y')
     expect(current_scope).to have_content(/#{s}...#{e}/)
     expect(current_scope).to have_content('4 Items')
   end
