@@ -11,12 +11,12 @@ Feature: Search and order
     And there are 4 borrowable items for model "Kamera" in pool "Pool A"
     And there is a model "Beamer"
     And there is 1 borrowable item for model "Beamer" in pool "Pool A"
-
     When I log in as the user
 
     # search for a model
     And I visit "/app/borrow/"
     And I enter "Kamera" in the search field
+    And I choose to filter by availabilty
     And I choose next working day as start date
     And I choose next next working day as end date
     And I click button "Get Results"

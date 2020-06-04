@@ -15,12 +15,17 @@ step 'I enter :term in the search field' do |term|
   fill_in('Suche', with: term)
 end
 
+step 'I choose to filter by availabilty' do
+  # find('input[name="only-available"]').click
+  find('label.custom-checkbox', text: "nur Verfügbare anzeigen").click
+end
+
 step 'I choose next working day as start date' do
-  fill_in('Start-datum', with: Date.today.to_s)
+  fill_in('von', with: Date.today.to_s)
 end
 
 step 'I choose next next working day as end date' do
-  fill_in('End-datum', with: Date.tomorrow.to_s)
+  fill_in('bis', with: Date.tomorrow.to_s)
 end
 
 step 'I see one model with the title :name' do |name|
@@ -112,6 +117,8 @@ end
 step 'the search filters are persisted in the url' do
   p_hash = Rack::Utils.parse_nested_query(URI.parse(current_url).query)
   expect(p_hash).to eq({
+    "available-between?"=>"true",
+    "quantity" => "1",
     "start-date" => Date.today.to_s,
     "end-date" => Date.tomorrow.to_s,
     "term" => "Kamera"

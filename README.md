@@ -21,7 +21,8 @@ Everything must be started manually, which is the most efficient way to run then
 ```shell
 export LEIHS_HTTP_PORT='3200' # must match reverse proxy!
 export LEIHS_HOST_PORT_POSTGRES='5432'
-export LEIHS_DATABASE_URL="jdbc:postgresql://localhost:5432/leihs_test?max-pool-size=5"
+export DATABASE_URL="postgresql://localhost:5432/leihs_test?max-pool-size=5"
+export LEIHS_DATABASE_URL="jdbc:${DATABASE_URL}"
 export LEIHS_MAIL_FAKE_SMTP_SERVER_PORT='4465'
 export LEIHS_MAIL_FAKE_SMTP_SERVER_POP3_PORT='4995'
 export LEIHS_MAIL_SMTP_PORT=4465
