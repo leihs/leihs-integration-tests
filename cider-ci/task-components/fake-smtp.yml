@@ -9,8 +9,8 @@ scripts:
       export PATH=~/.rubies/$RUBY/bin:$PATH
 
       bundle exec post_office -v \
-        -s "$LEIHS_MAIL_FAKE_SMTP_SERVER_PORT" \
-        -p "$LEIHS_MAIL_FAKE_SMTP_SERVER_POP3_PORT"
+        -s "$LEIHS_MAIL_SMTP_PORT" \
+        -p "$LEIHS_MAIL_POP3_PORT"
 
       # exit OK if server was killed via SIGTERM!
       test $? -eq 143 && { echo OK; exit 0 ;} || { echo FAILED; exit 1 ;}
@@ -34,10 +34,10 @@ scripts:
       set -eux
 
       # debug
-      echo "$(lsof -t -wni tcp:${LEIHS_MAIL_FAKE_SMTP_SERVER_PORT})"
+      echo "$(lsof -t -wni tcp:${LEIHS_MAIL_SMTP_PORT})"
       ps aux | grep post_office
 
-      kill -SIGTERM $(lsof -t -wni tcp:${LEIHS_MAIL_FAKE_SMTP_SERVER_PORT} | sort | tail -1)
+      kill -SIGTERM $(lsof -t -wni tcp:${LEIHS_MAIL_SMTP_PORT} | sort | tail -1)
       sleep 1
 
   test:

@@ -23,10 +23,8 @@ export LEIHS_HTTP_PORT='3200' # must match reverse proxy!
 export LEIHS_HOST_PORT_POSTGRES='5432'
 export DATABASE_URL="postgresql://localhost:5432/leihs_test?max-pool-size=5"
 export LEIHS_DATABASE_URL="jdbc:${DATABASE_URL}"
-export LEIHS_MAIL_FAKE_SMTP_SERVER_PORT='4465'
-export LEIHS_MAIL_FAKE_SMTP_SERVER_POP3_PORT='4995'
-export LEIHS_MAIL_SMTP_PORT=4465
-export LEIHS_MAIL_POP3_PORT=4995
+export LEIHS_MAIL_SMTP_PORT='4465'
+export LEIHS_MAIL_POP3_PORT='4995'
 
 # make sure to set correct Firefox Path
 export FIREFOX_ESR_60_PATH="/Applications/Firefox ESR 60.app/Contents/MacOS/firefox-bin"
