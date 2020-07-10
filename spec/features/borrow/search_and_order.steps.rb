@@ -131,7 +131,7 @@ step "I clear ls from the borrow app-db" do
 end
 
 step 'I visit the url with query params for dates as before but :m_name as term' do |m_name|
-  visit "/app/borrow/?start-date=#{Date.today}&end-date=#{Date.tomorrow}&term=#{m_name}"
+  visit "/app/borrow/?available-between%3F=true&start-date=#{Date.today}&end-date=#{Date.tomorrow}&term=#{m_name}"
 end
 
 step 'I click on :label for the model :name' do |label, name|
