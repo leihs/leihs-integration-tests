@@ -158,7 +158,7 @@ end
 step "I see :n times :name" do |n, name|
   pre = find("pre").text
   o = JSON.parse(pre).deep_symbolize_keys
-  rs = o[:subOrdersByPool].first[:reservations]
+  rs = o[:"sub-orders-by-pool"].first[:reservations]
   expect(rs.count).to eq 4
   m = LeihsModel.find(product: name)
   expect(rs.map { |r| r[:model][:id] }.uniq).to eq [m.id]
