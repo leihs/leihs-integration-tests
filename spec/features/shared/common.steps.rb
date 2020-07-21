@@ -14,6 +14,10 @@ step "I click on :txt" do |txt|
   click_on txt
 end
 
+step "I check :txt" do |txt|
+  check txt
+end
+
 step "I click on :txt and accept the alert" do |txt|
   accept_alert { click_on txt }
 end
@@ -48,6 +52,7 @@ step "I see :txt" do |txt|
 end
 
 step "I log in with the email :email" do |email|
+  @current_user = User.find(email: email)
   visit '/'
   click_on 'Login'
   within('.ui-form-signin') do
@@ -77,4 +82,42 @@ step "I log out" do
   visit "/my/user/me"
   find(".fa-user-circle").click
   click_on "Logout"
+end
+
+step "(I )sleep :n" do |n|
+  sleep n.to_f
+end
+
+step "I wait for :n second(s)" do |n|
+  step "sleep #{n}"
+end
+
+step "I eval :code" do |code|
+  eval(code)
+end
+
+step "I click button :name" do |name|
+  click_button(name)
+end
+
+step 'there is an error message' do
+  page.has_content?(/error/i)
+end
+
+step 'I log in as the initial admin' do
+  step "I log in with the email '#{@initial_admin.email}'"
+end
+
+step 'I log in as the leihs admin' do
+  step "I log in with the email '#{@leihs_admin.email}'"
+end
+
+step "I fill out the form with:" do |table|
+  fill_form_with_table(table)
+end
+
+def fill_form_with_table(table)
+  table.hashes.each do |row|
+    fill_in(row['field'], with: row['value'])
+  end
 end

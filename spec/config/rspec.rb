@@ -33,8 +33,8 @@ RSpec.configure do |config|
   config.before(type: :feature) do
 
     feature_file_absolute = absolute_feature_file()
-    require_feature_steps feature_file_absolute
     require_shared_files feature_file_absolute
+    require_feature_steps feature_file_absolute
 
     Capybara.current_driver = :firefox
     begin

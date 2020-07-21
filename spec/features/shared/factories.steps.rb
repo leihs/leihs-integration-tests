@@ -148,3 +148,24 @@ end
 step 'there is a model :name' do |name|
   FactoryBot.create(:leihs_model, product: name)
 end
+
+step "there are meta mail templates" do
+  Language.all.each do |lang|
+    [[:approved, :order],
+     [:received, :order],
+     [:rejected, :order],
+     [:submitted, :order],
+     [:deadline_soon_reminder, :user],
+     [:reminder, :user]].each do |tmpl, type|
+      FactoryBot.create(:mail_template,
+                        is_template_template: true,
+                        language_id: lang.id,
+                        name: tmpl,
+                        type: type,
+                        format: :text,
+                        body: "template stub",
+                        created_at: DateTime.now,
+                        updated_at: DateTime.now)
+    end
+  end
+end
