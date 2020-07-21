@@ -1,8 +1,8 @@
-class Supplier < Sequel::Model
+class Building < Sequel::Model
 end
 
 FactoryBot.define do
-  factory :supplier do
-    name { Faker::Company.name }
+  factory :building do
+    name { Faker::Address.street_address }
   end
 end

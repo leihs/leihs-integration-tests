@@ -1,11 +1,8 @@
-class Room < Sequel::Model
-  many_to_one :building
+class Supplier < Sequel::Model
 end
 
 FactoryBot.define do
-  factory :room do
-    name { Faker::House.room }
-    building
-    general { false }
+  factory :supplier do
+    name { Faker::Company.name }
   end
 end
