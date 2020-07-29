@@ -157,7 +157,7 @@ step 'the reservation data was updated successfully for model :name' do |name|
 end
 
 step "I see :n times :name" do |n, name|
-  pre = find("pre").text
+  pre = find("pre", match: :first).text
   o = JSON.parse(pre).deep_symbolize_keys
   rs = o[:"sub-orders-by-pool"].first[:reservations]
   expect(rs.count).to eq 4
