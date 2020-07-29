@@ -121,7 +121,8 @@ step 'the search filters are persisted in the url' do
     "quantity" => "1",
     "start-date" => Date.today.to_s,
     "end-date" => Date.tomorrow.to_s,
-    "term" => "Kamera"
+    "term" => "Kamera",
+    "user-id" => @user.id
   })
 end
 
