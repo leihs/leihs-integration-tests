@@ -42,11 +42,11 @@ step 'the show page of the model :name was loaded' do |name|
 end
 
 step 'the start date chosen on the previous screen is pre-filled' do
-  expect(find("input[name='start-date']").value).to eq Date.today.to_s
+  expect(find(".rdrDateDisplay .rdrDateInput:first-child input").value).to eq Date.today.strftime('%b %e, %Y')
 end
 
 step 'the end date chosen on the previous screen is pre-filled' do
-  expect(find("input[name='end-date']").value).to eq Date.tomorrow.to_s
+  expect(find(".rdrDateDisplay .rdrDateInput:last-child input").value).to eq Date.tomorrow.strftime('%b %e, %Y')
 end
 
 step 'I set the quantity to :n' do |n|

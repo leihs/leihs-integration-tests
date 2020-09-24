@@ -30,7 +30,7 @@ Feature: Search and order
     And the end date chosen on the previous screen is pre-filled
     And the maximum quantity shows 4
     When I set the quantity to 3
-    And I click on "Order" and accept the alert
+    And I click on "Add" and accept the alert
     Then the maximum quantity shows 1
 
     # check the cart
