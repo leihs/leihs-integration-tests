@@ -41,16 +41,32 @@ step 'the show page of the model :name was loaded' do |name|
   find('header', text: name)
 end
 
-step 'the start date chosen on the previous screen is pre-filled' do
-  expect(find("input[name='start-date']").value).to eq Date.today.to_s
+step 'the start date chosen previously is pre-filled in the calendar' do
+  expect(find(".rdrDateDisplay .rdrDateInput:first-child input").value).to eq Date.today.strftime('%b %-d, %Y')
 end
 
-step 'the end date chosen on the previous screen is pre-filled' do
-  expect(find("input[name='end-date']").value).to eq Date.tomorrow.to_s
+step 'the end date chosen previously is pre-filled in the calendar' do
+  expect(find(".rdrDateDisplay .rdrDateInput:last-child input").value).to eq Date.tomorrow.strftime('%b %-d, %Y')
+end
+
+step 'the start date chosen previously is pre-filled in the search panel' do
+  within('form[action="/search"]') do
+    expect(find_field("From").value).to eq Date.today.to_s
+  end
+end
+
+step 'the end date chosen previously is pre-filled in the search panel' do
+  within('form[action="/search"]') do
+    expect(find_field("Until").value).to eq Date.tomorrow.to_s
+  end
 end
 
 step 'I set the quantity to :n' do |n|
-  find("input[name='quantity']").set(n)
+  find_field("Quantity").set(n)
+end
+
+step 'I set the quantity in the cart line to :n' do |n|
+  find_field("quantity").set(n)
 end
 
 step 'I click on :text and accept the alert' do |text|

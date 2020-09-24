@@ -5,6 +5,7 @@ Feature: Search and order
     And there is a user
     And there is an inventory pool "Pool A"
     And the user is inventory manager of pool "Pool A"
+    And there is a default language "English" with locale name "en-GB"
 
   Scenario: Search and order
     Given there is a model "Kamera"
@@ -26,12 +27,12 @@ Feature: Search and order
     # make a reservation
     When I click on the model with the title "Kamera"
     Then the show page of the model "Kamera" was loaded
-    And the start date chosen on the previous screen is pre-filled
-    And the end date chosen on the previous screen is pre-filled
-    And the maximum quantity shows 4
+    And the start date chosen previously is pre-filled in the calendar
+    And the end date chosen previously is pre-filled in the calendar
+    # PENDING: And the maximum quantity shows 4
     When I set the quantity to 3
-    And I click on "Order" and accept the alert
-    Then the maximum quantity shows 1
+    And I click on "Add" and accept the alert
+    # PENDING: Then the maximum quantity shows 1
 
     # check the cart
     When I click on the menu
@@ -45,20 +46,20 @@ Feature: Search and order
     # make a reservation for another model
     When I click on "LEIHS"
     Then "Kamera" is pre-filled as the search term
-    And the start date chosen on the previous screen is pre-filled
-    And the end date chosen on the previous screen is pre-filled
+    And the start date chosen previously is pre-filled in the search panel
+    And the end date chosen previously is pre-filled in the search panel
       # test query params and filters
       When I clear ls from the borrow app-db
       And I visit the url with query params for dates as before but "Beamer" as term
       And I wait for "1" second
       Then "Beamer" is pre-filled as the search term
-      And the start date chosen on the previous screen is pre-filled
-      And the end date chosen on the previous screen is pre-filled
+      And the start date chosen previously is pre-filled in the search panel
+      And the end date chosen previously is pre-filled in the search panel
     And I click button "Get Results"
     Then I see one model with the title "Beamer"
     When I click on the model with the title "Beamer"
     And I set the quantity to 1
-    And I click on "Order" and accept the alert
+    And I click on "Add" and accept the alert
 
     # check the cart
     When I click on the menu
@@ -70,7 +71,8 @@ Feature: Search and order
     When I click on "Edit" for the model "Kamera"
     When I increase the start date by 1 day for the model "Kamera"
     And I increase the end date by 1 day for the model "Kamera"
-    And I set the quantity to 4
+    # And I pry
+    And I set the quantity in the cart line to 4
     And I click on "Update"
     Then the reservation data was updated successfully for model "Kamera"
 
