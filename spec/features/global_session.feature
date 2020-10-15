@@ -2,21 +2,24 @@ Feature: Global session
 
   If one logs in as a user who has access to all subapps, then should be logged in for every subapp. Also, if one logs out from any subapp, then one should be logged out for every subapp.
 
-  Scenario Outline: Logged in everywhere
+  Background:
     Given there is a user with an ultimate access
+    And there is a default language "English" with locale name "en-GB"
+
+  Scenario Outline: Logged in everywhere
     When I log in as the user
     And I visit "<subapp path>"
     Then I am logged in for the subapp "<subapp path>"
     Examples:
       | subapp path       |
       | /admin/           |
+      | /app/borrow       |
       | /borrow           |
       | /procure          |
       | /manage           |
       | /my               |
 
   Scenario Outline: Log out from a particular subapp and thus everywhere
-    Given there is a user with an ultimate access
     When I log in as the user
     And I visit "<subapp path>"
     And I log out from "<subapp path>"

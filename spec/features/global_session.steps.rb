@@ -9,6 +9,9 @@ step "I am logged in for the subapp :subapp" do |subapp|
     within "nav.topbar" do
       expect(current_scope).to have_content @user.short_name
     end
+  when "/app/borrow"
+    visit("#{subapp}/current-user")
+    expect(page).to have_content @user.email
   else
     raise
   end
@@ -29,7 +32,7 @@ step "I am logged out from :subpath" do |subpath|
   when "/procure"
     visit subpath
     expect(current_path).to eq "/sign-in"
-    expect(page).to have_content "Anmelden bei leihs"
+    expect(page).to have_content "Log into leihs"
   else
     raise
   end
@@ -42,11 +45,14 @@ step "I log out from :subpath" do |subpath|
       find(".fa-user-circle").click
       click_on "Logout"
     end
-  when"/borrow", "/manage"
+  when "/borrow", "/manage"
     within "nav.topbar" do
       find(".topbar-item", text: @user.short_name).hover
       click_on "Logout"
     end
+  when "/app/borrow"
+    visit "#{subpath}/about"
+    click_on "Logout"
   else
     raise
   end
