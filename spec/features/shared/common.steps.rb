@@ -14,6 +14,10 @@ step "I click on :txt" do |txt|
   click_on txt
 end
 
+step "I select :option from :from" do |option, from|
+  select(option, from: from)
+end
+
 step "I check :txt" do |txt|
   check txt
 end

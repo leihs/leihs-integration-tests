@@ -21,7 +21,7 @@ Feature: Inventory pools
     And I click on "Add"
     Then I am on the show page of the pool "New Pool"
     And I click on "Users"
-    And I click on "none"
+    And I click on "details"
     And I click on "Direct Roles" within the navigation
     And I check "inventory_manager"
     And I click on "Save"

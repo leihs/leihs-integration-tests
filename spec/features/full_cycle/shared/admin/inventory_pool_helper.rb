@@ -18,7 +18,10 @@ def assign_user_to_pool user, pool, role = 'customer'
   uncheck role
   check role
   click_on 'Save'
-  wait_until{ current_path == "/admin/inventory-pools/#{pool.id}/users/#{user.id}" }
+  visit "/admin/inventory-pools/#{pool.id}/users/#{user.id}"
+  within ".effective-roles" do
+    expect(find_field(role, disabled: true)).to be_checked
+  end
 end
 
 
