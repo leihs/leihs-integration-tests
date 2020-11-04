@@ -158,7 +158,7 @@ step "there are meta mail templates" do
      [:reminder, :user]].each do |tmpl, type|
       FactoryBot.create(:mail_template,
                         is_template_template: true,
-                        language_id: lang.id,
+                        language_locale: lang.locale,
                         name: tmpl,
                         type: type,
                         format: :text,

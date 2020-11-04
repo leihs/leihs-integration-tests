@@ -1,11 +1,11 @@
 step 'the saved language in my user profile is :lang' do |lang|
   l = Language.find(name: lang)
-  expect(@user.reload.language_id).to eq l.id
+  expect(@user.reload.language_locale).to eq l.locale
 end
 
 step 'the saved language in my user profile is the default language' do
   dl = Language.find(default: true)
-  expect(@user.reload.language_id).to eq dl.id
+  expect(@user.reload.language_locale).to eq dl.id
 end
 
 step 'the used language is the default language' do
