@@ -49,7 +49,7 @@ step "there is a default language :lang with locale name :l_name" do |lang, l_na
     FactoryBot.create(:language,
                       name: lang,
                       default: true,
-                      locale_name: l_name)
+                      locale: l_name)
   end
 end
 
@@ -57,7 +57,7 @@ step "there is a language :lang with locale name :l_name" do |lang, l_name|
   unless Language.find(name: lang)
     FactoryBot.create(:language,
                       name: lang,
-                      locale_name: l_name)
+                      locale: l_name)
   end
 end
 

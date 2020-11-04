@@ -8,8 +8,8 @@ FactoryBot.define do
     default { false }
 
     after :build do |lang|
-      unless lang.locale_name
-        lang.locale_name = lang.name[0..1].downcase
+      unless lang.locale
+        lang.locale = lang.name[0..1].downcase
       end
     end
   end
