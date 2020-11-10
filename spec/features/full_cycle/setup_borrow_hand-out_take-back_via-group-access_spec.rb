@@ -4,6 +4,7 @@ require 'pry'
 feature 'full cycle' do
 
   scenario 'setup leihs, create users with direct roles, create inventory, order, hand out, take back' do
+    set_default_locale("en-GB")
 
     #################################################################
     # the admin creates users, sets roles, and permissions

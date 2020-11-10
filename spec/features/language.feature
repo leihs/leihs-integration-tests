@@ -7,8 +7,7 @@ Feature: Language
 
   Background:
     Given there is a user with an ultimate access
-    And there is a default language "Deutsch" with locale name "de-CH"
-    And there is a language "English" with locale name "en-GB"
+    And the default locale is "de-CH"
     And there is a language "French" with locale name "fr-CH"
 
   Scenario: Default language is used if user has no setting for it
@@ -27,15 +26,15 @@ Feature: Language
     And the saved language in my user profile is "French"
 
   Scenario: After login the saved language is used
-    Given user's preferred language is "English"
+    Given user's preferred language is "English (UK)"
     When I visit "/"
     Then the used language is the default language
     When I log in as the user
-    Then the used language is "English"
-    And the saved language in my user profile is "English"
+    Then the used language is "English (UK)"
+    And the saved language in my user profile is "English (UK)"
 
   Scenario: Changing language before logging in updates it in profile
-    Given user's preferred language is "English"
+    Given user's preferred language is "English (UK)"
     When I visit "/"
     Then the used language is the default language
     When I switch the language to "French"
@@ -45,22 +44,22 @@ Feature: Language
     And the saved language in my user profile is "French"
 
   Scenario: After logout the saved language is still used
-    Given user's preferred language is "English"
+    Given user's preferred language is "English (UK)"
     When I log in as the user
-    Then the used language is "English"
+    Then the used language is "English (UK)"
     When I log out
-    Then the saved language in my user profile is "English"
+    Then the saved language in my user profile is "English (UK)"
 
   Scenario Outline: Switching the language when logged in applies it for all subapps.
     Given user's preferred language is "French"
     When I log in as the user
     And I visit "<subapp path>"
-    And I change the language to "English" in "<subapp path>"
-    Then the language was changed to "English" in "<subapp path>"
-    And the language was changed to "English" everywhere
+    And I change the language to "English (UK)" in "<subapp path>"
+    Then the language was changed to "English (UK)" in "<subapp path>"
+    And the language was changed to "English (UK)" everywhere
     When I log out
     And I log in as the user
-    Then the current language is "English"
+    Then the current language is "English (UK)"
     Examples:
       | subapp path       |
       | /admin/           |
@@ -70,8 +69,8 @@ Feature: Language
       | /my               |
 
   Scenario: User with deactivated language should be able to change his language
-    Given user's preferred language is "English"
-    And the language "English" is deactivated
+    Given user's preferred language is "English (UK)"
+    And the language "English (UK)" is deactivated
     When I visit "/"
     Then the used language is the default language
     When I log in as the user

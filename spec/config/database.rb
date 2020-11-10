@@ -3,14 +3,19 @@ require 'addressable'
 require_relative '../../../legacy/database/lib/leihs/constants'
 require '../database/lib/leihs/fields.rb'
 
+DB_ENV = ENV['LEIHS_DATABASE_URL'].presence
+
+def http_uri
+  @http_uri ||= \
+    Addressable::URI.parse DB_ENV.gsub(/^jdbc:postgresql/,'http').gsub(/^postgres/,'http')
+end
 
 def database
   @database ||= \
     Sequel.connect(
-      if (db_env = ENV['LEIHS_DATABASE_URL'].presence)
+      if DB_ENV
         # trick Addressable to parse db urls
-        http_uri = Addressable::URI.parse db_env.gsub(/^jdbc:postgresql/,'http').gsub(/^postgres/,'http')
-        db_url = 'postgres://' \
+        'postgres://' \
           + (http_uri.user.presence || ENV['PGUSER'].presence || 'postgres') \
           + ((pw = (http_uri.password.presence || ENV['PGPASSWORD'].presence)) ? ":#{pw}" : "") \
           + '@' + (http_uri.host.presence || ENV['PGHOST'].presence || ENV['PGHOSTADDR'].presence || 'localhost') \
@@ -23,34 +28,27 @@ def database
     )
 end
 
-def reset_database
-  clean_db
-  setup_fields
-  set_settings
-  resurrect_general_building
-  resurrect_general_room_for_general_building
-end
-
 RSpec.configure do |config|
   database.extension :pg_json
   config.before :each  do
-    reset_database
+    clean_db
+    system("DATABASE_NAME=#{http_uri.basename} ../database/scripts/restore-seeds")
+    set_default_locale('de-CH')
+    Setting.first.update(external_base_url: LEIHS_HTTP_BASE_URL)
   end
 end
 
-private
-
-def setup_fields
-  fields = Leihs::Fields.load
-  %w(fields_insert_check_trigger).each do |trigger|
-    database.run("ALTER TABLE fields DISABLE TRIGGER #{trigger}")
-  end
-  fields.each do |field|
-    Field.create(field)
-  end
-  %w(fields_insert_check_trigger).each do |trigger|
-    database.run("ALTER TABLE fields ENABLE TRIGGER #{trigger}")
-  end
+def set_default_locale(locale)
+  database.run(<<-SQL.strip_heredoc)
+    UPDATE languages AS ls
+    SET "default" = vs."default"
+    FROM (VALUES ('de-CH', #{locale == 'de-CH' ? 'TRUE' : 'FALSE'}),
+                 ('en-GB', #{locale == 'en-GB' ? 'TRUE' : 'FALSE'}),
+                 ('en-US', #{locale == 'en-US' ? 'TRUE' : 'FALSE'}),
+                 ('gsw-CH', #{locale == 'gsw-CH' ? 'TRUE' : 'FALSE'}))
+              AS vs(locale, "default")
+    WHERE vs.locale = ls.locale;
+  SQL
 end
 
 def clean_db
@@ -65,29 +63,4 @@ def clean_db
   ].map{|r| r[:table_name]}.join(', ').tap do |tables|
     database.run" TRUNCATE TABLE #{tables} CASCADE; "
   end
-end
-
-
-def set_settings
-  fail unless LEIHS_HTTP_BASE_URL.present?
-  Setting.first || Setting.create # ensure existance!
-  database.run <<-SQL
-    UPDATE settings
-    SET external_base_url = '#{LEIHS_HTTP_BASE_URL}',
-        smtp_default_from_address = 'noreply@example.com'
-  SQL
-end
-
-def resurrect_general_building
-  database.run <<-SQL
-    INSERT INTO buildings (id, name)
-    VALUES ('#{Leihs::Constants::GENERAL_BUILDING_UUID}', 'general building')
-  SQL
-end
-
-def resurrect_general_room_for_general_building
-  database.run <<-SQL
-    INSERT INTO rooms (name, building_id, general)
-    VALUES ('general room', '#{Leihs::Constants::GENERAL_BUILDING_UUID}', TRUE)
-  SQL
 end

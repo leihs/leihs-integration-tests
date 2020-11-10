@@ -3,7 +3,7 @@ def sign_in_as user, pool=nil
   fill_in 'user', with: user.email
   click_on 'Login'
   fill_in 'password', with: user.password
-  click_on 'Weiter'
+  click_on 'Continue'
   wait_until do
     ["/admin/", '/borrow',
      "/manage/#{pool.try(:id)}/inventory",

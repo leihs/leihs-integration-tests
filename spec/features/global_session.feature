@@ -4,7 +4,7 @@ Feature: Global session
 
   Background:
     Given there is a user with an ultimate access
-    And there is a default language "English" with locale name "en-GB"
+    And the default locale is "en-GB"
 
   Scenario Outline: Logged in everywhere
     When I log in as the user

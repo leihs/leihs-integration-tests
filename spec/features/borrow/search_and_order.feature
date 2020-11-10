@@ -5,7 +5,7 @@ Feature: Search and order
     And there is a user
     And there is an inventory pool "Pool A"
     And the user is inventory manager of pool "Pool A"
-    And there is a default language "English" with locale name "en-GB"
+    And the default locale is "en-GB"
 
   Scenario: Search and order
     Given there is a model "Kamera"

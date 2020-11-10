@@ -48,12 +48,9 @@ step "there is an external authentication section with a button" do
 end
 
 step "I click on the button within the external authentication section" do
-  # WTF capybara
-  execute_script %( document.querySelector("form button").click() )
-  sleep 1
-  # within("form[action='#{@action_url}']") do
-  #   find("button", text: @external_authentication_system.name).click
-  # end
+  within("form[action='#{@action_url}']") do
+    find("button", text: @external_authentication_system.name).click
+  end
 end
 
 step "I am redirected to the url of that authentication system" do

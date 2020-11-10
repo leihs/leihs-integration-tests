@@ -2,7 +2,7 @@ Feature: Inventory pools
 
   Background:
     Given there is an initial admin
-    And there is a default language "English" with locale name "en-GB"
+    And the default locale is "en-GB"
     And there is a language "Deutsch" with locale name "de-CH"
     And there are meta mail templates
 

@@ -44,6 +44,10 @@ step "the user does not have any pool access rights" do
   AccessRight.where(user_id: @user.id).delete
 end
 
+step "the default locale is :locale" do |locale|
+  set_default_locale(locale)
+end
+
 step "there is a default language :lang with locale name :l_name" do |lang, l_name|
   unless Language.find(name: lang, default: true)
     FactoryBot.create(:language,
