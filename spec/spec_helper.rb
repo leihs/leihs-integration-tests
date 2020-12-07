@@ -10,7 +10,7 @@ require 'config/metadata_extractor'
 require 'config/screenshots'
 require 'config/helpers'
 
-ACCEPTED_FIREFOX_ENV_PATHS = ['FIREFOX_ESR_60_PATH']
+ACCEPTED_FIREFOX_ENV_PATHS = ['FIREFOX_ESR_78_PATH']
 
 # switch to HTTPS ?
 LEIHS_HTTP_PORT =  Addressable::URI.parse(LEIHS_HTTP_BASE_URL).port.presence  || '3200'

@@ -3,7 +3,8 @@ require 'addressable'
 require_relative '../../../legacy/database/lib/leihs/constants'
 require '../database/lib/leihs/fields.rb'
 
-DB_ENV = ENV['LEIHS_DATABASE_URL'].presence
+DB_ENV = ENV['LEIHS_DATABASE_URL'].presence \
+  || 'postgresql://leihs:leihs@localhost:5432/leihs?pool=5'
 
 def http_uri
   @http_uri ||= \
@@ -13,19 +14,14 @@ end
 def database
   @database ||= \
     Sequel.connect(
-      if DB_ENV
-        # trick Addressable to parse db urls
-        'postgres://' \
-          + (http_uri.user.presence || ENV['PGUSER'].presence || 'postgres') \
-          + ((pw = (http_uri.password.presence || ENV['PGPASSWORD'].presence)) ? ":#{pw}" : "") \
-          + '@' + (http_uri.host.presence || ENV['PGHOST'].presence || ENV['PGHOSTADDR'].presence || 'localhost') \
-          + ':' + (http_uri.port.presence || ENV['PGPORT'].presence || 5432).to_s \
-          + '/' + ( http_uri.path.presence.try(:gsub,/^\//,'') || ENV['PGDATABASE'].presence || 'leihs') \
-          + '?pool=5'
-      else
-        'postgresql://leihs:leihs@localhost:5432/leihs?pool=5'
-      end
-    )
+      # trick Addressable to parse db urls
+      'postgres://' \
+      + (http_uri.user.presence || ENV['PGUSER'].presence || 'postgres') \
+      + ((pw = (http_uri.password.presence || ENV['PGPASSWORD'].presence)) ? ":#{pw}" : "") \
+      + '@' + (http_uri.host.presence || ENV['PGHOST'].presence || ENV['PGHOSTADDR'].presence || 'localhost') \
+      + ':' + (http_uri.port.presence || ENV['PGPORT'].presence || 5432).to_s \
+      + '/' + ( http_uri.path.presence.try(:gsub,/^\//,'') || ENV['PGDATABASE'].presence || 'leihs') \
+      + '?pool=5')
 end
 
 RSpec.configure do |config|

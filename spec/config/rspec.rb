@@ -73,7 +73,7 @@ end
 
 
 def absolute_feature_file
-    spec_file_argument = ARGV.first.split(':').first
+    spec_file_argument = ARGV.first.split(/\[|:/).first
 
     feature_file_absolute =
       if Pathname.new(spec_file_argument).absolute?

@@ -6,11 +6,11 @@ step "there is an external authentication system :name" do |name|
   unless ENV["TEST_AUTH_SYSTEM_PORT"].presence
     raise "export TEST_AUTH_SYSTEM_PORT !"
   end
-  
+
   @test_authentication_system = FactoryBot.create(
     :authentication_system, :external,
-    id: 'test', 
-    name: name, 
+    id: 'test',
+    name: name,
     external_sign_in_url: "http://localhost:#{ENV['TEST_AUTH_SYSTEM_PORT']}/sign-in"
   )
 end
@@ -35,5 +35,6 @@ step "I confirm my identity" do
 end
 
 step "I am redirected to :path" do |path|
+  sleep 1
   expect(current_url).to eq "#{Setting.first.external_base_url}#{path}"
 end

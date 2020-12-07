@@ -80,6 +80,10 @@ step "I open the user dropdown for the :subapp" do |subapp|
       find("svg[data-icon='user-circle']").click
     end
   when "/borrow", /\/manage/
+    # we need to move the pointer out and then in again to make this work
+    # reliably (e.g. wenn called multipe times) ; do not remove the first hover
+    # even if seems pointless
+    within(first('a', text: 'leihs')){ current_scope.hover }
     within find(".topbar-item", text: "F. Bar") do
       current_scope.hover
       find(".dropdown")

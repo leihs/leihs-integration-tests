@@ -17,8 +17,9 @@ Feature: Admin section
     And I see the admin menu
     Examples:
       | menu entry             | path                           |
-      | Delegations            | /admin/delegations/            |
       | Groups                 | /admin/groups/                 |
+      | Inventory-Pools        | /admin/inventory-pools/        |
+      | Statistics             | /admin/statistics/             |
       | System                 | /admin/system/                 |
       | Users                  | /admin/users/                  |
 
@@ -41,7 +42,6 @@ Feature: Admin section
       | Mail Templates         | /admin/mail_templates         |
       | Rooms                  | /admin/rooms                  |
       | Settings               | /admin/settings               |
-      | Statistics             | /admin/statistics             |
       | Suppliers              | /admin/suppliers              |
 
   Scenario: No access to system-admins for a leihs admin

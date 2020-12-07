@@ -1,10 +1,11 @@
 step "I am on the show page of the pool :name" do |name|
-  @pool ||= InventoryPool.find(name: name) 
+  wait_until{ InventoryPool.find(name: "New Pool") }
+  @pool ||= InventoryPool.find(name: name)
   wait_until { current_path.match "^\/admin\/inventory-pools\/#{@pool.id}" }
 end
 
 step "I go to the mail templates page of pool :name" do |name|
-  @pool ||= InventoryPool.find(name: name) 
+  @pool ||= InventoryPool.find(name: name)
   visit "/manage/#{@pool.id}/mail_templates"
 end
 

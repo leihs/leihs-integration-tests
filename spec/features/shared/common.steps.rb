@@ -14,6 +14,12 @@ step "I click on :txt" do |txt|
   click_on txt
 end
 
+step "I click on :target within :win" do |target, win|
+  within(win) do
+    click_on target
+  end
+end
+
 step "I select :option from :from" do |option, from|
   select(option, from: from)
 end
@@ -43,8 +49,7 @@ step "I am on :path" do |path|
 end
 
 step "I am redirected to :url" do |url|
-  binding.pry if url == "?"
-  wait_until(10) { expect(page.current_path).to eq url }
+  wait_until(10){ current_path == url }
 end
 
 step "I see the text:" do |txt|
@@ -124,4 +129,8 @@ def fill_form_with_table(table)
   table.hashes.each do |row|
     fill_in(row['field'], with: row['value'])
   end
+end
+
+step "I wait a little" do
+  sleep 1
 end

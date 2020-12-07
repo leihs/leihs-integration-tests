@@ -2,9 +2,8 @@
 scripts:
   run-fake-smtp:
     timeout: 15 minutes
-    ignore_state: true # because we kill the server mercilessly
     body: |
-      set -eux
+      set -ux
       cd $LEIHS_INTEGRATION_TESTS_DIR
       export PATH=~/.rubies/$RUBY/bin:$PATH
 

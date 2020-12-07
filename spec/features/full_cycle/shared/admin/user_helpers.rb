@@ -2,7 +2,7 @@ def add_user opts={}
   opts= opts.with_indifferent_access
   visit '/admin/'
   click_on 'Users'
-  click_on 'Add'
+  click_on 'Create'
   email = opts[:email] || Faker::Internet.unique.email
   fill_in 'email', with: email
   fill_in 'firstname', with: (opts[:firstname] || Faker::Name.unique.first_name)

@@ -1,5 +1,5 @@
 # test helpers
-def wait_until(wait_time = 6, &block)
+def wait_until(wait_time = 10, &block)
   Timeout.timeout(wait_time) do
     until value = yield
       sleep(0.2)
