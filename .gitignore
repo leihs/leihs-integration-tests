@@ -1,7 +1,6 @@
-/.vagrant
 *.log
-reverse-proxy/tmp
+/.vagrant
+/inventory/master_secret.txt
 /tmp
 /vagrant-ssh-config
-/inventory/master_secret.txt
-reverse-proxy/tmp/
+/reverse-proxy/tmp

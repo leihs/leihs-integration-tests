@@ -5,7 +5,7 @@ windows:
     command: |
       kill -INT $(lsof -t -wni tcp:3200)
       while true; do
-        rm -rf logs/*
+        rm -rf rever-proxy/logs/*
         DYLD_LIBRARY_PATH=/opt/local/lib/apache2/modules/  \
           /opt/local/sbin/httpd -d reverse-proxy -f conf/httpd.conf -e info -DFOREGROUND
         sleep 1
