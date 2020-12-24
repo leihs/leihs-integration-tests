@@ -29,7 +29,7 @@ step 'I choose next next working day as end date' do
 end
 
 step 'I see one model with the title :name' do |name|
-  expect(all('.ui-models-list-item').count).to eq 1
+  wait_until { all('.ui-models-list-item').count == 1 } 
   find('.ui-models-list-item', text: name)
 end
 
