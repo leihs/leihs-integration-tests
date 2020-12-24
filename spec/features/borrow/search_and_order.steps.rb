@@ -12,11 +12,8 @@ step 'there is/are :n borrowable item(s) for model :model in pool :pool' do |n, 
 end
 
 step 'I enter :term in the search field' do |term|
-  # timing issue
-  wait_until do
-    fill_in('Search', with: term)
-    expect(find("input[name='search-term']").value).to eq term
-  end
+  find("input[name='search-term']").set(term)
+  expect(find("input[name='search-term']").value).to eq term
 end
 
 step 'I choose to filter by availabilty' do
