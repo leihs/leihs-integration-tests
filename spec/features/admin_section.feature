@@ -35,7 +35,7 @@ Feature: Admin section
     And I see the admin menu
     Examples:
       | menu entry             | path                          |
-      | Audits                 | /admin/audits                 |
+      | Audits legacy          | /admin/audits                 |
       | Buildings              | /admin/buildings              |
       | Fields                 | /admin/fields_editor          |
       | Languages              | /admin/languages              |

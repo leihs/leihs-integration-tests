@@ -41,6 +41,6 @@ Feature: Global navbar
     And the user has no access whatsoever
     When I log in as the user
     Then I am redirected to "/my/user/me"
-    And there is no section with subapps in the navbar for the "/my" subapp
+    And there is no section with subapps in the navbar for the "/my/user/me" subapp
 
 

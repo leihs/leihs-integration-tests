@@ -1,6 +1,6 @@
 step "I am logged in for the subapp :subapp" do |subapp|
   case subapp
-  when "/admin/", "/my", "/procure"
+  when "/admin/", %r{^/my.*}, "/procure"
     within ".navbar-leihs" do
       find(".fa-user-circle").click
       expect(current_scope).to have_content @user.short_name
@@ -19,7 +19,7 @@ end
 
 step "I am logged out from :subpath" do |subpath|
   case subpath
-  when "/admin/", "/my", "/borrow", "/manage"
+  when "/admin/", %r{^/my.*}, "/borrow", "/manage"
     visit subpath
     within ".navbar-leihs" do
       within "form[action='/sign-in']" do
@@ -40,7 +40,7 @@ end
 
 step "I log out from :subpath" do |subpath|
   case subpath
-  when "/admin/", "/my", "/procure"
+  when "/admin/", %r{^/my.*}, "/procure"
     within ".navbar-leihs" do
       find(".fa-user-circle").click
       click_on "Logout"

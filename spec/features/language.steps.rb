@@ -42,7 +42,7 @@ end
 
 step "I change the language to :lang in :subapp" do |lang, subapp|
   case subapp
-  when '/admin/', '/procure', '/my'
+  when '/admin/', '/procure', '/my/user/me'
     within '.navbar-leihs' do
       find('.fa-globe').click
       find('button', text: lang).click
@@ -56,7 +56,7 @@ end
 
 step "the language was changed to :lang in :subapp" do |lang, subapp|
   case subapp
-  when '/admin/', '/procure', '/my'
+  when '/admin/', '/procure', '/my/user/me'
     find('.fa-globe').click
     find('.navbar-leihs .dropdown-menu')
       .find('button b', text: lang)
@@ -73,12 +73,12 @@ step "the language was changed to :lang everywhere" do |lang|
     '/borrow',
     '/procure',
     '/manage',
-    '/my'
+    '/my/user/me'
   ]
   subapp_paths.each do |sap|
     visit sap
     case sap
-    when '/admin/', '/procure', '/my'
+    when '/admin/', '/procure', '/my/user/me'
       find('.fa-globe').click
       find('.navbar-leihs .dropdown-menu')
         .find('button b', text: lang)

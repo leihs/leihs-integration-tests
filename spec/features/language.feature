@@ -66,7 +66,7 @@ Feature: Language
       | /borrow           |
       | /procure          |
       | /manage           |
-      | /my               |
+      | /my/user/me       |
 
   Scenario: User with deactivated language should be able to change his language
     Given user's preferred language is "English (UK)"
