@@ -14,7 +14,7 @@ step "the following Users exist:" do |table|
 end
 
 step "the smtp default from address is :email" do |email|
-  Setting.first.update(smtp_default_from_address: email)
+  SmtpSetting.first.update(default_from_address: email)
 end
 
 step "I am :user" do |user|
@@ -61,7 +61,7 @@ end
 
 step "I receive an email" do
   mails = []
-  wait_until(15000) do
+  wait_until(10) do
     mails = fetch_emails_for_user(@user.email)
     mails.length === 1
   end

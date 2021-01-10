@@ -36,5 +36,5 @@ end
 
 step "I am redirected to :path" do |path|
   sleep 1
-  expect(current_url).to eq "#{Setting.first.external_base_url}#{path}"
+  expect(current_url).to eq "#{SystemAndSecuritySetting.first.external_base_url}#{path}"
 end

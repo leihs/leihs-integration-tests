@@ -24,13 +24,18 @@ def database
       + '?pool=5')
 end
 
+def smtp_port
+  ENV['LEIHS_MAIL_SMTP_PORT'].presence || raise('LEIHS_MAIL_SMTP_PORT not set')
+end
+
 RSpec.configure do |config|
   database.extension :pg_json
   config.before :each  do
     clean_db
     system("DATABASE_NAME=#{http_uri.basename} ../database/scripts/restore-seeds")
     set_default_locale('de-CH')
-    Setting.first.update(external_base_url: LEIHS_HTTP_BASE_URL)
+    SystemAndSecuritySetting.first.update(external_base_url: LEIHS_HTTP_BASE_URL)
+    SmtpSetting.first.update(port: smtp_port, address: 'localhost', enabled: true)
   end
 end
 

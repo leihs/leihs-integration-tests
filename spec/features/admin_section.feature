@@ -21,6 +21,7 @@ Feature: Admin section
       | Inventory-Pools        | /admin/inventory-pools/        |
       | Statistics             | /admin/statistics/             |
       | System                 | /admin/system/                 |
+      | Settings               | /admin/settings/               |
       | Users                  | /admin/users/                  |
 
   Scenario Outline: Links going to old admin
@@ -41,7 +42,6 @@ Feature: Admin section
       | Languages              | /admin/languages              |
       | Mail Templates         | /admin/mail_templates         |
       | Rooms                  | /admin/rooms                  |
-      | Settings               | /admin/settings               |
       | Suppliers              | /admin/suppliers              |
 
   Scenario: No access to system-admins for a leihs admin
