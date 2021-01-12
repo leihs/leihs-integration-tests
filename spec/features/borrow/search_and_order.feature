@@ -16,8 +16,15 @@ Feature: Search and order
 
     # search for a model
     And I visit "/app/borrow/"
+    # ################################################
+    # FIXME: non-deterministic problem of search term
+    # getting cleared after it has been filled-in
+    And I sleep 1
     And I enter "Kamera" in the search field
-    And I choose to filter by availabilty
+    And I sleep 1
+    Then the search field contains "Kamera"
+    # ################################################
+    When I choose to filter by availabilty
     And I choose next working day as start date
     And I choose next next working day as end date
     And I click button "Get Results"

@@ -15,6 +15,10 @@ step 'I enter :term in the search field' do |term|
   fill_in('Search', with: term)
 end
 
+step 'the search field contains :term' do |term|
+  expect(find_field('Search').value).to eq term
+end
+
 step 'I choose to filter by availabilty' do
   # find('input[name="only-available"]').click
   find('label.custom-checkbox', text: "Show available only").click
@@ -104,8 +108,8 @@ step 'the reservation for model :name was deleted from the cart' do |name|
   expect(page).not_to have_selector('.flex-row', text: name)
 end
 
-step 'I name the order as :purpose' do |purpose|
-  fill_in('purpose', with: purpose)
+step 'I name the order as :title' do |title|
+  fill_in('title', with: title)
 end
 
 step 'the cart is empty' do
