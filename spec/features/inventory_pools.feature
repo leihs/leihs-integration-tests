@@ -22,7 +22,7 @@ Feature: Inventory pools
     Then I am on the show page of the pool "New Pool"
     And I click on "Users"
     And I select "any" from "Role"
-    And I click on "Add" within ".direct-roles"
+    And I click on "Edit" within ".direct-roles"
     And I wait a little
     And I check "inventory_manager"
     And I click on "Save"

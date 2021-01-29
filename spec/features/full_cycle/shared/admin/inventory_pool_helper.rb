@@ -15,11 +15,13 @@ end
 
 def assign_user_to_pool user, pool, role = 'customer'
   visit "/admin/inventory-pools/#{pool.id}/users/#{user.id}/direct-roles"
+  click_on 'Edit'
+  wait_until{not all(".modal").empty?}
   uncheck "customer"
   sleep 1
   check role
   click_on 'Save'
-  sleep 1
+  wait_until { AccessRight.find(user_id: user.id, role: role) }
   visit "/admin/inventory-pools/#{pool.id}/users/#{user.id}"
   within(find('dl', text: 'Roles')) do
     expect(find_field(role, disabled: true)).to be_checked
@@ -29,6 +31,8 @@ end
 
 def assign_group_to_pool group, pool, role = 'customer'
   visit "/admin/inventory-pools/#{pool.id}/groups/#{group.id}/roles"
+  click_on 'Edit'
+  wait_until{not all(".modal").empty?}
   uncheck "customer"
   sleep 1
   check role
