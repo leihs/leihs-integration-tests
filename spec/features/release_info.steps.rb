@@ -1,8 +1,9 @@
 step 'I see the correct release version in the footer' do
   releases = YAML.load_file('../config/releases.yml')
+  release = releases['releases'].first
+  puts release.to_json
   @version = \
-    releases['releases']
-    .first
+    release
     .slice('version_major', 'version_minor', 'version_patch')
     .values
     .map(&:to_s)

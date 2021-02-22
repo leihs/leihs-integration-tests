@@ -1,0 +1,24 @@
+releases:
+
+- version_major: 1
+  version_minor: 0
+  version_patch: 0
+  version_pre: '1'
+  description: |
+    second release (pre)
+
+    ## Changes:
+
+    - fix: foo
+
+- version_major: 1
+  version_minor: 0
+  version_patch: 0
+  version_pre: null
+  description: |
+    first release
+
+    ## Changes:
+
+    - feat: foo
+    - fix: bar
