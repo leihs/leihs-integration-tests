@@ -39,7 +39,6 @@ Feature: Admin section
       | Audits legacy          | /admin/audits                 |
       | Buildings              | /admin/buildings              |
       | Fields                 | /admin/fields_editor          |
-      | Languages              | /admin/languages              |
       | Mail Templates         | /admin/mail_templates         |
       | Rooms                  | /admin/rooms                  |
       | Suppliers              | /admin/suppliers              |
