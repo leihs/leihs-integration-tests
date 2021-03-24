@@ -45,8 +45,9 @@ module TurnipExtensions
   end
 end
 
+# This is causing problems with the CI
 # monkey-patch Turnip
-Turnip::RSpec::Execute.prepend TurnipExtensions::ScreenshotPerStep
+# Turnip::RSpec::Execute.prepend TurnipExtensions::ScreenshotPerStep
 
 RSpec.configure do |config|
   config.after(type: :feature) do |example|
