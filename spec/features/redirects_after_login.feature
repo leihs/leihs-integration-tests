@@ -61,7 +61,13 @@ Feature: Redirects after login
     When I log in as the user
     Then I am redirected to "/my/user/me"
 
-  Scenario Outline: Redirect with return-to param
+  Scenario: User with no access whatsoever, redirect from legacy borrow WHEN ALREADY LOGGED IN (should behave like postlogin)
+  Given the user has no access whatsoever
+  When I log in as the user
+  When I go to "/borrow"
+  Then I am redirected to "/my/user/me"
+
+Scenario Outline: Redirect with return-to param
     Given there is an external authentication system "test ext auth"
     And there is a user with an ultimate access
     And the external authentication system is configured for the user
@@ -76,3 +82,4 @@ Feature: Redirects after login
       | path                               |
       | /app/borrow/about?foo=bar&baz=quux |
       | /procure/requests                  |
+
