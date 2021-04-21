@@ -4,7 +4,6 @@ Feature: Inventory pools
     Given there is an initial admin
     And the default locale is "en-GB"
     And there is a language "Deutsch" with locale name "de-CH"
-    And there are meta mail templates
 
   Scenario: Create an inventory pool and edit a mail template
     When I log in as the initial admin
