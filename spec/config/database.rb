@@ -33,10 +33,15 @@ RSpec.configure do |config|
   config.before :each  do
     clean_db
     system("DATABASE_NAME=#{http_uri.basename} ../database/scripts/restore-seeds")
+    load_translations
     set_default_locale('de-CH')
     SystemAndSecuritySetting.first.update(external_base_url: LEIHS_HTTP_BASE_URL)
     SmtpSetting.first.update(port: smtp_port, address: 'localhost', enabled: true)
   end
+end
+
+def load_translations
+  system("psql -d #{http_uri.basename} < ../borrow/bin/translations.sql > /dev/null")
 end
 
 def set_default_locale(locale)
@@ -58,9 +63,9 @@ def clean_db
       FROM information_schema.tables
     WHERE table_type = 'BASE TABLE'
     AND table_schema = 'public'
-    AND table_name NOT IN ('schema_migrations','ar_internal_metadata')
+    AND table_name NOT IN ('schema_migrations', 'ar_internal_metadata', 'default_translations')
     ORDER BY table_type, table_name;
-            SQL
+  SQL
   ].map{|r| r[:table_name]}.join(', ').tap do |tables|
     database.run" TRUNCATE TABLE #{tables} CASCADE; "
   end
