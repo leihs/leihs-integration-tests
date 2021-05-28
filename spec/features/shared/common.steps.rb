@@ -53,11 +53,11 @@ step "I am redirected to :url" do |url|
 end
 
 step "I see the text:" do |txt|
-  expect(page).to have_content(txt.strip())
+  expect(page).to have_content(txt.to_s.strip())
 end
 
 step "I see :txt" do |txt|
-  expect(page).to have_content txt
+  expect(page).to have_content(txt.to_s.strip())
 end
 
 step "I log in with the email :email" do |email|
