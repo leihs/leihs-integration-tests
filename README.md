@@ -25,6 +25,7 @@ export DATABASE_URL="postgresql://localhost:5432/leihs_test?max-pool-size=5"
 export LEIHS_DATABASE_URL="jdbc:${DATABASE_URL}"
 export LEIHS_MAIL_SMTP_PORT='4465'
 export LEIHS_MAIL_POP3_PORT='4995'
+export LEIHS_SECRET="secret"
 
 # make sure to set correct Firefox Path
 export FIREFOX_ESR_60_PATH="/Applications/Firefox ESR 60.app/Contents/MacOS/firefox-bin"
