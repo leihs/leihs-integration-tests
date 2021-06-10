@@ -5,6 +5,9 @@ trial_attachments:
 
 scripts:
   test:
+    start_when:
+      borrow translations are dumped:
+        script_key: dump-translations
     body: |
       set -euxo
       cd ${LEIHS_INTEGRATION_TESTS_DIR}
