@@ -4,8 +4,16 @@ step 'there is a user' do
   @user = FactoryBot.create(:user)
 end
 
+step 'there is a delegation' do
+  @delegation = FactoryBot.create(:delegation)
+end
+
 step 'there is a user without password' do
   @user = FactoryBot.create(:user_without_password)
+end
+
+step 'the user is member of the delegation' do
+  @delegation.add_delegation_user(@user)
 end
 
 step 'there is an initial admin' do
@@ -67,6 +75,22 @@ step "the user is customer of some pool" do
   FactoryBot.create(:access_right, user_id: @user.id, role: :customer)
 end
 
+step "the delegation is customer of pool :name" do |name|
+  pool = InventoryPool.find(name: name)
+  FactoryBot.create(:access_right,
+                    user_id: @delegation.id,
+                    inventory_pool_id: pool.id,
+                    role: :customer)
+end
+
+step "the user is customer of pool :name" do |name|
+  pool = InventoryPool.find(name: name)
+  FactoryBot.create(:access_right,
+                    user_id: @user.id,
+                    inventory_pool_id: pool.id,
+                    role: :customer)
+end
+
 step "the user is inventory manager of some pool" do
   @pool = FactoryBot.create(:inventory_pool)
   FactoryBot.create(:access_right,
@@ -83,6 +107,16 @@ step "the user is inventory manager of pool :name" do |name|
                     user_id: @user.id,
                     inventory_pool_id: pool.id,
                     role: :inventory_manager)
+end
+
+step "the user is lending manager of pool :name" do |name|
+  pool = InventoryPool.find(name: name) ||
+    FactoryBot.create(:inventory_pool, name: name)
+
+  FactoryBot.create(:access_right,
+                    user_id: @user.id,
+                    inventory_pool_id: pool.id,
+                    role: :lending_manager)
 end
 
 step "the user is group manager of pool :name" do |name|
@@ -147,4 +181,17 @@ end
 
 step 'there is a model :name' do |name|
   FactoryBot.create(:leihs_model, product: name)
+end
+
+step 'there is/are :n borrowable item(s) for model :model in pool :pool' do |n, model, pool|
+  model = LeihsModel.find(product: model)
+  pool = InventoryPool.find(name: pool)
+
+  n.to_i.times do
+    FactoryBot.create(:item,
+                      is_borrowable: true,
+                      leihs_model: model,
+                      responsible: pool,
+                      owner: pool)
+  end
 end

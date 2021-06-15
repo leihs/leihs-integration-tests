@@ -6,25 +6,41 @@ Feature: Lending Terms acceptance
 
   Scenario: Configure Lending terms for instance in Admin UI
     Given there is a user with an ultimate access
-      And I log in as the user
-      Then I see "Admin"
+    And I log in as the user
+    Then I see "Admin"
 
     When I click on "Settings"
-      And I click on "Miscellaneous"
-      And I click on "Edit"
-      And I enter "https://example.org/fileadmin/leihs-terms_2001-01-01.pdf" in the "lending_terms_url" field
-      And I check "lending_terms_acceptance_required_for_order"
-      And I click on "Save"
+    And I click on "Miscellaneous"
+    And I click on "Edit"
+    And I enter "https://example.org/fileadmin/leihs-terms_2001-01-01.pdf" in the "lending_terms_url" field
+    And I check "lending_terms_acceptance_required_for_order"
+    And I click on "Save"
 
     Then the following settings are saved:
       | lending_terms_url                           | https://example.org/fileadmin/leihs-terms_2001-01-01.pdf |
       | lending_terms_acceptance_required_for_order | true                                                     |
 
-  # Scenario: Acceptance of lending terms is enforced when configured
-  #   Given there is a user with an ultimate access
-  #     And there is a user
-  #     And the user is customer of some pool
-  #     And I log in as the user
+  Scenario: Acceptance of lending terms is enforced when configured
+    Given there is an initial admin
+    And the following settings exist:
+      | lending_terms_url                           | https://example.org/fileadmin/leihs-terms_2001-01-01.pdf |
+      | lending_terms_acceptance_required_for_order | true                                                     |
+    And there is a user
+    And there is an inventory pool "Pool A"
+    And the user is customer of pool "Pool A"
+    And there is a model "Beamer"
+    And there is 1 borrowable item for model "Beamer" in pool "Pool A"
+    And I log in as the user
 
-  #   When I pry
+    When I visit "/borrow"
+    And I add one item of model "Beamer" to the cart
+    And I click on "Complete order"
+    Then I see "I accept the lending terms: https://example.org/fileadmin/leihs-terms_2001-01-01.pdf"
 
+    When I enter "my purpose" in the "purpose" field
+    And I click on "Submit Order"
+    Then the order is not submitted
+
+    When I check "accept_lending_terms"
+    And I click on "Submit Order"
+    Then the order is submitted

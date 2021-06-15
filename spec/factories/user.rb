@@ -1,6 +1,12 @@
 class User < Sequel::Model
   attr_accessor :password
   one_to_one :procurement_admin
+  many_to_one(:delegator_user, class: self)
+  many_to_many(:delegation_users,
+               left_key: :delegation_id,
+               right_key: :user_id,
+               class: self,
+               join_table: :delegations_users)
 
   def name
     "#{firstname} #{lastname}"
@@ -19,6 +25,7 @@ FactoryBot.define do
     firstname { Faker::Name.first_name }
     lastname { Faker::Name.last_name }
     email { Faker::Internet.email }
+    login { email.split('@').first }
   end
 
   factory :user do
@@ -49,5 +56,26 @@ FactoryBot.define do
 
   factory :user_without_password, class: User do
     base
+  end
+
+  factory :delegation, class: User do
+    transient do
+      name { Faker::Team.name }
+      responsible { create(:user) }
+      members { [] }
+    end
+
+    after(:build) do |user, trans|
+      user.firstname = trans.name
+      user.delegator_user = trans.responsible
+    end
+
+    after(:create) do |user, trans|
+      user.add_delegation_user(trans.responsible)
+
+      trans.members.each do |member|
+        user.add_delegation_user(member)
+      end
+    end
   end
 end

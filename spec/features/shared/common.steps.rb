@@ -75,12 +75,17 @@ step "I log in with the email :email" do |email|
 end
 
 step "I log in as the user" do
-  step "I log in with the email '#{@user.email}'"
+  step "I log in with the email '#{@user.email or @user.login}'"
 end
 
 step "user's preferred language is :lang" do |lang|
   l = Language.find(name: lang)
   @user.update(language_locale: l.locale)
+end
+
+step "delegation's preferred language is :lang" do |lang|
+  l = Language.find(name: lang)
+  @delegation.update(language_locale: l.locale)
 end
 
 step "user does not have a prefered language" do
