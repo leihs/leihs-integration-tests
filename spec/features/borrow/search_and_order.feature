@@ -38,7 +38,7 @@ Feature: Search and order
     And the end date chosen previously is pre-filled in the calendar
     # PENDING: And the maximum quantity shows 4
     When I set the quantity to 3
-    And I click on "Add" and accept the alert
+    And I click on "Hinzufügen" and accept the alert
     # PENDING: Then the maximum quantity shows 1
 
     # check the cart
@@ -66,7 +66,7 @@ Feature: Search and order
     Then I see one model with the title "Beamer"
     When I click on the model with the title "Beamer"
     And I set the quantity to 1
-    And I click on "Add" and accept the alert
+    And I click on "Hinzufügen" and accept the alert
 
     # check the cart
     When I click on the menu
