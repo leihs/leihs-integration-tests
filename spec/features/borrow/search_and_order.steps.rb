@@ -33,11 +33,11 @@ step 'the show page of the model :name was loaded' do |name|
 end
 
 step 'the start date chosen previously is pre-filled in the calendar' do
-  expect(find(".rdrDateDisplay .rdrDateInput:first-child input").value).to eq Date.today.strftime('%b %-d, %Y')
+  expect(find(".ui-booking-calendar .date-range-picker input[name='startDate']").value).to eq Date.today.strftime('%d.%m.%Y')
 end
 
 step 'the end date chosen previously is pre-filled in the calendar' do
-  expect(find(".rdrDateDisplay .rdrDateInput:last-child input").value).to eq Date.tomorrow.strftime('%b %-d, %Y')
+  expect(find(".ui-booking-calendar .date-range-picker input[name='endDate']").value).to eq Date.tomorrow.strftime('%d.%m.%Y')
 end
 
 step 'the start date chosen previously is pre-filled in the search panel' do
@@ -53,7 +53,7 @@ step 'the end date chosen previously is pre-filled in the search panel' do
 end
 
 step 'I set the quantity to :n' do |n|
-  find_field("Quantity").set(n)
+  find(".ui-booking-calendar input:first-child").set(n)
 end
 
 step 'I set the quantity in the cart line to :n' do |n|
