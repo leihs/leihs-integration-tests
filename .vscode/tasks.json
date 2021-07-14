@@ -1,0 +1,151 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run Integration Test (current file)",
+      "detail": "assumes tasks 'Start Integration Tests' is already running",
+      "type": "shell",
+      "command": "source ./scripts/set-env.sh && bundle exec rspec ${file}",
+      // TODO: try rspec problem matcher <https://github.com/rubyide/vscode-ruby/issues/378>
+      "problemMatcher": []
+      // TODO: is it possible to "depend on" but not "restart"?
+      // "dependsOn": ["Start Integration Tests"],
+    },
+    {
+      "label": "Start Integration Tests",
+      "detail": "run preparations and start all services",
+      "dependsOn": ["Run All Preparations Steps", "Start All Services"],
+      "dependsOrder": "sequence",
+      "problemMatcher": []
+    },
+    {
+      "label": "Run All Preparations Steps",
+      "dependsOn": ["prepare DB"],
+      "problemMatcher": []
+    },
+    {
+      "label": "Start All Services",
+      "detail": "assumes prepartion is already done",
+      "dependsOn": [
+        "Start Reverse-Proxy",
+        "Start Service Admin",
+        "Start Service Borrow",
+        "Start Service My",
+        "Start Service Legacy-Webapp",
+        "Start Service Mail"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Start Reverse-Proxy",
+      "type": "shell",
+      "command": "source ./scripts/set-env.sh && ./scripts/start-reverse-proxy.sh",
+      "problemMatcher": [],
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true,
+        "group": "dev"
+      }
+    },
+    {
+      "label": "Start Service Admin",
+      "type": "shell",
+      "command": "source ./scripts/set-env.sh && ../admin/bin/run",
+      "problemMatcher": [],
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true,
+        "group": "dev"
+      }
+    },
+    {
+      "label": "Start Service Borrow",
+      "type": "shell",
+      "command": "source ./scripts/set-env.sh && ../borrow/bin/run",
+      "problemMatcher": [],
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true,
+        "group": "dev"
+      }
+    },
+    {
+      "label": "Start Service My",
+      "type": "shell",
+      "command": "source ./scripts/set-env.sh && ../my/bin/run",
+      "problemMatcher": [],
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true,
+        "group": "dev"
+      }
+    },
+    {
+      "label": "Start Service Legacy-Webapp",
+      "type": "shell",
+      "command": "source ./scripts/set-env.sh && cd ../legacy && bundle && bundle exec rails s -p $LEIHS_LEGACY_PORT",
+      "problemMatcher": [],
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true,
+        "group": "dev"
+      }
+    },
+    {
+      "label": "Start Service Mail",
+      "type": "shell",
+      "command": "source ./scripts/set-env.sh && ../mail/bin/run",
+      "problemMatcher": [],
+      "isBackground": true,
+      "presentation": {
+        "echo": true,
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "clear": true,
+        "group": "dev"
+      }
+    },
+    {
+      "label": "prepare DB",
+      "type": "shell",
+      "command": "source ./scripts/set-env.sh && ./scripts/prepare-db.sh",
+      "problemMatcher": [],
+      "presentation": {
+        "echo": true,
+        "focus": true,
+        "panel": "dedicated",
+        "showReuseMessage": false,
+        "close": false,
+        "clear": true,
+        "group": "dev-prepare"
+      }
+    }
+  ]
+}
