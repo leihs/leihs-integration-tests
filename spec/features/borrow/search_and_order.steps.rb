@@ -53,7 +53,7 @@ step 'the end date chosen previously is pre-filled in the search panel' do
 end
 
 step 'I set the quantity to :n' do |n|
-  find(".ui-booking-calendar input:first-child").set(n)
+  all(".ui-booking-calendar input").first.set(n)
 end
 
 step 'I set the quantity in the cart line to :n' do |n|
