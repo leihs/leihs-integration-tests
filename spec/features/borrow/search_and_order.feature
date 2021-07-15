@@ -34,6 +34,8 @@ Feature: Search and order
     # make a reservation
     When I click on the model with the title "Kamera"
     Then the show page of the model "Kamera" was loaded
+    When I click on "Gegenstand hinzufügen"
+    Then the order panel is shown
     And the start date chosen previously is pre-filled in the calendar
     And the end date chosen previously is pre-filled in the calendar
     # PENDING: And the maximum quantity shows 4
@@ -65,6 +67,8 @@ Feature: Search and order
     And I click button "Get Results"
     Then I see one model with the title "Beamer"
     When I click on the model with the title "Beamer"
+    And I click on "Gegenstand hinzufügen"
+    Then the order panel is shown
     And I set the quantity to 1
     And I click on "Hinzufügen" and accept the alert
 

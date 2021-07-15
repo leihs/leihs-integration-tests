@@ -29,7 +29,7 @@ step 'I click on the model with the title :name' do |name|
 end
 
 step 'the show page of the model :name was loaded' do |name|
-  find('header', text: name)
+  find('h1', text: name)
 end
 
 step 'the start date chosen previously is pre-filled in the calendar' do
@@ -50,6 +50,10 @@ step 'the end date chosen previously is pre-filled in the search panel' do
   within('form[action="/search"]') do
     expect(find_field("Until").value).to eq Date.tomorrow.to_s
   end
+end
+
+step 'the order panel is shown' do
+  find('.ui-booking-calendar')
 end
 
 step 'I set the quantity to :n' do |n|
