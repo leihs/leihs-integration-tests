@@ -1,7 +1,7 @@
 # usage: source ./scripts/set-env.sh && some-command
 
 # read in local env file
-. .env.local
+. ./.env.local
 
 # db config
 DATABASE_URL="postgresql://localhost:5432/${DATABASE_NAME}?max-pool-size=5"
