@@ -1,7 +1,10 @@
 # usage: source ./scripts/set-env.sh && some-command
 
 # read in local env file
-. ./.env.local
+if ! . ./.env.local; then
+  echo 'could not source env file! try `cp .env.local-example .env.local`'
+  return 1 # not exit, because we are being sourced and dont want to close the partent shell!
+fi
 
 # db config
 DATABASE_URL="postgresql://localhost:5432/${DATABASE_NAME}?max-pool-size=5"
