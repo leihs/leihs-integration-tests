@@ -26,6 +26,7 @@ FactoryBot.define do
     lastname { Faker::Name.last_name }
     email { Faker::Internet.email }
     login { email.split('@').first }
+    organization { Faker::Lorem.characters(8) }
   end
 
   factory :user do
