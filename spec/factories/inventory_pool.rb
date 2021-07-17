@@ -21,5 +21,17 @@ FactoryBot.define do
 
       ip.shortname = short
     end
+
+    after :create do |ip|
+      MailTemplate.where(is_template_template: true).each do |meta_templ|
+        attrs = 
+          meta_templ
+          .to_hash
+          .merge(inventory_pool_id: ip.id, is_template_template: false)
+        attrs.delete(:id)
+
+        create(:mail_template, attrs)
+      end
+    end
   end
 end
