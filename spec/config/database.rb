@@ -41,7 +41,7 @@ RSpec.configure do |config|
 end
 
 def load_translations
-  system("psql -d #{http_uri.basename} < ../borrow/resources/all/sql/translations.sql > /dev/null")
+  system("../borrow/bin/get-translations | psql -d #{http_uri.basename}")
 end
 
 def set_default_locale(locale)
