@@ -7,8 +7,7 @@ step 'the search field contains :term' do |term|
 end
 
 step 'I choose to filter by availabilty' do
-  # find('input[name="only-available"]').click
-  find('label.custom-checkbox', text: "Show available only").click
+  check("Show available only")
 end
 
 step 'I choose next working day as start date' do
