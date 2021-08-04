@@ -16,6 +16,7 @@ Feature: Search and order
 
     # search for a model
     And I visit "/app/borrow/"
+    And I click on "Zeige Suche/Filter"
     # ################################################
     # FIXME: non-deterministic problem of search term
     # getting cleared after it has been filled-in
@@ -54,13 +55,14 @@ Feature: Search and order
 
     # make a reservation for another model
     When I click on "LEIHS"
+    And I click on "Zeige Suche/Filter"
     Then "Kamera" is pre-filled as the search term
     And the start date chosen previously is pre-filled in the search panel
     And the end date chosen previously is pre-filled in the search panel
       # test query params and filters
       When I clear ls from the borrow app-db
       And I visit the url with query params for dates as before but "Beamer" as term
-      And I wait for "1" second
+      And I click on "Zeige Suche/Filter"
       Then "Beamer" is pre-filled as the search term
       And the start date chosen previously is pre-filled in the search panel
       And the end date chosen previously is pre-filled in the search panel

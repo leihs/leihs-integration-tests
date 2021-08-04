@@ -116,8 +116,10 @@ step 'I approve the order of the user' do
 end
 
 step 'I see the order :purpose under approved orders' do |purpose|
-  el = all('div', text: 'Approved Orders')[1]
-  expect(el).to have_content purpose
+  # TODO: `within('section')`
+  within('.ui-page div', text: "Approved Orders") do
+    expect(page).to have_content purpose
+  end
 end
 
 step 'the maximum quantity shows :n' do |n|
