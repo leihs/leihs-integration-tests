@@ -1,7 +1,9 @@
 # usage: source ./scripts/set-env.sh && some-command
 
+PROJECT_DIR="$(cd -- "$(dirname "${BASH_SOURCE}")" ; cd .. > /dev/null 2>&1 && pwd -P)"
+
 # read in local env file
-if ! . ./.env.local; then
+if ! . ${PROJECT_DIR}/.env.local; then
   echo 'could not source env file! try `cp .env.local-example .env.local`'
   return 1 # not exit, because we are being sourced and dont want to close the partent shell!
 fi
