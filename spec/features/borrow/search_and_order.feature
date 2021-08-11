@@ -54,7 +54,7 @@ Feature: Search and order
     # And the end date is the one chosen before
 
     # make a reservation for another model
-    When I click on "LEIHS"
+    When I click on "Leihs"
     And I click on "Zeige Suche/Filter"
     Then "Kamera" is pre-filled as the search term
     And the start date chosen previously is pre-filled in the search panel
