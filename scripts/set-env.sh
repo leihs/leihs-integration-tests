@@ -1,3 +1,5 @@
+#!/bin/bash -exu
+
 # usage: source ./scripts/set-env.sh && some-command
 
 PROJECT_DIR="$(cd -- "$(dirname "${BASH_SOURCE}")" ; cd .. > /dev/null 2>&1 && pwd -P)"
