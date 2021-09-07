@@ -17,14 +17,9 @@ Feature: Search and order
     # search for a model
     And I visit "/app/borrow/"
     And I click on "Show search/filter"
-    # ################################################
-    # FIXME: non-deterministic problem of search term
-    # getting cleared after it has been filled-in
-    And I sleep 1
     And I enter "Kamera" in the search field
-    And I sleep 1
     Then the search field contains "Kamera"
-    # ################################################
+
     When I choose to filter by availabilty
     And I choose next working day as start date
     And I choose next next working day as end date
@@ -41,15 +36,16 @@ Feature: Search and order
     And the end date chosen previously is pre-filled in the calendar
     # PENDING: And the maximum quantity shows 4
     When I set the quantity to 3
-    And I click on "Hinzufügen" and accept the alert
+    And I click on "Add" and accept the alert
     # PENDING: Then the maximum quantity shows 1
 
     # check the cart
     When I click on the menu
     And I click on "New Rental"
-    Then the cart page is loaded
-    And I see one reservation for model "Kamera"
-    And the reservation has quantity 3
+    And the cart page is loaded
+    Then I see the following lines in the "Items" section:
+      | title     | body   |
+      | 3× Kamera | Pool A |
     # And the start date is the one chosen before
     # And the end date is the one chosen before
 
@@ -59,6 +55,7 @@ Feature: Search and order
     Then "Kamera" is pre-filled as the search term
     And the start date chosen previously is pre-filled in the search panel
     And the end date chosen previously is pre-filled in the search panel
+
     # test query params and filters
     When I clear ls from the borrow app-db
     And I visit the url with query params for dates as before but "Beamer" as term
@@ -72,30 +69,47 @@ Feature: Search and order
     And I click on "Add item"
     Then the order panel is shown
     And I set the quantity to 1
-    And I click on "Hinzufügen" and accept the alert
+    And I click on "Add" and accept the alert
 
     # check the cart
     When I click on the menu
     And I click on "New Rental"
     Then the cart page is loaded
-    And I see one reservation for model "Beamer"
+    # FIXME: wait for reload???
+    And I sleep 1
+    Then I see the following lines in the "Items" section:
+      | title     | body   |
+      | 1× Beamer | Pool A |
+      | 3× Kamera | Pool A |
 
     # change the quantity and the dates of a reservation in the cart
-    When I click on "Edit" for the model "Kamera"
+    When I click on the line of the model "Kamera"
     When I increase the start date by 1 day for the model "Kamera"
     And I increase the end date by 1 day for the model "Kamera"
-    # And I pry
     And I set the quantity in the cart line to 4
-    And I click on "Update"
-    Then the reservation data was updated successfully for model "Kamera"
+    And I click on "Confirm"
+    # FIXME: wait for reload???
+    And I sleep 1
+    Then I see the following lines in the "Items" section:
+      | title     | body   | foot                 |
+      | 1× Beamer | Pool A | 2 days from 04/10/21 |
+      | 4× Kamera | Pool A | 1 day from 05/10/21  |
 
     # delete a reservation
-    And I delete the reservation for model "Beamer"
-    Then the reservation for model "Beamer" was deleted from the cart
+    When I click on the line of the model "Beamer"
+    And I see the "Edit reservation" dialog
+    And I click on "Remove reservation"
+    And the "Edit reservation" dialog has closed
+    Then I see the following lines in the "Items" section:
+      | title     | body   |
+      | 4× Kamera | Pool A |
 
     # submit the order
-    When I name the order as "My order"
-    And I click on "Confirm order"
+    When I click on "Confirm rental"
+    And I enter "My order" in the "Title" field
+    And I click on "Confirm"
+    # TODO: wait for confirmation modal instead of the redirect
+    Then I have been redirected to the newly created order
 
     # approve the order in legacy
     When I visit the orders page of the pool "Pool A"
@@ -111,5 +125,11 @@ Feature: Search and order
 
     # check the content of the order
     When I click on "My order"
-    Then I see "1× Kamera"
-    Then I see "0 of 4 items picked up"
+    # FIXME: rental detail view…
+    Then I see "0 of 4 items picked up" in the "State" section
+    And I see the following lines in the "Items" section:
+      | title     | body   |
+      | 1× Kamera | Pool A |
+      | 1× Kamera | Pool A |
+      | 1× Kamera | Pool A |
+      | 1× Kamera | Pool A |
