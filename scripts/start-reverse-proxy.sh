@@ -1,5 +1,7 @@
 #!/bin/sh -eu
 
+echo "starting apache/httpd reverse proxy"
+
 while true; do
 
 DYLD_LIBRARY_PATH=/usr/local/opt/apache2/lib/httpd/modules/ \

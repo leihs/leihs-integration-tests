@@ -39,7 +39,7 @@
     {
       "label": "Start Reverse-Proxy",
       "type": "shell",
-      "command": "source ./scripts/set-env.sh && ./scripts/start-reverse-proxy.sh",
+      "command": "killall httpd; source ./scripts/set-env.sh && ./scripts/start-reverse-proxy.sh",
       "problemMatcher": [],
       "isBackground": true,
       "presentation": {
