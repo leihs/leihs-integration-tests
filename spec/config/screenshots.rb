@@ -34,22 +34,3 @@ def take_screenshot(screenshot_dir = nil, name = nil)
               #{Capybara.current_driver}."
   end
 end
-
-module TurnipExtensions
-  module ScreenshotPerStep
-    def run_step(*args)
-      super(*args)
-      begin; spec_screenshot(RSpec.current_example, args.second); rescue => e; end
-      # spec_screenshot(RSpec.current_example, args.second)
-    end
-  end
-end
-
-# This is causing problems with the CI
-# monkey-patch Turnip
-# Turnip::RSpec::Execute.prepend TurnipExtensions::ScreenshotPerStep
-
-RSpec.configure do |config|
-  config.after(type: :feature) do |example|
-  end
-end

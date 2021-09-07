@@ -121,3 +121,36 @@ def decorate_exception(ex)
   end
   "\n\n#{div}\n\n#{msg}\n\n#{div}\n\n"
 end
+
+def log_turnip_step(file, step)
+  indent = " " * 3
+  inner_indent = (indent * 2) + (" " * 5)
+  line_nr = step.line.to_s.rjust(3, " ")
+  step_text = "#{step.keyword}#{step.text}"
+  args = if step.argument.is_a?(Turnip::Table)
+      table = step.argument
+      json_line = table.hashes.to_json
+      if json_line.length < 120
+        "\n#{inner_indent}#{json_line}"
+      else
+        dat = JSON.pretty_generate(table.hashes).split("\n")
+          .map { |l| "#{inner_indent}#{l}" }.join("\n")
+        "\n#{dat}"
+      end
+    end
+  puts "#{indent}#{line_nr} | #{step_text}#{args}"
+end
+
+module TurnipExtensions
+  module CustomStepRunner
+    def run_step(*args)
+      log_turnip_step(*args)
+      super(*args)
+      # This is causing problems with the CI
+      # begin; spec_screenshot(RSpec.current_example, args.second);       rescue => e; end
+    end
+  end
+end
+
+# monkey-patch Turnip
+Turnip::RSpec::Execute.prepend TurnipExtensions::CustomStepRunner
