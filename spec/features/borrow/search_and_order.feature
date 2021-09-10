@@ -16,7 +16,7 @@ Feature: Search and order
 
     # search for a model
     And I visit "/app/borrow/"
-    And I click on "Zeige Suche/Filter"
+    And I click on "Show search/filter"
     # ################################################
     # FIXME: non-deterministic problem of search term
     # getting cleared after it has been filled-in
@@ -35,7 +35,7 @@ Feature: Search and order
     # make a reservation
     When I click on the model with the title "Kamera"
     Then the show page of the model "Kamera" was loaded
-    When I click on "Gegenstand hinzufügen"
+    When I click on "Add item"
     Then the order panel is shown
     And the start date chosen previously is pre-filled in the calendar
     And the end date chosen previously is pre-filled in the calendar
@@ -55,21 +55,21 @@ Feature: Search and order
 
     # make a reservation for another model
     When I click on "Leihs"
-    And I click on "Zeige Suche/Filter"
+    And I click on "Show search/filter"
     Then "Kamera" is pre-filled as the search term
     And the start date chosen previously is pre-filled in the search panel
     And the end date chosen previously is pre-filled in the search panel
       # test query params and filters
       When I clear ls from the borrow app-db
       And I visit the url with query params for dates as before but "Beamer" as term
-      And I click on "Zeige Suche/Filter"
+      And I click on "Show search/filter"
       Then "Beamer" is pre-filled as the search term
       And the start date chosen previously is pre-filled in the search panel
       And the end date chosen previously is pre-filled in the search panel
     And I click button "Get Results"
     Then I see one model with the title "Beamer"
     When I click on the model with the title "Beamer"
-    And I click on "Gegenstand hinzufügen"
+    And I click on "Add item"
     Then the order panel is shown
     And I set the quantity to 1
     And I click on "Hinzufügen" and accept the alert
