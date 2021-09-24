@@ -128,7 +128,7 @@ end
 step 'the search filters are persisted in the url' do
   p_hash = Rack::Utils.parse_nested_query(URI.parse(current_url).query)
   expect(p_hash).to eq({
-    "available-between?"=>"true",
+    "only-available"=>"true",
     "quantity" => "1",
     "start-date" => Date.today.to_s,
     "end-date" => Date.tomorrow.to_s,
@@ -145,7 +145,7 @@ end
 step 'I visit the url with query params for dates as before but :m_name as term' do |m_name|
   visit \
     "/app/borrow/" \
-    "?available-between%3F=true" \
+    "?only-available=true" \
     "&start-date=#{Date.today}" \
     "&end-date=#{Date.tomorrow}" \
     "&term=#{m_name}"
