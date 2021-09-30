@@ -46,7 +46,7 @@ Feature: Search and order
 
     # check the cart
     When I click on the menu
-    And I click on "Cart"
+    And I click on "New Rental"
     Then the cart page is loaded
     And I see one reservation for model "Kamera"
     And the reservation has quantity 3
@@ -59,13 +59,13 @@ Feature: Search and order
     Then "Kamera" is pre-filled as the search term
     And the start date chosen previously is pre-filled in the search panel
     And the end date chosen previously is pre-filled in the search panel
-      # test query params and filters
-      When I clear ls from the borrow app-db
-      And I visit the url with query params for dates as before but "Beamer" as term
-      And I click on "Show search/filter"
-      Then "Beamer" is pre-filled as the search term
-      And the start date chosen previously is pre-filled in the search panel
-      And the end date chosen previously is pre-filled in the search panel
+    # test query params and filters
+    When I clear ls from the borrow app-db
+    And I visit the url with query params for dates as before but "Beamer" as term
+    And I click on "Show search/filter"
+    Then "Beamer" is pre-filled as the search term
+    And the start date chosen previously is pre-filled in the search panel
+    And the end date chosen previously is pre-filled in the search panel
     And I click button "Get Results"
     Then I see one model with the title "Beamer"
     When I click on the model with the title "Beamer"
@@ -76,7 +76,7 @@ Feature: Search and order
 
     # check the cart
     When I click on the menu
-    And I click on "Cart"
+    And I click on "New Rental"
     Then the cart page is loaded
     And I see one reservation for model "Beamer"
 
@@ -103,6 +103,8 @@ Feature: Search and order
 
     # check the new status of the order
     When I visit "/app/borrow/"
+    And I sleep 1
+    # FIXME: wait for menu open
     And I click on the menu
     And I click on "My Rentals"
     Then I see the order "My order" under open orders
