@@ -91,9 +91,9 @@ Feature: Search and order
     # FIXME: wait for reload???
     And I sleep 1
     Then I see the following lines in the "Items" section:
-      | title     | body   | foot                 |
-      | 1× Beamer | Pool A | 2 days from 04/10/21 |
-      | 4× Kamera | Pool A | 1 day from 05/10/21  |
+      | title     | body   |
+      | 1× Beamer | Pool A |
+      | 4× Kamera | Pool A |
 
     # delete a reservation
     When I click on the line of the model "Beamer"
