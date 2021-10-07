@@ -23,7 +23,7 @@ Feature: Search and order
     When I choose to filter by availabilty
     And I choose next working day as start date
     And I choose next next working day as end date
-    And I click button "Get Results"
+    And I click button "Apply"
     Then I see one model with the title "Kamera"
     And the search filters are persisted in the url
 
@@ -63,7 +63,7 @@ Feature: Search and order
     Then "Beamer" is pre-filled as the search term
     And the start date chosen previously is pre-filled in the search panel
     And the end date chosen previously is pre-filled in the search panel
-    And I click button "Get Results"
+    And I click button "Apply"
     Then I see one model with the title "Beamer"
     When I click on the model with the title "Beamer"
     And I click on "Add item"

@@ -1,3 +1,12 @@
+def format_date(date, user)
+  format = { "en-GB" => { :date => "%d/%m/%Y" },
+             "de-CH" => { :date => "%d.%m.%Y" } }
+
+  l = (user.language_locale or Language.where(default: true).first.locale)
+  f = format[l][:date]
+  date.strftime(f)
+end
+
 step "I enter :term in the search field" do |term|
   fill_in("Search", with: term)
 end
@@ -11,11 +20,11 @@ step "I choose to filter by availabilty" do
 end
 
 step "I choose next working day as start date" do
-  fill_in("From", with: Date.today.to_s)
+  fill_in("From", with: format_date(Date.today, @user))
 end
 
 step "I choose next next working day as end date" do
-  fill_in("Until", with: Date.tomorrow.to_s)
+  fill_in("Until", with: format_date(Date.tomorrow, @user))
 end
 
 step "I see one model with the title :name" do |name|
@@ -40,14 +49,14 @@ step "the end date chosen previously is pre-filled in the calendar" do
 end
 
 step "the start date chosen previously is pre-filled in the search panel" do
-  within('form[action="/search"]') do
-    expect(find_field("From").value).to eq Date.today.to_s
+  within('.modal-dialog') do
+    expect(find_field("From").value).to eq format_date(Date.today, @user)
   end
 end
 
 step "the end date chosen previously is pre-filled in the search panel" do
-  within('form[action="/search"]') do
-    expect(find_field("Until").value).to eq Date.tomorrow.to_s
+  within('.modal-dialog') do
+    expect(find_field("Until").value).to eq format_date(Date.tomorrow, @user)
   end
 end
 
@@ -77,7 +86,7 @@ step "I visit the model show page of model :name" do |name|
 end
 
 step ":term is pre-filled as the search term" do |term|
-  expect(find("input[name='search-term']").value).to eq term
+  expect(find("input[name='term']").value).to eq term
 end
 
 step "I delete the reservation for model :name" do |name|
@@ -115,11 +124,11 @@ step "the search filters are persisted in the url" do
   p_hash = Rack::Utils.parse_nested_query(URI.parse(current_url).query)
   expect(p_hash).to eq({
     "only-available" => "true",
-    "quantity" => "1",
+    # "quantity" => "1",
     "start-date" => Date.today.to_s,
     "end-date" => Date.tomorrow.to_s,
-    "term" => "Kamera",
-    "user-id" => @user.id,
+    "term" => "Kamera"
+    # "user-id" => @user.id,
   })
 end
 
