@@ -1,3 +1,8 @@
+def simulate_typing(el, val)
+  el.set("")
+  val.chars.each { |c| el.send_keys(c); sleep(0.1) }
+end
+
 step "I pry" do
   binding.pry
 end

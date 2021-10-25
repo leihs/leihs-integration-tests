@@ -58,7 +58,7 @@ Feature: Search and order
 
     # test query params and filters
     When I clear ls from the borrow app-db
-    And I visit the url with query params for dates as before but "Beamer" as term
+    And I visit "/app/borrow/models" with query params for dates as before but "Beamer" as term
     And I click on "Show search/filter"
     Then "Beamer" is pre-filled as the search term
     And the start date chosen previously is pre-filled in the search panel

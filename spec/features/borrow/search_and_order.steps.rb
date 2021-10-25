@@ -20,11 +20,11 @@ step "I choose to filter by availabilty" do
 end
 
 step "I choose next working day as start date" do
-  fill_in("From", with: format_date(Date.today, @user))
+  simulate_typing(find_field("From"), format_date(Date.today, @user))
 end
 
 step "I choose next next working day as end date" do
-  fill_in("Until", with: format_date(Date.tomorrow, @user))
+  simulate_typing(find_field("Until"), format_date(Date.tomorrow, @user))
 end
 
 step "I see one model with the title :name" do |name|
@@ -124,11 +124,10 @@ step "the search filters are persisted in the url" do
   p_hash = Rack::Utils.parse_nested_query(URI.parse(current_url).query)
   expect(p_hash).to eq({
     "only-available" => "true",
-    # "quantity" => "1",
+    "quantity" => "1",
     "start-date" => Date.today.to_s,
     "end-date" => Date.tomorrow.to_s,
     "term" => "Kamera"
-    # "user-id" => @user.id,
   })
 end
 
@@ -137,13 +136,9 @@ step "I clear ls from the borrow app-db" do
   click_on("Clear :ls")
 end
 
-step "I visit the url with query params for dates as before but :m_name as term" do |m_name|
+step "I visit :path with query params for dates as before but :m_name as term" do |path, m_name|
   visit \
-    "/app/borrow/" \
-    "?only-available=true" \
-    "&start-date=#{Date.today}" \
-    "&end-date=#{Date.tomorrow}" \
-    "&term=#{m_name}"
+    "#{path}?only-available=true&start-date=#{Date.today}&end-date=#{Date.tomorrow}&term=#{m_name}"
 end
 
 step "I click on the line of the model :name" do |name|
@@ -151,11 +146,11 @@ step "I click on the line of the model :name" do |name|
 end
 
 step "I increase the start date by 1 day for the model :name" do |name|
-  fill_in("From", with: Date.tomorrow.strftime("%m/%d/%Y"))
+  simulate_typing(find_field("From"), Date.tomorrow.strftime("%m/%d/%Y"))
 end
 
 step "I increase the end date by 1 day for the model :name" do |name|
-  fill_in("Until", with: (Date.tomorrow + 1.day).strftime("%m/%d/%Y"))
+  simulate_typing(find_field("Until"), (Date.tomorrow + 1.day).strftime("%m/%d/%Y"))
 end
 
 step "I see :n times :name" do |n, name|

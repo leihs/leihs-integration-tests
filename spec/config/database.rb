@@ -41,7 +41,11 @@ RSpec.configure do |config|
 end
 
 def load_translations
-  system("../borrow/bin/get-translations | psql --quiet -d #{http_uri.basename}")
+  if ENV['DO_NOT_LOAD_TRANSLATIONS'].presence # due to Matus specific setup
+    system("psql --quiet -d #{http_uri.basename} -f ../borrow/resources/all/sql/translations.sql")
+  else
+    system("../borrow/bin/get-translations | psql --quiet -d #{http_uri.basename}")
+  end
 end
 
 def set_default_locale(locale)
