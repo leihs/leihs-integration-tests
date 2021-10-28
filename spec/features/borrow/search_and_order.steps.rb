@@ -49,13 +49,13 @@ step "the end date chosen previously is pre-filled in the calendar" do
 end
 
 step "the start date chosen previously is pre-filled in the search panel" do
-  within('.modal-dialog') do
+  within(".modal-dialog") do
     expect(find_field("From").value).to eq format_date(Date.today, @user)
   end
 end
 
 step "the end date chosen previously is pre-filled in the search panel" do
-  within('.modal-dialog') do
+  within(".modal-dialog") do
     expect(find_field("Until").value).to eq format_date(Date.tomorrow, @user)
   end
 end
@@ -70,10 +70,6 @@ end
 
 step "I set the quantity in the cart line to :n" do |n|
   find_field("quantity").set(n)
-end
-
-step "I click on :text and accept the alert" do |text|
-  accept_alert { click_on(text) }
 end
 
 step "the cart page is loaded" do
@@ -127,7 +123,7 @@ step "the search filters are persisted in the url" do
     "quantity" => "1",
     "start-date" => Date.today.to_s,
     "end-date" => Date.tomorrow.to_s,
-    "term" => "Kamera"
+    "term" => "Kamera",
   })
 end
 
@@ -174,5 +170,11 @@ end
 step "I see :text in the :section section" do |text, section|
   within(find_ui_section(title: "State")) do
     expect(page).to have_text(text)
+  end
+end
+
+step "I accept the :title dialog" do |title|
+  within(find_ui_modal_dialog(title: title)) do
+    click_on "OK"
   end
 end

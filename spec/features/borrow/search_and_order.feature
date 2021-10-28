@@ -36,11 +36,13 @@ Feature: Search and order
     And the end date chosen previously is pre-filled in the calendar
     # PENDING: And the maximum quantity shows 4
     When I set the quantity to 3
-    And I click on "Add" and accept the alert
+    And I click on "Add"
+    And I accept the "Item added" dialog
+
     # PENDING: Then the maximum quantity shows 1
 
     # check the cart
-    When I click on the menu
+    When I open the main menu
     And I click on "New Rental"
     And the cart page is loaded
     Then I see the following lines in the "Items" section:
@@ -69,14 +71,14 @@ Feature: Search and order
     And I click on "Add item"
     Then the order panel is shown
     And I set the quantity to 1
-    And I click on "Add" and accept the alert
+    And I click on "Add"
+    And I accept the "Item added" dialog
 
     # check the cart
-    When I click on the menu
+    When I open the main menu
     And I click on "New Rental"
     Then the cart page is loaded
-    # FIXME: wait for reload???
-    And I sleep 1
+    And I wait for 1 second
     Then I see the following lines in the "Items" section:
       | title     | body   |
       | 1× Beamer | Pool A |
@@ -88,15 +90,15 @@ Feature: Search and order
     And I increase the end date by 1 day for the model "Kamera"
     And I set the quantity in the cart line to 4
     And I click on "Confirm"
-    # FIXME: wait for reload???
-    And I sleep 1
+    And I wait for 1 second
     Then I see the following lines in the "Items" section:
       | title     | body   |
       | 1× Beamer | Pool A |
       | 4× Kamera | Pool A |
 
     # delete a reservation
-    When I click on the line of the model "Beamer"
+    When I wait for 1 second
+    And I click on the line of the model "Beamer"
     And I see the "Edit reservation" dialog
     And I click on "Remove reservation"
     And the "Edit reservation" dialog has closed
@@ -105,10 +107,14 @@ Feature: Search and order
       | 4× Kamera | Pool A |
 
     # submit the order
+    When I wait for 1 second
     When I click on "Confirm rental"
+    And I see the "Confirm new rental" dialog
     And I enter "My order" in the "Title" field
     And I click on "Confirm"
-    # TODO: wait for confirmation modal instead of the redirect
+    And the "Confirm new rental" dialog has closed
+    And I accept the "Order submitted" dialog
+    And the "Order submitted" dialog has closed
     Then I have been redirected to the newly created order
 
     # approve the order in legacy
@@ -117,15 +123,12 @@ Feature: Search and order
 
     # check the new status of the order
     When I visit "/app/borrow/"
-    And I sleep 1
-    # FIXME: wait for menu open
-    And I click on the menu
+    And I open the main menu
     And I click on "My Rentals"
     Then I see the order "My order" under open orders
 
     # check the content of the order
     When I click on "My order"
-    # FIXME: rental detail view…
     Then I see "0 of 4 items picked up" in the "State" section
     And I see the following lines in the "Items" section:
       | title     | body   |
