@@ -74,5 +74,5 @@ Feature: Redirects after login
     Then I am redirected to "<path>"
     Examples:
       | path                               |
-      | /app/borrow/about?foo=bar&baz=quux |
+      | /app/borrow/debug?foo=bar&baz=quux |
       | /procure/requests                  |

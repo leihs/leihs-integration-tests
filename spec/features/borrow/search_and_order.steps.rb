@@ -128,7 +128,7 @@ step "the search filters are persisted in the url" do
 end
 
 step "I clear ls from the borrow app-db" do
-  visit "/app/borrow/about"
+  visit "/app/borrow/debug"
   click_on("Clear :ls")
 end
 

@@ -51,7 +51,7 @@ step "I log out from :subpath" do |subpath|
       click_on "Logout"
     end
   when "/app/borrow"
-    visit "#{subpath}/about"
+    visit "#{subpath}/debug"
     click_on "Logout"
   else
     raise
