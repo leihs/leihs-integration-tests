@@ -41,11 +41,11 @@ step "the show page of the model :name was loaded" do |name|
 end
 
 step "the start date chosen previously is pre-filled in the calendar" do
-  expect(find(".ui-booking-calendar .date-range-picker input[name='startDate']").value).to eq Date.today.strftime("%m/%d/%Y")
+  expect(find(".ui-booking-calendar .date-range-picker input[name='startDate']").value).to eq Date.today.strftime("%d/%m/%Y")
 end
 
 step "the end date chosen previously is pre-filled in the calendar" do
-  expect(find(".ui-booking-calendar .date-range-picker input[name='endDate']").value).to eq Date.tomorrow.strftime("%m/%d/%Y")
+  expect(find(".ui-booking-calendar .date-range-picker input[name='endDate']").value).to eq Date.tomorrow.strftime("%d/%m/%Y")
 end
 
 step "the start date chosen previously is pre-filled in the search panel" do
@@ -142,11 +142,11 @@ step "I click on the line of the model :name" do |name|
 end
 
 step "I increase the start date by 1 day for the model :name" do |name|
-  simulate_typing(find_field("From"), Date.tomorrow.strftime("%m/%d/%Y"))
+  simulate_typing(find_field("From"), Date.tomorrow.strftime("%d/%m/%Y"))
 end
 
 step "I increase the end date by 1 day for the model :name" do |name|
-  simulate_typing(find_field("Until"), (Date.tomorrow + 1.day).strftime("%m/%d/%Y"))
+  simulate_typing(find_field("Until"), (Date.tomorrow + 1.day).strftime("%d/%m/%Y"))
 end
 
 step "I see :n times :name" do |n, name|
