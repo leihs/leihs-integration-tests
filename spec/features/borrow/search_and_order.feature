@@ -115,7 +115,7 @@ Feature: Search and order
     And the "Confirm new rental" dialog has closed
     And I accept the "Order submitted" dialog
     And the "Order submitted" dialog has closed
-    Then I have been redirected to the newly created order
+    Then I have been redirected to the orders list
 
     # approve the order in legacy
     When I visit the orders page of the pool "Pool A"

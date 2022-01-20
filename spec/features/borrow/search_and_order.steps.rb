@@ -158,13 +158,8 @@ step "I see :n times :name" do |n, name|
   expect(rs.map { |r| r[:model][:id] }.uniq).to eq [m.id]
 end
 
-step "I have been redirected to the newly created order" do
-  wait_until { get_ui_page_layout }
-  # FIXME: we should not have to wait here!
-  # @order = wait_until { Order.order(Sequel.desc(:created_at)).first }
-  @order = Order.order(Sequel.desc(:created_at)).first
-  current_path == "/app/borrow/rentals/#{@order.customer_order_id}"
-  expect(current_path).to eq "/app/borrow/rentals/#{@order.customer_order_id}"
+step "I have been redirected to the orders list" do
+  expect(current_path).to eq "/app/borrow/rentals/"
 end
 
 step "I see :text in the :section section" do |text, section|
