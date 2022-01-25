@@ -73,7 +73,7 @@ step "I set the quantity in the cart line to :n" do |n|
 end
 
 step "the cart page is loaded" do
-  expect(page).to have_content ["New rental", "Status"].join("\n")
+  expect(page).to have_content ["Cart", "Status"].join("\n")
 end
 
 step "I visit the model show page of model :name" do |name|

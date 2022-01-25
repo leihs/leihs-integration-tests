@@ -43,7 +43,7 @@ Feature: Search and order
 
     # check the cart
     When I open the main menu
-    And I click on "New Rental"
+    And I click on "Cart"
     And the cart page is loaded
     Then I see the following lines in the "Items" section:
       | title     | body   |
@@ -76,7 +76,7 @@ Feature: Search and order
 
     # check the cart
     When I open the main menu
-    And I click on "New Rental"
+    And I click on "Cart"
     Then the cart page is loaded
     And I wait for 1 second
     Then I see the following lines in the "Items" section:
@@ -108,11 +108,11 @@ Feature: Search and order
 
     # submit the order
     When I wait for 1 second
-    When I click on "Confirm rental"
-    And I see the "Confirm new rental" dialog
-    And I enter "My order" in the "Title" field
+    When I click on "Confirm order"
+    And I see the "Confirm order" dialog
+    And I enter "Order 1" in the "Title" field
     And I click on "Confirm"
-    And the "Confirm new rental" dialog has closed
+    And the "Confirm order" dialog has closed
     And I accept the "Order submitted" dialog
     And the "Order submitted" dialog has closed
     Then I have been redirected to the orders list
@@ -124,11 +124,11 @@ Feature: Search and order
     # check the new status of the order
     When I visit "/app/borrow/"
     And I open the main menu
-    And I click on "My Rentals"
-    Then I see the order "My order" under open orders
+    And I click on "My Orders"
+    Then I see the order "Order 1" under open orders
 
     # check the content of the order
-    When I click on "My order"
+    When I click on "Order 1"
     Then I see "0 of 4 items picked up" in the "State" section
     And I see the following lines in the "Items" section:
       | title     | body   |
