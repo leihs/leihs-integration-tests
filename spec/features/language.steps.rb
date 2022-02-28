@@ -47,6 +47,11 @@ step "I change the language to :lang in :subapp" do |lang, subapp|
       find('.fa-globe').click
       find('button', text: lang).click
     end
+  when '/app/borrow/'
+    wait_until { page.has_selector?('.ui-menu-icon') }
+    sleep 1
+    find('.ui-menu-icon').click
+    find('.ui-menu-item', text: lang).click
   when '/manage', '/borrow'
     find("a", text: lang).click
   else
@@ -60,6 +65,10 @@ step "the language was changed to :lang in :subapp" do |lang, subapp|
     find('.fa-globe').click
     find('.navbar-leihs .dropdown-menu')
       .find('button b', text: lang)
+  when '/app/borrow/'
+    wait_until { page.has_selector?('.ui-menu-icon') }
+    find('.ui-menu-icon').click
+    wait_until
   when '/manage', '/borrow'
     find('footer strong', text: lang)
   else
@@ -70,6 +79,7 @@ end
 step "the language was changed to :lang everywhere" do |lang|
   subapp_paths = [
     '/admin/',
+    # '/app/borrow/',
     '/borrow',
     '/procure',
     '/manage',
@@ -82,6 +92,10 @@ step "the language was changed to :lang everywhere" do |lang|
       find('.fa-globe').click
       find('.navbar-leihs .dropdown-menu')
         .find('button b', text: lang)
+    when '/app/borrow/'
+      wait_until { page.has_selector?('.ui-menu-icon') }
+      find('.ui-menu-icon').click
+      wait_until { page.has_selector?('.ui-menu-item-selected', text: lang) }
     when '/manage', '/borrow'
       find('footer strong', text: lang)
     else
