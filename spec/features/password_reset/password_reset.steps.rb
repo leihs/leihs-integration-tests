@@ -102,7 +102,7 @@ step "I fill out the secret token" do
 end
 
 step "I fill out a new password in the password field" do
-  @the_new_password = Faker::String.random([8,16])
+  @the_new_password = Faker::String.random(length: [8,16])
   within('.ui-form-signin') do
     fill_in 'newPassword', with: @the_new_password
   end

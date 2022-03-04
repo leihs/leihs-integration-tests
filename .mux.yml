@@ -1,4 +1,4 @@
-name: LEIHS/v5/integration
+name: LEIHS/leihs/integration
 windows:
   2:
     name: apache2

@@ -1,28 +1,31 @@
 require 'sequel'
-require 'addressable'
 require_relative '../../../legacy/database/lib/leihs/constants'
 require '../database/lib/leihs/fields.rb'
 
-DB_ENV = ENV['LEIHS_DATABASE_URL'].presence \
-  || 'postgresql://leihs:leihs@localhost:5432/leihs?pool=5'
+def db_name
+  ENV['LEIHS_DATABASE_NAME'] || ENV['DB_NAME'] || 'leihs'
+end
 
-def http_uri
-  @http_uri ||= \
-    Addressable::URI.parse DB_ENV.gsub(/^jdbc:postgresql/,'http').gsub(/^postgres/,'http')
+def db_port
+  Integer(ENV['DB_PORT'].presence || ENV['PGPORT'].presence || 5432)
+end
+
+def db_con_str
+  logger = Logger.new(STDOUT)
+  s = 'postgres://' \
+    + (ENV['PGUSER'].presence || 'postgres') \
+    + ((pw = (ENV['DB_PASSWORD'].presence || ENV['PGPASSWORD'].presence)) ? ":#{pw}" : "") \
+    + '@' + (ENV['PGHOST'].presence || 'localhost') \
+    + ':' + (db_port).to_s \
+    + '/' + (db_name)
+  logger.info "SEQUEL CONN #{s}"
+  s
 end
 
 def database
-  @database ||= \
-    Sequel.connect(
-      # trick Addressable to parse db urls
-      'postgres://' \
-      + (http_uri.user.presence || ENV['PGUSER'].presence || 'postgres') \
-      + ((pw = (http_uri.password.presence || ENV['PGPASSWORD'].presence)) ? ":#{pw}" : "") \
-      + '@' + (http_uri.host.presence || ENV['PGHOST'].presence || ENV['PGHOSTADDR'].presence || 'localhost') \
-      + ':' + (http_uri.port.presence || ENV['PGPORT'].presence || 5432).to_s \
-      + '/' + ( http_uri.path.presence.try(:gsub,/^\//,'') || ENV['PGDATABASE'].presence || 'leihs') \
-      + '?pool=5')
+  @database ||= Sequel.connect(db_con_str)
 end
+
 
 def smtp_port
   ENV['LEIHS_MAIL_SMTP_PORT'].presence || raise('LEIHS_MAIL_SMTP_PORT not set')
@@ -32,7 +35,7 @@ RSpec.configure do |config|
   database.extension :pg_json
   config.before :each  do
     clean_db
-    system("DATABASE_NAME=#{http_uri.basename} ../database/scripts/restore-seeds")
+    system("LEIHS_DATABASE_NAME=#{db_name} ../database/scripts/restore-seeds")
     load_translations
     set_default_locale('de-CH')
     SystemAndSecuritySetting.first.update(external_base_url: LEIHS_HTTP_BASE_URL)
@@ -42,9 +45,9 @@ end
 
 def load_translations
   if ENV['DO_NOT_LOAD_TRANSLATIONS'].presence # due to Matus specific setup
-    system("psql --quiet -d #{http_uri.basename} -f ../borrow/resources/all/sql/translations.sql")
+    system("psql --quiet -d #{db_name} -f ../borrow/resources/all/sql/translations.sql")
   else
-    system("../borrow/bin/get-translations | psql --quiet -d #{http_uri.basename}")
+    system("../borrow/bin/get-translations | psql --quiet -d #{db_name}")
   end
 end
 

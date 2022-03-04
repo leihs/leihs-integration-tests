@@ -10,7 +10,7 @@ gem 'selenium-webdriver', '~> 3.14'
 gem 'geckodriver-helper', '0.21.0'
 
 # DB
-gem 'sequel', '~> 4.42', '>= 4.42.1'
+gem 'sequel'
 gem 'pg', '~> 1.1', platform: :mri
 
 # factories

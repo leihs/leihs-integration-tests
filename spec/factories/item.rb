@@ -7,7 +7,7 @@ end
 
 FactoryBot.define do
   factory :item do
-    inventory_code { Faker::Lorem.characters(10) }
+    inventory_code { Faker::Lorem.characters(number: 10) }
     leihs_model
     association :owner, factory: :inventory_pool
     association :responsible, factory: :inventory_pool
