@@ -16,8 +16,8 @@ Feature: Search and order
 
     # search for a model
     And I visit "/app/borrow/"
-    And I click on "Show search/filter"
-    And I enter "Kamera" in the search field
+    And I click on "Filter"
+    And I enter "Kamera" in the search field in the search panel
     Then the search field contains "Kamera"
 
     When I choose to filter by availabilty
@@ -48,21 +48,20 @@ Feature: Search and order
     Then I see the following lines in the "Items" section:
       | title     | body   |
       | 3× Kamera | Pool A |
-    # And the start date is the one chosen before
-    # And the end date is the one chosen before
 
     # make a reservation for another model
     When I click on "Leihs"
-    And I click on "Show search/filter"
-    Then "Kamera" is pre-filled as the search term
-    And the start date chosen previously is pre-filled in the search panel
-    And the end date chosen previously is pre-filled in the search panel
+    And I enter "Kamera" in the inline search field
+    And I click on "Filter"
+    Then "Kamera" is pre-filled as the search term in the search panel
+    # And the start date chosen previously is pre-filled in the search panel
+    # And the end date chosen previously is pre-filled in the search panel
 
     # test query params and filters
     When I clear ls from the borrow app-db
     And I visit "/app/borrow/models" with query params for dates as before but "Beamer" as term
-    And I click on "Show search/filter"
-    Then "Beamer" is pre-filled as the search term
+    And I click on "Filter"
+    Then "Beamer" is pre-filled as the search term in the search panel
     And the start date chosen previously is pre-filled in the search panel
     And the end date chosen previously is pre-filled in the search panel
     And I click button "Apply"

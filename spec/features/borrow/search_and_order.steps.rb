@@ -7,7 +7,12 @@ def format_date(date, user)
   date.strftime(f)
 end
 
-step "I enter :term in the search field" do |term|
+step "I enter :term in the inline search field" do |term|
+  within('.ui-model-search-filter') do
+    fill_in(:term, with: term)
+  end
+end
+step "I enter :term in the search field in the search panel" do |term|
   fill_in("Search", with: term)
 end
 
@@ -81,8 +86,8 @@ step "I visit the model show page of model :name" do |name|
   visit "/app/borrow/models/#{m.id}"
 end
 
-step ":term is pre-filled as the search term" do |term|
-  expect(find("input[name='term']").value).to eq term
+step ":term is pre-filled as the search term in the search panel" do |term|
+  expect(find("form#filter-form input[name='term']").value).to eq term
 end
 
 step "I delete the reservation for model :name" do |name|
