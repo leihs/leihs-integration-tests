@@ -5,7 +5,7 @@
       "label": "Run Integration Test (current file)",
       "detail": "assumes tasks 'Start Integration Tests' is already running",
       "type": "shell",
-      "command": "source ./scripts/set-env.sh && bundle exec rspec ${file}",
+      "command": "source ./bin/set-env && bundle exec rspec ${file}",
       // TODO: try rspec problem matcher <https://github.com/rubyide/vscode-ruby/issues/378>
       "problemMatcher": []
       // TODO: is it possible to "depend on" but not "restart"?
@@ -39,7 +39,7 @@
     {
       "label": "Start Reverse-Proxy",
       "type": "shell",
-      "command": "killall httpd; source ./scripts/set-env.sh && ./scripts/start-reverse-proxy.sh",
+      "command": "killall httpd; source ./bin/set-env && ./scripts/start-reverse-proxy.sh",
       "problemMatcher": [],
       "isBackground": true,
       "presentation": {
@@ -55,7 +55,7 @@
     {
       "label": "Start Service Admin",
       "type": "shell",
-      "command": "source ./scripts/set-env.sh && ../admin/bin/run",
+      "command": "source ./bin/set-env && ../admin/bin/run",
       "problemMatcher": [],
       "isBackground": true,
       "presentation": {
@@ -71,7 +71,7 @@
     {
       "label": "Start Service Borrow",
       "type": "shell",
-      "command": "source ./scripts/set-env.sh && ../borrow/bin/run",
+      "command": "source ./bin/set-env && ../borrow/bin/run",
       "problemMatcher": [],
       "isBackground": true,
       "presentation": {
@@ -87,7 +87,7 @@
     {
       "label": "Start Service My",
       "type": "shell",
-      "command": "source ./scripts/set-env.sh && ../my/bin/run",
+      "command": "source ./bin/set-env && ../my/bin/run",
       "problemMatcher": [],
       "isBackground": true,
       "presentation": {
@@ -103,7 +103,7 @@
     {
       "label": "Start Service Legacy-Webapp",
       "type": "shell",
-      "command": "source ./scripts/set-env.sh && cd ../legacy && bundle && bundle exec rails s -p $LEIHS_LEGACY_PORT",
+      "command": "source ./bin/set-env && cd ../legacy && bundle && bundle exec rails s -p $LEIHS_LEGACY_PORT",
       "problemMatcher": [],
       "isBackground": true,
       "presentation": {
@@ -119,7 +119,7 @@
     {
       "label": "Start Service Mail",
       "type": "shell",
-      "command": "source ./scripts/set-env.sh && ../mail/bin/run",
+      "command": "source ./bin/set-env && ../mail/bin/run",
       "problemMatcher": [],
       "isBackground": true,
       "presentation": {
@@ -135,7 +135,7 @@
     {
       "label": "prepare DB",
       "type": "shell",
-      "command": "source ./scripts/set-env.sh && ./scripts/prepare-db.sh",
+      "command": "source ./bin/set-env && bin/db-prepare",
       "problemMatcher": [],
       "presentation": {
         "echo": true,

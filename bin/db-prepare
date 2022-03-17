@@ -1,0 +1,15 @@
+#!/bin/bash -exu
+
+cd ../database
+bundle
+
+dropdb "$DB_NAME" || true
+
+createdb "$DB_NAME"
+psql -d "$DB_NAME" -f ./db/structure.sql
+
+LEIHS_DATABASE_NAME="${DB_NAME}" ./scripts/restore-seeds
+
+bundle exec rails db:migrate
+
+echo OK
