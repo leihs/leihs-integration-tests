@@ -107,11 +107,11 @@ Feature: Search and order
 
     # submit the order
     When I wait for 1 second
-    When I click on "Confirm order"
-    And I see the "Confirm order" dialog
+    When I click on "Send order"
+    And I see the "Send order" dialog
     And I enter "Order 1" in the "Title" field
-    And I click on "Confirm"
-    And the "Confirm order" dialog has closed
+    And I click on "Send"
+    And the "Send order" dialog has closed
     And I accept the "Order submitted" dialog
     And the "Order submitted" dialog has closed
     Then I have been redirected to the orders list
