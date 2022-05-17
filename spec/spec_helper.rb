@@ -22,3 +22,4 @@ Capybara.app_host = LEIHS_HTTP_BASE_URL
 
 require 'config/rspec'
 require 'config/browser'
+require 'config/locales'

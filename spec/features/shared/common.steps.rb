@@ -3,6 +3,19 @@ def simulate_typing(el, val)
   val.chars.each { |c| el.send_keys(c); sleep(0.1) }
 end
 
+# spec args given as "${some_ruby_code}" -> eval(some_ruby_code)
+def custom_eval(spec_string)
+  ruby_code = spec_string.to_s.match(/^\$\{(.*)\}$/)[1]
+  eval(ruby_code)
+end
+
+# spec args given as "A${1+1}Z" -> "A#{1+1}Z" -> "A2Z"
+def custom_interpolation(spec_string, format_func = ->(x) { x })
+  spec_string.gsub(/\$\{([^\$]*)\}/) do |s|
+    format_func.call(custom_eval(s))
+  end
+end
+
 step "I pry" do
   binding.pry
 end
@@ -39,6 +52,13 @@ end
 
 step "I enter :value in the :name field" do |value, name|
   fill_in name, with: value
+end
+
+step "I enter the date :date_expr in the :name field" do |date_expr, name|
+  date = custom_eval(date_expr)
+  date_string = Locales.format_date(date, @user)
+  fill_in(name, with: "")
+  fill_in(name, with: date_string)
 end
 
 step "I go to :url" do |url|

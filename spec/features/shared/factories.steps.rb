@@ -4,6 +4,13 @@ step 'there is a user' do
   @user = FactoryBot.create(:user)
 end
 
+step "there is a user :full_name" do |full_name|
+  first, last = full_name.split
+  login = user_login_from_full_name(full_name)
+  email = Faker::Internet.email(name: full_name)
+  @user = User.find(login: login) || FactoryBot.create(:user, firstname: first, lastname: last, login: login, email: email)
+end
+
 step 'there is a delegation' do
   @delegation = FactoryBot.create(:delegation)
 end
@@ -194,4 +201,52 @@ step 'there is/are :n borrowable item(s) for model :model in pool :pool' do |n, 
                       responsible: pool,
                       owner: pool)
   end
+end
+
+step "there is a category :name" do |name|
+  @category = FactoryBot.create(:category, name: name)
+end
+
+step "the :model_name model belongs to category :cat_name" do |model_name, cat_name|
+  cat = Category.find(name: cat_name)
+  model = LeihsModel.find(product: model_name)
+  cat.add_direct_model(model)
+end
+
+step 'there is an entitlement group :name in pool :pool_name' do |name, pool_name|
+  pool = InventoryPool.find(name: pool_name)
+
+  FactoryBot.create(:entitlement_group, inventory_pool: pool, name: name)
+end
+
+step 'the group :entitlement_group is entitled for :n item(s) of model :model' do |entitlement_group_name, n, model_name|
+  model = LeihsModel.find(product: model_name)
+  entitlement_group = EntitlementGroup.find(name: entitlement_group_name)
+
+  FactoryBot.create(:entitlement, leihs_model: model, entitlement_group: entitlement_group, quantity: n)
+end
+
+step "the user is member of entitlement group :entitlement_group_name" do |entitlement_group_name|
+  entitlement_group = EntitlementGroup.find(name: entitlement_group_name)
+  entitlement_group.add_user(@user)
+end
+
+step ":user_full_name has a reservation for :model in pool :pool from :from_date to :until_date" do |user_full_name, model, pool, start_date, end_date|
+  model = LeihsModel.find(product: model)
+  pool = InventoryPool.find(name: pool)
+  user = find_user_by_full_name!(user_full_name)
+
+  s = custom_eval(start_date).to_date
+  e = custom_eval(end_date).to_date
+
+  FactoryBot.create(:reservation, leihs_model: model, status: :approved, user: user, inventory_pool: pool,
+                           start_date: s, end_date: e)
+end
+
+def user_login_from_full_name(full_name)
+  full_name.downcase.gsub(' ','')
+end
+
+def find_user_by_full_name!(name)
+  User.find(login: user_login_from_full_name(name)) || fail("Could not find User '#{name}'!")
 end
