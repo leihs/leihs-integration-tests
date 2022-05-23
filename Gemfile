@@ -24,6 +24,7 @@ gem 'rb-readline'
 gem 'pry', '~> 0.11'
 gem 'mail', '~>2.7'
 gem "post_office"
+gem 'base32-crockford'
 
 gem 'haml'
 gem 'jwt'

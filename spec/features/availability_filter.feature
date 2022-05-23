@@ -303,3 +303,29 @@ Feature: Availability Filter
     And I visit "/app/borrow/"
     And I filter by 1 available item from "${13.days.from_now}" to "${14.days.from_now}"
     Then I see "Nothing found"
+
+  Scenario: Minimal scenario to reproduce NPE (general group has no borrowable items)
+
+    There need to be two pools at least and it needs to be searched from all pools in order
+    to trigger the availability computation for the model for the problematic pool (general
+    group has no borrowable items).
+
+    Given there is an inventory pool "Pool A"
+    And there is a model "Oppo Earphones Matus"
+    And there is 1 borrowable item for model "Oppo Earphones Matus" in pool "Pool A"
+
+    And there is an inventory pool "Pool B"
+    And there is 1 not borrowable item for model "Oppo Earphones Matus" in pool "Pool B"
+
+    And there is a user "Nimaai N"
+    And the user is customer of pool "Pool B"
+    And "Nimaai N" has a reservation for "Oppo Earphones Matus" in pool "Pool B" from "${1.months.from_now}" to "${4.months.from_now}"
+    And "Nimaai N" has a reservation for "Oppo Earphones Matus" in pool "Pool B" from "${2.month.from_now}" to "${3.months.from_now}"
+
+    Given there is a user "Matus M"
+    And the user is customer of pool "Pool A"
+    And the user is customer of pool "Pool B"
+    And I log in as the user
+
+    When I visit "/app/borrow/models?only-available=true&start-date=${Date.today}&end-date=${12.months.from_now.to_date}&quantity=1&term=Matus"
+    And I see "Nothing found"

@@ -66,7 +66,7 @@ step "I go to :url" do |url|
 end
 
 step "I visit :url" do |url|
-  visit url
+  visit custom_interpolation(url)
 end
 
 step "I am on :path" do |path|

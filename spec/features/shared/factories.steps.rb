@@ -190,13 +190,25 @@ step 'there is a model :name' do |name|
   FactoryBot.create(:leihs_model, product: name)
 end
 
-step 'there is/are :n borrowable item(s) for model :model in pool :pool' do |n, model, pool|
+placeholder :borrowable_or_not do
+  ###### order of matching matters! #######
+  match /not borrowable/ do
+    false
+  end
+
+  match /borrowable/ do
+    true
+  end
+  #########################################
+end
+
+step 'there is/are :n :borrowable_or_not item(s) for model :model in pool :pool' do |n, borrowable_or_not, model, pool|
   model = LeihsModel.find(product: model)
   pool = InventoryPool.find(name: pool)
 
   n.to_i.times do
     FactoryBot.create(:item,
-                      is_borrowable: true,
+                      is_borrowable: borrowable_or_not,
                       leihs_model: model,
                       responsible: pool,
                       owner: pool)

@@ -19,6 +19,7 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     archive-zip (0.12.0)
       io-like (~> 0.3.0)
+    base32-crockford (0.1.0)
     capybara (3.36.0)
       addressable
       matrix
@@ -124,6 +125,7 @@ PLATFORMS
 
 DEPENDENCIES
   activesupport (~> 5.2)
+  base32-crockford
   capybara (~> 3.8)
   exiftool_vendored
   factory_bot

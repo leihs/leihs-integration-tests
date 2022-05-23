@@ -26,6 +26,20 @@ def database
   @database ||= Sequel.connect(db_con_str)
 end
 
+def with_disabled_trigger(table, trigger)
+  t_sql = trigger == :all ? 'ALL' : trigger
+  database.run "ALTER TABLE #{table} DISABLE TRIGGER #{t_sql}"
+  result = yield
+  database.run "ALTER TABLE #{table} ENABLE TRIGGER #{t_sql}"
+  result
+end
+
+def with_disabled_triggers
+  database.run 'SET session_replication_role = replica;'
+  result = yield
+  database.run 'SET session_replication_role = DEFAULT;'
+  result
+end
 
 def smtp_port
   ENV['LEIHS_MAIL_SMTP_PORT'].presence || raise('LEIHS_MAIL_SMTP_PORT not set')
@@ -45,7 +59,8 @@ end
 
 def load_translations
   if ENV['DO_NOT_LOAD_TRANSLATIONS'].presence # due to Matus specific setup
-    system("psql --quiet -d #{db_name} -f ../borrow/resources/all/sql/translations.sql")
+    sql_file = ENV["SQL_FILE"].presence || "../borrow/resources/all/sql/translations.sql" 
+    system("psql --quiet -d #{db_name} -f #{sql_file}")
   else
     system("../borrow/bin/get-translations | psql --quiet -d #{db_name}")
   end
