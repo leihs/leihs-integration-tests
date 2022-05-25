@@ -12,9 +12,6 @@ step "I enter :term in the inline search field" do |term|
     fill_in(:term, with: term)
   end
 end
-step "I enter :term in the search field in the search panel" do |term|
-  fill_in("Search", with: term)
-end
 
 step "the search field contains :term" do |term|
   expect(find_field("Search").value).to eq term
@@ -35,10 +32,6 @@ end
 step "I see one model with the title :name" do |name|
   expect(all(".ui-models-list-item").count).to eq 1
   find(".ui-models-list-item", text: name)
-end
-
-step "I click on the model with the title :name" do |name|
-  find(".ui-models-list-item", text: name).click
 end
 
 step "the show page of the model :name was loaded" do |name|
@@ -81,11 +74,6 @@ step "the cart page is loaded" do
   expect(page).to have_content ["Cart", "Status"].join("\n")
 end
 
-step "I visit the model show page of model :name" do |name|
-  m = LeihsModel.find(product: name)
-  visit "/app/borrow/models/#{m.id}"
-end
-
 step ":term is pre-filled as the search term in the search panel" do |term|
   expect(find("form#filter-form input[name='term']").value).to eq term
 end
@@ -109,12 +97,6 @@ end
 
 step "I approve the order of the user" do
   find("[data-order-approve]").click
-end
-
-step "I see the order :purpose under open orders" do |purpose|
-  within find("section", text: "Open") do
-    expect(current_scope).to have_content purpose
-  end
 end
 
 step "the maximum quantity shows :n" do |n|
@@ -173,8 +155,3 @@ step "I see :text in the :section section" do |text, section|
   end
 end
 
-step "I accept the :title dialog" do |title|
-  within(find_ui_modal_dialog(title: title)) do
-    click_on "OK"
-  end
-end

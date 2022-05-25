@@ -85,6 +85,10 @@ step "I see :txt" do |txt|
   expect(page).to have_content(txt.to_s.strip())
 end
 
+step "I don't see :txt" do |txt|
+  expect(page).not_to have_content(txt.to_s.strip())
+end
+
 step "I log in with the email :email" do |email|
   @current_user = User.find(email: email)
   visit "/"
@@ -100,6 +104,11 @@ step "I log in with the email :email" do |email|
 end
 
 step "I log in as the user" do
+  step "I log in with the email '#{@user.email or @user.login}'"
+end
+
+step "I log in as the user :full_name" do |full_name|
+  @user = get_user(full_name)
   step "I log in with the email '#{@user.email or @user.login}'"
 end
 

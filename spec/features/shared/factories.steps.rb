@@ -1,5 +1,10 @@
 IP_UUID = "6bf7dc96-2b11-43c1-9f49-c58a5b332517"
 
+def get_user(full_name)
+  first, last = full_name.split
+  User.find(firstname: first, lastname: last)
+end
+
 step 'there is a user' do
   @user = FactoryBot.create(:user)
 end
@@ -90,6 +95,15 @@ step "the delegation is customer of pool :name" do |name|
                     role: :customer)
 end
 
+step "the user :full_name is customer of pool :name" do |full_name, name|
+  pool = InventoryPool.find(name: name)
+  @user = get_user(full_name)
+  FactoryBot.create(:access_right,
+                    user_id: @user.id,
+                    inventory_pool_id: pool.id,
+                    role: :customer)
+end
+
 step "the user is customer of pool :name" do |name|
   pool = InventoryPool.find(name: name)
   FactoryBot.create(:access_right,
@@ -114,6 +128,18 @@ step "the user is inventory manager of pool :name" do |name|
                     user_id: @user.id,
                     inventory_pool_id: pool.id,
                     role: :inventory_manager)
+end
+
+step "the user :full_name is lending manager of pool :name" do |full_name, name|
+  pool = InventoryPool.find(name: name) ||
+    FactoryBot.create(:inventory_pool, name: name)
+
+  @user = get_user(full_name)
+
+  FactoryBot.create(:access_right,
+                    user_id: @user.id,
+                    inventory_pool_id: pool.id,
+                    role: :lending_manager)
 end
 
 step "the user is lending manager of pool :name" do |name|
