@@ -1,15 +1,9 @@
 name: LEIHS/leihs/integration
 windows:
   2:
-    name: apache2
+    name: reverse-proxy
     command: |
-      kill -INT $(lsof -t -wni tcp:3200)
-      while true; do
-        rm -rf rever-proxy/logs/*
-        DYLD_LIBRARY_PATH=/opt/local/lib/apache2/modules/  \
-          /opt/local/sbin/httpd -d reverse-proxy -f conf/httpd.conf -e info -DFOREGROUND
-        sleep 1
-      done
+      ./bin/docker-run
   7:
     name: tests
     command: |

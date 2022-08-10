@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+set -eux
+
+PROJECT_DIR="$(cd -- "$(dirname "${BASH_SOURCE}")" ; cd .. > /dev/null 2>&1 && pwd -P)"
+cd $PROJECT_DIR
+
+docker exec -it  $1 /bin/bash -c 'tail -f /var/log/apache2/error.log -f /var/log/apache2/access.log'
