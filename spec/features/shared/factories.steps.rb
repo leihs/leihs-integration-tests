@@ -173,8 +173,20 @@ step "there is an external authentication system" do
     FactoryBot.create(:authentication_system, :external)
 end
 
+step "there is an external authentication system :name" do |name|
+  @external_authentication_system =
+    FactoryBot.create(:authentication_system, :external, name: name)
+end
+
 step "the user has external authentication" do
   ext_sys = AuthenticationSystem.find(type: 'external')
+  FactoryBot.create(:authentication_system_user,
+                    user_id: @user.id,
+                    authentication_system_id: ext_sys.id)
+end
+
+step "the user has external authentication for :name" do |name|
+  ext_sys = AuthenticationSystem.find(name: name)
   FactoryBot.create(:authentication_system_user,
                     user_id: @user.id,
                     authentication_system_id: ext_sys.id)
