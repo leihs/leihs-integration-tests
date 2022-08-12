@@ -16,8 +16,8 @@ Feature: Password Reset
     When I go to "/sign-in"
       And I fill out my "<login_or_email>"
       And I click "Weiter"
-    Then I see the "forgot password" button
-    When I click on "forgot password"
+    Then I see the "<button_txt>" button
+    When I click on "<button_txt>"
     Then I am on "/forgot-password"
       And I see my "<login_or_email>" filled out
     When I click "Weiter"
@@ -39,11 +39,11 @@ Feature: Password Reset
     Then I see the message "erfolgreich gespeichert"
       And I can log in with the new password
     Examples:
-      | user   | login_or_email  |
-      | Normin | email           |
-      | Normin | login           |
-      | Hans   | email           |
-      | Hans   | login           |
+      | user   | login_or_email  | button_txt          |
+      | Normin | email           | Passwort vergessen? |
+      | Normin | login           | Passwort vergessen? | 
+      | Hans   | email           | Passwort erstellen  |
+      | Hans   | login           | Passwort erstellen  |
 
   Scenario Outline: Via Email, typing the token manually
     Given I am "Normin"
@@ -52,8 +52,8 @@ Feature: Password Reset
       And I fill out my "<login_or_email>"
       And I click "Weiter"
     Then I see the login form with a password field
-      And I see the "forgot password" button
-    When I click on "forgot password"
+      And I see the "Passwort vergessen?" button
+    When I click on "Passwort vergessen?"
     Then I am on "/forgot-password"
       And I see my "<login_or_email>" filled out
     When I click "Weiter"
@@ -88,7 +88,7 @@ Feature: Password Reset
       And I fill out my "<login_or_email>"
       And I click "Weiter"
     Then I see the message "Benutzerkonto nicht möglich"
-      And I dont see the "forgot password" button
+      And I dont see the "Passwort vergessen?" button
     Examples:
       | login_or_email  |
       | email           |
@@ -99,8 +99,7 @@ Feature: Password Reset
     When I go to "/sign-in"
       And I fill out my "login"
       And I click "Weiter"
-    When I click on "forgot password"
-    Then I see the message "Keine Email-Adresse vorhanden!"
+     Then I dont see the "Passwort vergessen?" button
 
   Scenario: Fails if the token is invalid
     Given I am "Normin"
