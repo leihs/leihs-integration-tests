@@ -21,7 +21,7 @@ Feature: Password Reset
     Then I am on "/forgot-password"
       And I see my "<login_or_email>" filled out
     When I click "Weiter"
-    Then I see the message "check your email"
+    Then I see the message "Prüfen Sie Ihren E-Mail-Posteingang!"
       And I receive an email
 
       # FIXME: check correct email from!
@@ -57,7 +57,7 @@ Feature: Password Reset
     Then I am on "/forgot-password"
       And I see my "<login_or_email>" filled out
     When I click "Weiter"
-    Then I see the message "check your email"
+    Then I see the message "Prüfen Sie Ihren E-Mail-Posteingang!"
       And I receive an email
       And the email is from "noreply@nsa.gov"
       And the email has a subject of "Password reset"
@@ -65,7 +65,7 @@ Feature: Password Reset
       And the email body contains the password reset link and token
 
 
-    When I click on 'reset the password'
+    When I click on 'Gehen Sie hierher, um das Passwort mit dem Token in der E-Mail zurückzusetzen!'
       Then I am on "/reset-password"
 
     When I fill out the secret token
