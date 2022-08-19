@@ -8,7 +8,7 @@ Feature: Language
   Background:
     Given there is a user with an ultimate access
     And the default locale is "de-CH"
-    And there is a language "French" with locale name "fr-CH"
+    And the language "Français (CH)" is activated
 
   Scenario: Default language is used if user has no setting for it
     Given user does not have a prefered language
@@ -21,9 +21,9 @@ Feature: Language
     Given user does not have a prefered language
     When I log in as the user
     Then the used language is the default language
-    When I switch the language to "French"
-    Then the used language is "French"
-    And the saved language in my user profile is "French"
+    When I switch the language to "Français (CH)"
+    Then the used language is "Français (CH)"
+    And the saved language in my user profile is "Français (CH)"
 
   Scenario: After login the saved language is used
     Given user's preferred language is "English (UK)"
@@ -37,11 +37,11 @@ Feature: Language
     Given user's preferred language is "English (UK)"
     When I visit "/"
     Then the used language is the default language
-    When I switch the language to "French"
-    Then the used language is "French"
+    When I switch the language to "Français (CH)"
+    Then the used language is "Français (CH)"
     When I log in as the user
-    Then the used language is "French"
-    And the saved language in my user profile is "French"
+    Then the used language is "Français (CH)"
+    And the saved language in my user profile is "Français (CH)"
 
   Scenario: After logout the saved language is still used
     Given user's preferred language is "English (UK)"
@@ -51,7 +51,7 @@ Feature: Language
     Then the saved language in my user profile is "English (UK)"
 
   Scenario Outline: Switching the language when logged in applies it for all subapps.
-    Given user's preferred language is "French"
+    Given user's preferred language is "Français (CH)"
     When I log in as the user
     And I visit "<subapp path>"
     And I change the language to "English (UK)" in "<subapp path>"
@@ -77,6 +77,6 @@ Feature: Language
     When I log in as the user
     Then the used language is the default language
     And user does not have a prefered language
-    When I switch the language to "French"
-    Then the used language is "French"
-    And the saved language in my user profile is "French"
+    When I switch the language to "Français (CH)"
+    Then the used language is "Français (CH)"
+    And the saved language in my user profile is "Français (CH)"

@@ -33,6 +33,10 @@ step 'the language :lang is deactivated' do |lang|
   Language.find(name: lang).update(active: false)
 end
 
+step 'the language :lang is activated' do |lang|
+  Language.find(name: lang).update(active: true)
+end
+
 step 'I switch the language to :lang' do |lang|
   within '.ui-lang-selection' do
     current_scope.click
