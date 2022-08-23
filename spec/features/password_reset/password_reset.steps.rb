@@ -1,5 +1,9 @@
 require 'mail'
 
+step "sending of emails is disabled" do
+  SmtpSetting.first.update(enabled: false)
+end
+
 step "the following Users exist:" do |table|
   table.hashes.each do |user|
     FactoryBot.create(:user, {

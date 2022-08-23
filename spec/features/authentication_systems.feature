@@ -109,6 +109,10 @@ Feature: Authentication systems
     Then I am redirected to the url of that authentication system
 
   Scenario: User with password and 1 external authentication but no email
+
+    Although the user has no email, still we offer the "Password forgotten?" link.
+    We show an appropriate error message on the following "/forgot-password" page.
+
     Given there is a user
     And there is an external authentication system
     And the user has external authentication
@@ -120,7 +124,7 @@ Feature: Authentication systems
     Then I am redirected to "/sign-in"
     And there is an external authentication section with a button
     And there is a password authentication section with a password field
-    But there is no forgot password button
+    But there is a forgot password button
 
   Scenario: User with 2 external authentication systems (no password authentication system exists)
     Given there is a user
