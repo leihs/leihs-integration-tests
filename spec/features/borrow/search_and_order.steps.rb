@@ -155,3 +155,13 @@ step "I see :text in the :section section" do |text, section|
   end
 end
 
+step "there is a notification for the user with the title :title" do |title|
+  @notif =
+    wait_until(10) do
+      Notification.find(user_id: @user.id, title: title)
+    end
+  puts "\n----------\nYOU'VE GOT NOTIFICATION!\n\n"
+  puts @notif.inspect
+  puts "\n----------"
+end
+
