@@ -37,7 +37,6 @@ Feature: Admin section
     Examples:
       | menu entry             | path                          |
       | Audits legacy          | /admin/audits                 |
-      | Buildings              | /admin/buildings              |
       | Fields                 | /admin/fields_editor          |
       | Mail Templates         | /admin/mail_templates         |
       | Rooms                  | /admin/rooms                  |
