@@ -38,7 +38,6 @@ Feature: Admin section
       | menu entry             | path                          |
       | Audits legacy          | /admin/audits                 |
       | Fields                 | /admin/fields_editor          |
-      | Mail Templates         | /admin/mail_templates         |
 
   Scenario: No access to system-admins for a leihs admin
     Given there is a leihs admin
