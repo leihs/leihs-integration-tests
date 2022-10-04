@@ -5,6 +5,10 @@ step "I open the main menu" do
   end
 end
 
+step "I open the user menu" do
+  find("nav .ui-user-profile-button").click
+end
+
 step "I enter :term in the search field in the search panel" do |term|
   fill_in("Search", with: term)
 end

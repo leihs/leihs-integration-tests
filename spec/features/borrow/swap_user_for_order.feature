@@ -26,8 +26,7 @@ Feature: Swap order's user
     And I click on "OK"
 
     # Submit order
-    When I open the main menu
-    And I click on "Cart"
+    When I click on "Cart"
     When I click on "Send order"
     And I see the "Send order" dialog
     And I enter "Test Swap" in the "Title" field
@@ -41,16 +40,14 @@ Feature: Swap order's user
 
     # Check the order lists of the old borrower
     When I visit "/app/borrow/"
-    And I open the main menu
     And I click on "My Orders"
     Then I see "Nothing found"
 
     # Check the order lists of the new borrower
-    When I open the main menu
+    When I open the user menu
     And I click on "Logout"
     And I log in as the user "Normal Customer"
     When I visit "/app/borrow/"
-    And I open the main menu
     And I click on "My Orders"
     Then I see the order "Test Swap" under open orders
 
@@ -70,9 +67,8 @@ Feature: Swap order's user
     And I click on "OK"
 
     # Submit order
-    When I open the main menu
-    And I click on "Cart"
-    When I click on "Send order"
+    When I click on "Cart"
+    And I click on "Send order"
     And I see the "Send order" dialog
     And I enter "Test Swap" in the "Title" field
     And I click on "Send"
@@ -85,7 +81,6 @@ Feature: Swap order's user
 
     # Check the order lists of the old borrower
     When I visit "/app/borrow/"
-    And I open the main menu
     And I click on "My Orders"
     Then I see the order "Test Swap" under open orders
     When I click on the order "Test Swap"
@@ -95,11 +90,10 @@ Feature: Swap order's user
     And I don't see "Pool A"
 
     # Check the order lists of the new borrower
-    When I open the main menu
+    When I open the user menu
     And I click on "Logout"
     And I log in as the user "Normal Customer"
     When I visit "/app/borrow/"
-    And I open the main menu
     And I click on "My Orders"
     Then I see the order "Test Swap" under open orders
     When I click on the order "Test Swap"
