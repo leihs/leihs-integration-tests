@@ -8,7 +8,6 @@ scripts:
     body: |
       #!/usr/bin/env bash
       set -eux
-      export PATH=~/.rubies/$RUBY/bin:$PATH
       cd $LEIHS_INTEGRATION_TESTS_DIR
       bundle exec ruby bin/test-auth-system.rb -p ${TEST_AUTH_SYSTEM_PORT}
 

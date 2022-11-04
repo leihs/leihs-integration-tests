@@ -5,7 +5,6 @@ scripts:
     body: |
       set -ux
       cd $LEIHS_INTEGRATION_TESTS_DIR
-      export PATH=~/.rubies/$RUBY/bin:$PATH
 
       bundle exec post_office -v \
         -s "$LEIHS_MAIL_SMTP_PORT" \

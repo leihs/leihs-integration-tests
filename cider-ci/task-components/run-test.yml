@@ -11,7 +11,6 @@ scripts:
     body: |
       set -euxo
       cd ${LEIHS_INTEGRATION_TESTS_DIR}
-      export PATH=~/.rubies/$RUBY/bin:$PATH
       mkdir -p log
       xvfb-run -a -e log/xvfb.log \
         bundle exec rspec "$CIDER_CI_TASK_FILE"
