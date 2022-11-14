@@ -17,11 +17,16 @@ Feature: Admin section
     And I see the admin menu
     Examples:
       | menu entry             | path                           |
+      | Buildings              | /admin/buildings/              |
       | Groups                 | /admin/groups/                 |
+      | Inventory-Fields       | /admin/inventory-fields/       |
       | Inventory-Pools        | /admin/inventory-pools/        |
+      | Mail-Templates         | /admin/mail-templates/         |
+      | Rooms                  | /admin/rooms/                  |
       | Statistics             | /admin/statistics/             |
-      | System                 | /admin/system/                 |
       | Settings               | /admin/settings/               |
+      | Suppliers              | /admin/suppliers/              |
+      | System                 | /admin/system/                 |
       | Users                  | /admin/users/                  |
 
   Scenario Outline: Links going to old admin
@@ -37,7 +42,6 @@ Feature: Admin section
     Examples:
       | menu entry             | path                          |
       | Audits legacy          | /admin/audits                 |
-      | Fields                 | /admin/fields_editor          |
 
   Scenario: No access to system-admins for a leihs admin
     Given there is a leihs admin
