@@ -61,13 +61,13 @@ Feature: Language
     And I log in as the user
     Then the current language is "English (UK)"
     Examples:
-      | subapp path       |
-      | /admin/           |
-      # | /app/borrow/      |
-      | /borrow           |
-      | /procure          |
-      | /manage           |
-      | /my/user/me       |
+      | subapp path  |
+      | /admin/      |
+      | /app/borrow/ |
+      | /borrow      |
+      | /procure     |
+      | /manage      |
+      | /my/user/me  |
 
   Scenario: User with deactivated language should be able to change his language
     Given user's preferred language is "English (UK)"
