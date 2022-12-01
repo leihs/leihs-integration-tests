@@ -41,7 +41,7 @@ Feature: Swap order's user
     # Check the order lists of the old borrower
     When I visit "/app/borrow/"
     And I click on "My Orders"
-    Then I see "Nothing found"
+    Then I see "No orders yet"
 
     # Check the order lists of the new borrower
     When I open the user menu

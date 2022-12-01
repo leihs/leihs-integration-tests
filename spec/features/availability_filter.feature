@@ -68,13 +68,13 @@ Feature: Availability Filter
 
     # Period 1 / overall
     When I filter by 1 available item from "${Date.today}" to "${14.days.from_now}"
-    Then I see "Nothing found"
+    Then I see "No items found"
 
     # Period after all existing reservations
     When I filter by 1 available item from "${15.days.from_now}" to "${15.days.from_now}"
     Then I see one model with the title "Kamera"
     When I filter by 2 available items from "${15.days.from_now}" to "${15.days.from_now}"
-    Then I see "Nothing found"
+    Then I see "No items found"
 
   Scenario: Check Data Setup (Model Timeline)
     Given there is a user "Steffen Staff"
@@ -115,23 +115,23 @@ Feature: Availability Filter
 
     # Overall
     When I filter by 1 available item from "${Date.today}" to "${14.days.from_now}"
-    Then I see "Nothing found"
+    Then I see "No items found"
 
     # Period 1
     When I filter by 1 available item from "${Date.today}" to "${Date.tomorrow}"
-    Then I see "Nothing found"
+    Then I see "No items found"
 
     # Period 2
     When I filter by 1 available item from "${2.days.from_now}" to "${14.days.from_now}"
     Then I see one model with the title "Kamera"
     When I filter by 2 available item from "${2.days.from_now}" to "${14.days.from_now}"
-    Then I see "Nothing found"
+    Then I see "No items found"
 
     # Period after all existing reservations
     When I filter by 2 available item from "${15.days.from_now}" to "${15.days.from_now}"
     Then I see one model with the title "Kamera"
     When I filter by 3 available items from "${15.days.from_now}" to "${15.days.from_now}"
-    Then I see "Nothing found"
+    Then I see "No items found"
 
   Scenario: User with even more entitlement
     When there is a user "Uwe U"
@@ -178,43 +178,43 @@ Feature: Availability Filter
     When I filter by 1 available item from "${Date.today}" to "${14.days.from_now}"
     Then I see one model with the title "Kamera"
     When I filter by 2 available item from "${Date.today}" to "${14.days.from_now}"
-    Then I see "Nothing found"
+    Then I see "No items found"
 
     # Period 1
     When I filter by 1 available item from "${Date.today}" to "${Date.tomorrow}"
     Then I see one model with the title "Kamera"
     When I filter by 2 available item from "${Date.today}" to "${Date.tomorrow}"
-    Then I see "Nothing found"
+    Then I see "No items found"
 
     # Period 2
     When I filter by 2 available item from "${2.days.from_now}" to "${4.days.from_now}"
     Then I see one model with the title "Kamera"
     When I filter by 3 available item from "${2.days.from_now}" to "${4.days.from_now}"
-    Then I see "Nothing found"
+    Then I see "No items found"
 
     # Period 3
     When I filter by 1 available item from "${5.days.from_now}" to "${6.days.from_now}"
     Then I see one model with the title "Kamera"
     When I filter by 2 available item from "${5.days.from_now}" to "${6.days.from_now}"
-    Then I see "Nothing found"
+    Then I see "No items found"
 
     # Period 4
     When I filter by 2 available item from "${7.days.from_now}" to "${8.days.from_now}"
     Then I see one model with the title "Kamera"
     When I filter by 3 available item from "${7.days.from_now}" to "${8.days.from_now}"
-    Then I see "Nothing found"
+    Then I see "No items found"
 
     # Period 5
     When I filter by 3 available item from "${9.days.from_now}" to "${14.days.from_now}"
     Then I see one model with the title "Kamera"
     When I filter by 4 available item from "${9.days.from_now}" to "${14.days.from_now}"
-    Then I see "Nothing found"
+    Then I see "No items found"
 
     # Period after all existing reservations
     When I filter by 4 available item from "${15.days.from_now}" to "${15.days.from_now}"
     Then I see one model with the title "Kamera"
     When I filter by 5 available items from "${15.days.from_now}" to "${15.days.from_now}"
-    Then I see "Nothing found"
+    Then I see "No items found"
 
   Scenario: Overbooking
 
@@ -237,7 +237,7 @@ Feature: Availability Filter
     # == Borrow Mobile App
     When I visit "/app/borrow/"
     And I filter by 1 available item from "${13.days.from_now}" to "${14.days.from_now}"
-    Then I see "Nothing found"
+    Then I see "No items found"
 
     # When Uwe U is entitled in Fotokurs 101
     When the user is member of entitlement group "Fotokurs 101"
@@ -253,7 +253,7 @@ Feature: Availability Filter
     And I clear ls from the borrow app-db
     And I visit "/app/borrow/"
     And I filter by 1 available item from "${13.days.from_now}" to "${14.days.from_now}"
-    Then I see "Nothing found"
+    Then I see "No items found"
 
     # When Uwe U is entitled in Fotokurs 201
     When the user is member of entitlement group "Fotokurs 201"
@@ -285,7 +285,7 @@ Feature: Availability Filter
     And I clear ls from the borrow app-db
     And I visit "/app/borrow/"
     And I filter by 1 available item from "${13.days.from_now}" to "${14.days.from_now}"
-    Then I see "Nothing found"
+    Then I see "No items found"
 
     # Hard overbooking: Lending reserves one more item than available at all.
     # From the app filter perspective this is rather trivial, the item still is not available.
@@ -302,7 +302,7 @@ Feature: Availability Filter
     And I clear ls from the borrow app-db
     And I visit "/app/borrow/"
     And I filter by 1 available item from "${13.days.from_now}" to "${14.days.from_now}"
-    Then I see "Nothing found"
+    Then I see "No items found"
 
   Scenario: Minimal scenario to reproduce NPE (general group has no borrowable items)
 
@@ -328,4 +328,4 @@ Feature: Availability Filter
     And I log in as the user
 
     When I visit "/app/borrow/models?only-available=true&start-date=${Date.today}&end-date=${12.months.from_now.to_date}&quantity=1&term=Matus"
-    And I see "Nothing found"
+    And I see "No items found"
