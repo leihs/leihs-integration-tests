@@ -50,19 +50,9 @@ RSpec.configure do |config|
   config.before :each  do
     clean_db
     system("LEIHS_DATABASE_NAME=#{db_name} ../database/scripts/restore-seeds")
-    load_translations
     set_default_locale('de-CH')
     SystemAndSecuritySetting.first.update(external_base_url: LEIHS_HTTP_BASE_URL)
     SmtpSetting.first.update(port: smtp_port, address: 'localhost', enabled: true)
-  end
-end
-
-def load_translations
-  if ENV['DO_NOT_LOAD_TRANSLATIONS'].presence # due to Matus specific setup
-    sql_file = ENV["SQL_FILE"].presence || "../borrow/resources/all/sql/translations.sql" 
-    system("psql --quiet -d #{db_name} -f #{sql_file}")
-  else
-    system("../borrow/bin/get-translations | psql --quiet -d #{db_name}")
   end
 end
 
