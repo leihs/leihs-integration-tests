@@ -4,6 +4,7 @@ require 'haml'
 require 'json'
 require 'jwt'
 require 'pry'
+require 'puma'
 require 'sinatra'
 
 # for now: 
