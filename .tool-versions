@@ -1,0 +1,4 @@
+# ruby version is defined one up in the leihs dir,
+# could be overriden here in the future if needed
+firefox 78.15.0esr
+geckodriver 0.30.0

@@ -17,13 +17,18 @@ gem 'pg', '~> 1.1', platform: :mri
 gem 'factory_bot'
 gem 'faker'
 
+# for mailing tests
+gem "post_office"
+gem 'net-imap', require: false
+gem 'net-pop', require: false
+gem 'net-smtp', require: false
+
 # helpers
 gem 'activesupport', '~> 5.2'
 gem 'exiftool_vendored'
 gem 'rb-readline'
 gem 'pry', '~> 0.11'
 gem 'mail', '~>2.7'
-gem "post_office"
 gem 'base32-crockford'
 
 gem 'haml'

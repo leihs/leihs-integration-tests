@@ -1,0 +1,545 @@
+'./spec/features/admin_section.feature[1:1:1]':
+  name: "Admin section Links going to new admin 01"
+  environment_variables:
+    FEATURE_NAME: "Admin section Links going to new admin 01"
+    FEATURE: './spec/features/admin_section.feature[1:1:1]'
+'./spec/features/admin_section.feature[1:2:1]':
+  name: "Admin section Links going to new admin 02"
+  environment_variables:
+    FEATURE_NAME: "Admin section Links going to new admin 02"
+    FEATURE: './spec/features/admin_section.feature[1:2:1]'
+'./spec/features/admin_section.feature[1:3:1]':
+  name: "Admin section Links going to new admin 03"
+  environment_variables:
+    FEATURE_NAME: "Admin section Links going to new admin 03"
+    FEATURE: './spec/features/admin_section.feature[1:3:1]'
+'./spec/features/admin_section.feature[1:4:1]':
+  name: "Admin section Links going to new admin 04"
+  environment_variables:
+    FEATURE_NAME: "Admin section Links going to new admin 04"
+    FEATURE: './spec/features/admin_section.feature[1:4:1]'
+'./spec/features/admin_section.feature[1:5:1]':
+  name: "Admin section Links going to new admin 05"
+  environment_variables:
+    FEATURE_NAME: "Admin section Links going to new admin 05"
+    FEATURE: './spec/features/admin_section.feature[1:5:1]'
+'./spec/features/admin_section.feature[1:6:1]':
+  name: "Admin section Links going to new admin 06"
+  environment_variables:
+    FEATURE_NAME: "Admin section Links going to new admin 06"
+    FEATURE: './spec/features/admin_section.feature[1:6:1]'
+'./spec/features/admin_section.feature[1:7:1]':
+  name: "Admin section Links going to new admin 07"
+  environment_variables:
+    FEATURE_NAME: "Admin section Links going to new admin 07"
+    FEATURE: './spec/features/admin_section.feature[1:7:1]'
+'./spec/features/admin_section.feature[1:8:1]':
+  name: "Admin section Links going to new admin 08"
+  environment_variables:
+    FEATURE_NAME: "Admin section Links going to new admin 08"
+    FEATURE: './spec/features/admin_section.feature[1:8:1]'
+'./spec/features/admin_section.feature[1:9:1]':
+  name: "Admin section Links going to new admin 09"
+  environment_variables:
+    FEATURE_NAME: "Admin section Links going to new admin 09"
+    FEATURE: './spec/features/admin_section.feature[1:9:1]'
+'./spec/features/admin_section.feature[1:10:1]':
+  name: "Admin section Links going to new admin 10"
+  environment_variables:
+    FEATURE_NAME: "Admin section Links going to new admin 10"
+    FEATURE: './spec/features/admin_section.feature[1:10:1]'
+'./spec/features/admin_section.feature[1:11:1]':
+  name: "Admin section Links going to new admin 11"
+  environment_variables:
+    FEATURE_NAME: "Admin section Links going to new admin 11"
+    FEATURE: './spec/features/admin_section.feature[1:11:1]'
+'./spec/features/admin_section.feature[1:12:1]':
+  name: "Admin section Links going to old admin 01"
+  environment_variables:
+    FEATURE_NAME: "Admin section Links going to old admin 01"
+    FEATURE: './spec/features/admin_section.feature[1:12:1]'
+'./spec/features/admin_section.feature[1:13:1]':
+  name: "Admin section No access to system-admins for a leihs admin 01"
+  environment_variables:
+    FEATURE_NAME: "Admin section No access to system-admins for a leihs admin 01"
+    FEATURE: './spec/features/admin_section.feature[1:13:1]'
+'./spec/features/authentication_systems.feature[1:1:1]':
+  name: "Authentication systems No authentication system enabled for a user 01"
+  environment_variables:
+    FEATURE_NAME: "Authentication systems No authentication system enabled for a user 01"
+    FEATURE: './spec/features/authentication_systems.feature[1:1:1]'
+'./spec/features/authentication_systems.feature[1:2:1]':
+  name: "Authentication systems User account disabled 01"
+  environment_variables:
+    FEATURE_NAME: "Authentication systems User account disabled 01"
+    FEATURE: './spec/features/authentication_systems.feature[1:2:1]'
+'./spec/features/authentication_systems.feature[1:3:1]':
+  name: "Authentication systems User does not exist 01"
+  environment_variables:
+    FEATURE_NAME: "Authentication systems User does not exist 01"
+    FEATURE: './spec/features/authentication_systems.feature[1:3:1]'
+'./spec/features/authentication_systems.feature[1:4:1]':
+  name: "Authentication systems User without password and without email (pwd sign-in enabled) 01"
+  environment_variables:
+    FEATURE_NAME: "Authentication systems User without password and without email (pwd sign-in enabled) 01"
+    FEATURE: './spec/features/authentication_systems.feature[1:4:1]'
+'./spec/features/authentication_systems.feature[1:5:1]':
+  name: "Authentication systems User with only 1 external authentication 01"
+  environment_variables:
+    FEATURE_NAME: "Authentication systems User with only 1 external authentication 01"
+    FEATURE: './spec/features/authentication_systems.feature[1:5:1]'
+'./spec/features/authentication_systems.feature[1:6:1]':
+  name: "Authentication systems User with only password authentication 01"
+  environment_variables:
+    FEATURE_NAME: "Authentication systems User with only password authentication 01"
+    FEATURE: './spec/features/authentication_systems.feature[1:6:1]'
+'./spec/features/authentication_systems.feature[1:7:1]':
+  name: "Authentication systems User with password sign-in enabled (but no password) and 1 external authentication 01"
+  environment_variables:
+    FEATURE_NAME: "Authentication systems User with password sign-in enabled (but no password) and 1 external authentication 01"
+    FEATURE: './spec/features/authentication_systems.feature[1:7:1]'
+'./spec/features/authentication_systems.feature[1:8:1]':
+  name: "Authentication systems User with password and 1 external authentication 01"
+  environment_variables:
+    FEATURE_NAME: "Authentication systems User with password and 1 external authentication 01"
+    FEATURE: './spec/features/authentication_systems.feature[1:8:1]'
+'./spec/features/authentication_systems.feature[1:9:1]':
+  name: "Authentication systems User with password and 1 external authentication but no email 01"
+  environment_variables:
+    FEATURE_NAME: "Authentication systems User with password and 1 external authentication but no email 01"
+    FEATURE: './spec/features/authentication_systems.feature[1:9:1]'
+'./spec/features/authentication_systems.feature[1:10:1]':
+  name: "Authentication systems User with 2 external authentication systems (no password authentication system exists) 01"
+  environment_variables:
+    FEATURE_NAME: "Authentication systems User with 2 external authentication systems (no password authentication system exists) 01"
+    FEATURE: './spec/features/authentication_systems.feature[1:10:1]'
+'./spec/features/authentication_systems.feature[1:11:1]':
+  name: "Authentication systems User with 2 external authentication systems, without email and without password (password authentication system exists) 01"
+  environment_variables:
+    FEATURE_NAME: "Authentication systems User with 2 external authentication systems, without email and without password (password authentication system exists) 01"
+    FEATURE: './spec/features/authentication_systems.feature[1:11:1]'
+'./spec/features/availability_filter.feature[1:1:1]':
+  name: "Availability Filter User without entitlement 01"
+  environment_variables:
+    FEATURE_NAME: "Availability Filter User without entitlement 01"
+    FEATURE: './spec/features/availability_filter.feature[1:1:1]'
+'./spec/features/availability_filter.feature[1:2:1]':
+  name: "Availability Filter Check Data Setup (Model Timeline) 01"
+  environment_variables:
+    FEATURE_NAME: "Availability Filter Check Data Setup (Model Timeline) 01"
+    FEATURE: './spec/features/availability_filter.feature[1:2:1]'
+'./spec/features/availability_filter.feature[1:3:1]':
+  name: "Availability Filter User with entitlement 01"
+  environment_variables:
+    FEATURE_NAME: "Availability Filter User with entitlement 01"
+    FEATURE: './spec/features/availability_filter.feature[1:3:1]'
+'./spec/features/availability_filter.feature[1:4:1]':
+  name: "Availability Filter User with even more entitlement 01"
+  environment_variables:
+    FEATURE_NAME: "Availability Filter User with even more entitlement 01"
+    FEATURE: './spec/features/availability_filter.feature[1:4:1]'
+'./spec/features/availability_filter.feature[1:5:1]':
+  name: "Availability Filter Overbooking 01"
+  environment_variables:
+    FEATURE_NAME: "Availability Filter Overbooking 01"
+    FEATURE: './spec/features/availability_filter.feature[1:5:1]'
+'./spec/features/availability_filter.feature[1:6:1]':
+  name: "Availability Filter Minimal scenario to reproduce NPE (general group has no borrowable items) 01"
+  environment_variables:
+    FEATURE_NAME: "Availability Filter Minimal scenario to reproduce NPE (general group has no borrowable items) 01"
+    FEATURE: './spec/features/availability_filter.feature[1:6:1]'
+'./spec/features/borrow/search_and_order.feature[1:1:1]':
+  name: "Search and order Search and order 01"
+  environment_variables:
+    FEATURE_NAME: "Search and order Search and order 01"
+    FEATURE: './spec/features/borrow/search_and_order.feature[1:1:1]'
+'./spec/features/borrow/smoke.feature[1:1:1]':
+  name: "Borrow Smoke Access borrow app 01"
+  environment_variables:
+    FEATURE_NAME: "Borrow Smoke Access borrow app 01"
+    FEATURE: './spec/features/borrow/smoke.feature[1:1:1]'
+'./spec/features/borrow/swap_user_for_order.feature[1:1:1]':
+  name: "Swap order's user Customer order with a single pool order 01"
+  environment_variables:
+    FEATURE_NAME: "Swap order's user Customer order with a single pool order 01"
+    FEATURE: './spec/features/borrow/swap_user_for_order.feature[1:1:1]'
+'./spec/features/borrow/swap_user_for_order.feature[1:2:1]':
+  name: "Swap order's user Customer order with multiple pool orders 01"
+  environment_variables:
+    FEATURE_NAME: "Swap order's user Customer order with multiple pool orders 01"
+    FEATURE: './spec/features/borrow/swap_user_for_order.feature[1:2:1]'
+'./spec/features/debug.feature[1:1:1]':
+  name: "Debug ... 01"
+  environment_variables:
+    FEATURE_NAME: "Debug ... 01"
+    FEATURE: './spec/features/debug.feature[1:1:1]'
+'./spec/features/full_cycle/setup_borrow_hand-out_take-back_spec.rb[1:1]':
+  name: "full cycle 01"
+  environment_variables:
+    FEATURE_NAME: "full cycle 01"
+    FEATURE: './spec/features/full_cycle/setup_borrow_hand-out_take-back_spec.rb[1:1]'
+'./spec/features/full_cycle/setup_borrow_hand-out_take-back_via-group-access_spec.rb[1:1]':
+  name: "full cycle 02"
+  environment_variables:
+    FEATURE_NAME: "full cycle 02"
+    FEATURE: './spec/features/full_cycle/setup_borrow_hand-out_take-back_via-group-access_spec.rb[1:1]'
+'./spec/features/full_cycle/sign_in_and_session_spec.rb[1:1]':
+  name: "sign in and session 01"
+  environment_variables:
+    FEATURE_NAME: "sign in and session 01"
+    FEATURE: './spec/features/full_cycle/sign_in_and_session_spec.rb[1:1]'
+'./spec/features/global_session.feature[1:1:1]':
+  name: "Global session Logged in everywhere 01"
+  environment_variables:
+    FEATURE_NAME: "Global session Logged in everywhere 01"
+    FEATURE: './spec/features/global_session.feature[1:1:1]'
+'./spec/features/global_session.feature[1:2:1]':
+  name: "Global session Logged in everywhere 02"
+  environment_variables:
+    FEATURE_NAME: "Global session Logged in everywhere 02"
+    FEATURE: './spec/features/global_session.feature[1:2:1]'
+'./spec/features/global_session.feature[1:3:1]':
+  name: "Global session Logged in everywhere 03"
+  environment_variables:
+    FEATURE_NAME: "Global session Logged in everywhere 03"
+    FEATURE: './spec/features/global_session.feature[1:3:1]'
+'./spec/features/global_session.feature[1:4:1]':
+  name: "Global session Logged in everywhere 04"
+  environment_variables:
+    FEATURE_NAME: "Global session Logged in everywhere 04"
+    FEATURE: './spec/features/global_session.feature[1:4:1]'
+'./spec/features/global_session.feature[1:5:1]':
+  name: "Global session Logged in everywhere 05"
+  environment_variables:
+    FEATURE_NAME: "Global session Logged in everywhere 05"
+    FEATURE: './spec/features/global_session.feature[1:5:1]'
+'./spec/features/global_session.feature[1:6:1]':
+  name: "Global session Logged in everywhere 06"
+  environment_variables:
+    FEATURE_NAME: "Global session Logged in everywhere 06"
+    FEATURE: './spec/features/global_session.feature[1:6:1]'
+'./spec/features/global_session.feature[1:7:1]':
+  name: "Global session Log out from a particular subapp and thus everywhere 01"
+  environment_variables:
+    FEATURE_NAME: "Global session Log out from a particular subapp and thus everywhere 01"
+    FEATURE: './spec/features/global_session.feature[1:7:1]'
+'./spec/features/global_session.feature[1:8:1]':
+  name: "Global session Log out from a particular subapp and thus everywhere 02"
+  environment_variables:
+    FEATURE_NAME: "Global session Log out from a particular subapp and thus everywhere 02"
+    FEATURE: './spec/features/global_session.feature[1:8:1]'
+'./spec/features/global_session.feature[1:9:1]':
+  name: "Global session Log out from a particular subapp and thus everywhere 03"
+  environment_variables:
+    FEATURE_NAME: "Global session Log out from a particular subapp and thus everywhere 03"
+    FEATURE: './spec/features/global_session.feature[1:9:1]'
+'./spec/features/global_session.feature[1:10:1]':
+  name: "Global session Log out from a particular subapp and thus everywhere 04"
+  environment_variables:
+    FEATURE_NAME: "Global session Log out from a particular subapp and thus everywhere 04"
+    FEATURE: './spec/features/global_session.feature[1:10:1]'
+'./spec/features/global_session.feature[1:11:1]':
+  name: "Global session Log out from a particular subapp and thus everywhere 05"
+  environment_variables:
+    FEATURE_NAME: "Global session Log out from a particular subapp and thus everywhere 05"
+    FEATURE: './spec/features/global_session.feature[1:11:1]'
+'./spec/features/initial_admin.feature[1:1:1]':
+  name: "Initial admin Create initial admin 01"
+  environment_variables:
+    FEATURE_NAME: "Initial admin Create initial admin 01"
+    FEATURE: './spec/features/initial_admin.feature[1:1:1]'
+'./spec/features/inventory_pools.feature[1:1:1]':
+  name: "Inventory pools Create an inventory pool and edit a mail template 01"
+  environment_variables:
+    FEATURE_NAME: "Inventory pools Create an inventory pool and edit a mail template 01"
+    FEATURE: './spec/features/inventory_pools.feature[1:1:1]'
+'./spec/features/language.feature[1:1:1]':
+  name: "Language Default language is used if user has no setting for it 01"
+  environment_variables:
+    FEATURE_NAME: "Language Default language is used if user has no setting for it 01"
+    FEATURE: './spec/features/language.feature[1:1:1]'
+'./spec/features/language.feature[1:2:1]':
+  name: "Language Changing the language while logged in updates it in profile 01"
+  environment_variables:
+    FEATURE_NAME: "Language Changing the language while logged in updates it in profile 01"
+    FEATURE: './spec/features/language.feature[1:2:1]'
+'./spec/features/language.feature[1:3:1]':
+  name: "Language After login the saved language is used 01"
+  environment_variables:
+    FEATURE_NAME: "Language After login the saved language is used 01"
+    FEATURE: './spec/features/language.feature[1:3:1]'
+'./spec/features/language.feature[1:4:1]':
+  name: "Language Changing language before logging in updates it in profile 01"
+  environment_variables:
+    FEATURE_NAME: "Language Changing language before logging in updates it in profile 01"
+    FEATURE: './spec/features/language.feature[1:4:1]'
+'./spec/features/language.feature[1:5:1]':
+  name: "Language After logout the saved language is still used 01"
+  environment_variables:
+    FEATURE_NAME: "Language After logout the saved language is still used 01"
+    FEATURE: './spec/features/language.feature[1:5:1]'
+'./spec/features/language.feature[1:6:1]':
+  name: "Language Switching the language when logged in applies it for all subapps. 01"
+  environment_variables:
+    FEATURE_NAME: "Language Switching the language when logged in applies it for all subapps. 01"
+    FEATURE: './spec/features/language.feature[1:6:1]'
+'./spec/features/language.feature[1:7:1]':
+  name: "Language Switching the language when logged in applies it for all subapps. 02"
+  environment_variables:
+    FEATURE_NAME: "Language Switching the language when logged in applies it for all subapps. 02"
+    FEATURE: './spec/features/language.feature[1:7:1]'
+'./spec/features/language.feature[1:8:1]':
+  name: "Language Switching the language when logged in applies it for all subapps. 03"
+  environment_variables:
+    FEATURE_NAME: "Language Switching the language when logged in applies it for all subapps. 03"
+    FEATURE: './spec/features/language.feature[1:8:1]'
+'./spec/features/language.feature[1:9:1]':
+  name: "Language Switching the language when logged in applies it for all subapps. 04"
+  environment_variables:
+    FEATURE_NAME: "Language Switching the language when logged in applies it for all subapps. 04"
+    FEATURE: './spec/features/language.feature[1:9:1]'
+'./spec/features/language.feature[1:10:1]':
+  name: "Language Switching the language when logged in applies it for all subapps. 05"
+  environment_variables:
+    FEATURE_NAME: "Language Switching the language when logged in applies it for all subapps. 05"
+    FEATURE: './spec/features/language.feature[1:10:1]'
+'./spec/features/language.feature[1:11:1]':
+  name: "Language Switching the language when logged in applies it for all subapps. 06"
+  environment_variables:
+    FEATURE_NAME: "Language Switching the language when logged in applies it for all subapps. 06"
+    FEATURE: './spec/features/language.feature[1:11:1]'
+'./spec/features/language.feature[1:12:1]':
+  name: "Language User with deactivated language should be able to change his language 01"
+  environment_variables:
+    FEATURE_NAME: "Language User with deactivated language should be able to change his language 01"
+    FEATURE: './spec/features/language.feature[1:12:1]'
+'./spec/features/navbar/global_navbar_admin_manager.feature[1:1:1]':
+  name: "Global navbar Navbar for a sysadmin and manager 01"
+  environment_variables:
+    FEATURE_NAME: "Global navbar Navbar for a sysadmin and manager 01"
+    FEATURE: './spec/features/navbar/global_navbar_admin_manager.feature[1:1:1]'
+'./spec/features/navbar/global_navbar_base.feature[1:1:1]':
+  name: "Global navbar Navbar for customer only 01"
+  environment_variables:
+    FEATURE_NAME: "Global navbar Navbar for customer only 01"
+    FEATURE: './spec/features/navbar/global_navbar_base.feature[1:1:1]'
+'./spec/features/navbar/global_navbar_base.feature[1:2:1]':
+  name: "Global navbar Navbar for a procurer only 01"
+  environment_variables:
+    FEATURE_NAME: "Global navbar Navbar for a procurer only 01"
+    FEATURE: './spec/features/navbar/global_navbar_base.feature[1:2:1]'
+'./spec/features/navbar/global_navbar_base.feature[1:3:1]':
+  name: "Global navbar Navbar for an leihs admin only 01"
+  environment_variables:
+    FEATURE_NAME: "Global navbar Navbar for an leihs admin only 01"
+    FEATURE: './spec/features/navbar/global_navbar_base.feature[1:3:1]'
+'./spec/features/navbar/global_navbar_base.feature[1:4:1]':
+  name: "Global navbar Navbar for a sysadmin 01"
+  environment_variables:
+    FEATURE_NAME: "Global navbar Navbar for a sysadmin 01"
+    FEATURE: './spec/features/navbar/global_navbar_base.feature[1:4:1]'
+'./spec/features/navbar/global_navbar_base.feature[1:5:1]':
+  name: "Global navbar Navbar for user with no access whatsoever 01"
+  environment_variables:
+    FEATURE_NAME: "Global navbar Navbar for user with no access whatsoever 01"
+    FEATURE: './spec/features/navbar/global_navbar_base.feature[1:5:1]'
+'./spec/features/navbar/global_navbar_pool_managers_procurer.feature[1:1:1]':
+  name: "Global navbar Navbar for a manager of different pools, an admin and procurer 01"
+  environment_variables:
+    FEATURE_NAME: "Global navbar Navbar for a manager of different pools, an admin and procurer 01"
+    FEATURE: './spec/features/navbar/global_navbar_pool_managers_procurer.feature[1:1:1]'
+'./spec/features/navbar/global_navbar_user_section.feature[1:1:1]':
+  name: "Global navbar Links in the user section 01"
+  environment_variables:
+    FEATURE_NAME: "Global navbar Links in the user section 01"
+    FEATURE: './spec/features/navbar/global_navbar_user_section.feature[1:1:1]'
+'./spec/features/navbar/global_navbar_user_section.feature[1:2:1]':
+  name: "Global navbar Links in the user section 02"
+  environment_variables:
+    FEATURE_NAME: "Global navbar Links in the user section 02"
+    FEATURE: './spec/features/navbar/global_navbar_user_section.feature[1:2:1]'
+'./spec/features/navbar/global_navbar_user_section.feature[1:3:1]':
+  name: "Global navbar Links in the user section 03"
+  environment_variables:
+    FEATURE_NAME: "Global navbar Links in the user section 03"
+    FEATURE: './spec/features/navbar/global_navbar_user_section.feature[1:3:1]'
+'./spec/features/navbar/global_navbar_user_section.feature[1:4:1]':
+  name: "Global navbar Links in the user section 04"
+  environment_variables:
+    FEATURE_NAME: "Global navbar Links in the user section 04"
+    FEATURE: './spec/features/navbar/global_navbar_user_section.feature[1:4:1]'
+'./spec/features/navbar/global_navbar_user_section.feature[1:5:1]':
+  name: "Global navbar Links in the user section 05"
+  environment_variables:
+    FEATURE_NAME: "Global navbar Links in the user section 05"
+    FEATURE: './spec/features/navbar/global_navbar_user_section.feature[1:5:1]'
+'./spec/features/password_reset/password_reset.feature[1:1:1]':
+  name: "Password Reset Via Email, following the link 01"
+  environment_variables:
+    FEATURE_NAME: "Password Reset Via Email, following the link 01"
+    FEATURE: './spec/features/password_reset/password_reset.feature[1:1:1]'
+'./spec/features/password_reset/password_reset.feature[1:2:1]':
+  name: "Password Reset Via Email, following the link 02"
+  environment_variables:
+    FEATURE_NAME: "Password Reset Via Email, following the link 02"
+    FEATURE: './spec/features/password_reset/password_reset.feature[1:2:1]'
+'./spec/features/password_reset/password_reset.feature[1:3:1]':
+  name: "Password Reset Via Email, following the link 03"
+  environment_variables:
+    FEATURE_NAME: "Password Reset Via Email, following the link 03"
+    FEATURE: './spec/features/password_reset/password_reset.feature[1:3:1]'
+'./spec/features/password_reset/password_reset.feature[1:4:1]':
+  name: "Password Reset Via Email, following the link 04"
+  environment_variables:
+    FEATURE_NAME: "Password Reset Via Email, following the link 04"
+    FEATURE: './spec/features/password_reset/password_reset.feature[1:4:1]'
+'./spec/features/password_reset/password_reset.feature[1:5:1]':
+  name: "Password Reset Via Email, typing the token manually 01"
+  environment_variables:
+    FEATURE_NAME: "Password Reset Via Email, typing the token manually 01"
+    FEATURE: './spec/features/password_reset/password_reset.feature[1:5:1]'
+'./spec/features/password_reset/password_reset.feature[1:6:1]':
+  name: "Password Reset Via Email, typing the token manually 02"
+  environment_variables:
+    FEATURE_NAME: "Password Reset Via Email, typing the token manually 02"
+    FEATURE: './spec/features/password_reset/password_reset.feature[1:6:1]'
+'./spec/features/password_reset/password_reset.feature[1:7:1]':
+  name: "Password Reset Can not start password reset if user can not sign in with password 01"
+  environment_variables:
+    FEATURE_NAME: "Password Reset Can not start password reset if user can not sign in with password 01"
+    FEATURE: './spec/features/password_reset/password_reset.feature[1:7:1]'
+'./spec/features/password_reset/password_reset.feature[1:8:1]':
+  name: "Password Reset Can not start password reset if user can not sign in with password 02"
+  environment_variables:
+    FEATURE_NAME: "Password Reset Can not start password reset if user can not sign in with password 02"
+    FEATURE: './spec/features/password_reset/password_reset.feature[1:8:1]'
+'./spec/features/password_reset/password_reset.feature[1:9:1]':
+  name: "Password Reset Error message on /forgot-password if user has no email in DB 01"
+  environment_variables:
+    FEATURE_NAME: "Password Reset Error message on /forgot-password if user has no email in DB 01"
+    FEATURE: './spec/features/password_reset/password_reset.feature[1:9:1]'
+'./spec/features/password_reset/password_reset.feature[1:10:1]':
+  name: "Password Reset Error message on /forgot-password if sending of emails is disabled 01"
+  environment_variables:
+    FEATURE_NAME: "Password Reset Error message on /forgot-password if sending of emails is disabled 01"
+    FEATURE: './spec/features/password_reset/password_reset.feature[1:10:1]'
+'./spec/features/password_reset/password_reset.feature[1:11:1]':
+  name: "Password Reset Fails if the token is invalid 01"
+  environment_variables:
+    FEATURE_NAME: "Password Reset Fails if the token is invalid 01"
+    FEATURE: './spec/features/password_reset/password_reset.feature[1:11:1]'
+'./spec/features/password_reset/password_reset.feature[1:12:1]':
+  name: "Password Reset Fails if the token is expired 01"
+  environment_variables:
+    FEATURE_NAME: "Password Reset Fails if the token is expired 01"
+    FEATURE: './spec/features/password_reset/password_reset.feature[1:12:1]'
+'./spec/features/redirects_after_login.feature[1:1:1]':
+  name: "Redirects after login Leihs admin only 01"
+  environment_variables:
+    FEATURE_NAME: "Redirects after login Leihs admin only 01"
+    FEATURE: './spec/features/redirects_after_login.feature[1:1:1]'
+'./spec/features/redirects_after_login.feature[1:2:1]':
+  name: "Redirects after login Leihs admin and manager 01"
+  environment_variables:
+    FEATURE_NAME: "Redirects after login Leihs admin and manager 01"
+    FEATURE: './spec/features/redirects_after_login.feature[1:2:1]'
+'./spec/features/redirects_after_login.feature[1:3:1]':
+  name: "Redirects after login Leihs admin and procurer 01"
+  environment_variables:
+    FEATURE_NAME: "Redirects after login Leihs admin and procurer 01"
+    FEATURE: './spec/features/redirects_after_login.feature[1:3:1]'
+'./spec/features/redirects_after_login.feature[1:4:1]':
+  name: "Redirects after login Leihs admin and customer 01"
+  environment_variables:
+    FEATURE_NAME: "Redirects after login Leihs admin and customer 01"
+    FEATURE: './spec/features/redirects_after_login.feature[1:4:1]'
+'./spec/features/redirects_after_login.feature[1:5:1]':
+  name: "Redirects after login Manager of different pools 01"
+  environment_variables:
+    FEATURE_NAME: "Redirects after login Manager of different pools 01"
+    FEATURE: './spec/features/redirects_after_login.feature[1:5:1]'
+'./spec/features/redirects_after_login.feature[1:6:1]':
+  name: "Redirects after login Customer only 01"
+  environment_variables:
+    FEATURE_NAME: "Redirects after login Customer only 01"
+    FEATURE: './spec/features/redirects_after_login.feature[1:6:1]'
+'./spec/features/redirects_after_login.feature[1:7:1]':
+  name: "Redirects after login Procurer only 01"
+  environment_variables:
+    FEATURE_NAME: "Redirects after login Procurer only 01"
+    FEATURE: './spec/features/redirects_after_login.feature[1:7:1]'
+'./spec/features/redirects_after_login.feature[1:8:1]':
+  name: "Redirects after login Customer and procurer 01"
+  environment_variables:
+    FEATURE_NAME: "Redirects after login Customer and procurer 01"
+    FEATURE: './spec/features/redirects_after_login.feature[1:8:1]'
+'./spec/features/redirects_after_login.feature[1:9:1]':
+  name: "Redirects after login Procurer and manager 01"
+  environment_variables:
+    FEATURE_NAME: "Redirects after login Procurer and manager 01"
+    FEATURE: './spec/features/redirects_after_login.feature[1:9:1]'
+'./spec/features/redirects_after_login.feature[1:10:1]':
+  name: "Redirects after login User with no access whatsoever 01"
+  environment_variables:
+    FEATURE_NAME: "Redirects after login User with no access whatsoever 01"
+    FEATURE: './spec/features/redirects_after_login.feature[1:10:1]'
+'./spec/features/redirects_after_login.feature[1:11:1]':
+  name: "Redirects after login Redirect with return-to param 01"
+  environment_variables:
+    FEATURE_NAME: "Redirects after login Redirect with return-to param 01"
+    FEATURE: './spec/features/redirects_after_login.feature[1:11:1]'
+'./spec/features/redirects_after_login.feature[1:12:1]':
+  name: "Redirects after login Redirect with return-to param 02"
+  environment_variables:
+    FEATURE_NAME: "Redirects after login Redirect with return-to param 02"
+    FEATURE: './spec/features/redirects_after_login.feature[1:12:1]'
+'./spec/features/release_info.feature[1:1:1]':
+  name: "Release info Not logged in 01"
+  environment_variables:
+    FEATURE_NAME: "Release info Not logged in 01"
+    FEATURE: './spec/features/release_info.feature[1:1:1]'
+'./spec/features/settings/include_customer_email_in_contracts.feature[1:1:1]':
+  name: "Setting include_customer_email_in_contracts Configure in Admin UI 01"
+  environment_variables:
+    FEATURE_NAME: "Setting include_customer_email_in_contracts Configure in Admin UI 01"
+    FEATURE: './spec/features/settings/include_customer_email_in_contracts.feature[1:1:1]'
+'./spec/features/settings/include_customer_email_in_contracts.feature[1:2:1]':
+  name: "Setting include_customer_email_in_contracts Contact email address of the lender is included in the contract documents 01"
+  environment_variables:
+    FEATURE_NAME: "Setting include_customer_email_in_contracts Contact email address of the lender is included in the contract documents 01"
+    FEATURE: './spec/features/settings/include_customer_email_in_contracts.feature[1:2:1]'
+'./spec/features/settings/include_customer_email_in_contracts.feature[1:3:1]':
+  name: "Setting include_customer_email_in_contracts Contact email address of the lender is included in the contract documents 02"
+  environment_variables:
+    FEATURE_NAME: "Setting include_customer_email_in_contracts Contact email address of the lender is included in the contract documents 02"
+    FEATURE: './spec/features/settings/include_customer_email_in_contracts.feature[1:3:1]'
+'./spec/features/settings/include_customer_email_in_contracts.feature[1:4:1]':
+  name: "Setting include_customer_email_in_contracts Contact email address of the lender is included in the contract documents 03"
+  environment_variables:
+    FEATURE_NAME: "Setting include_customer_email_in_contracts Contact email address of the lender is included in the contract documents 03"
+    FEATURE: './spec/features/settings/include_customer_email_in_contracts.feature[1:4:1]'
+'./spec/features/settings/include_customer_email_in_contracts.feature[1:5:1]':
+  name: "Setting include_customer_email_in_contracts Contact email address of the delegated user is included in the contract documents 01"
+  environment_variables:
+    FEATURE_NAME: "Setting include_customer_email_in_contracts Contact email address of the delegated user is included in the contract documents 01"
+    FEATURE: './spec/features/settings/include_customer_email_in_contracts.feature[1:5:1]'
+'./spec/features/settings/include_customer_email_in_contracts.feature[1:6:1]':
+  name: "Setting include_customer_email_in_contracts Contact email address of the delegated user is included in the contract documents 02"
+  environment_variables:
+    FEATURE_NAME: "Setting include_customer_email_in_contracts Contact email address of the delegated user is included in the contract documents 02"
+    FEATURE: './spec/features/settings/include_customer_email_in_contracts.feature[1:6:1]'
+'./spec/features/settings/include_customer_email_in_contracts.feature[1:7:1]':
+  name: "Setting include_customer_email_in_contracts Contact email address of the delegated user is included in the contract documents 03"
+  environment_variables:
+    FEATURE_NAME: "Setting include_customer_email_in_contracts Contact email address of the delegated user is included in the contract documents 03"
+    FEATURE: './spec/features/settings/include_customer_email_in_contracts.feature[1:7:1]'
+'./spec/features/settings/lending_terms_acceptance.feature[1:1:1]':
+  name: "Lending Terms acceptance Configure Lending terms for instance in Admin UI 01"
+  environment_variables:
+    FEATURE_NAME: "Lending Terms acceptance Configure Lending terms for instance in Admin UI 01"
+    FEATURE: './spec/features/settings/lending_terms_acceptance.feature[1:1:1]'
+'./spec/features/settings/lending_terms_acceptance.feature[1:2:1]':
+  name: "Lending Terms acceptance Acceptance of lending terms is enforced when configured 01"
+  environment_variables:
+    FEATURE_NAME: "Lending Terms acceptance Acceptance of lending terms is enforced when configured 01"
+    FEATURE: './spec/features/settings/lending_terms_acceptance.feature[1:2:1]'

@@ -42,12 +42,14 @@ def with_disabled_triggers
 end
 
 def smtp_port
-  ENV['LEIHS_MAIL_SMTP_PORT'].presence || raise('LEIHS_MAIL_SMTP_PORT not set')
+  ENV.fetch('LEIHS_MAIL_SMTP_PORT','32110')
 end
 
 RSpec.configure do |config|
-  database.extension :pg_json
-  config.before :each  do
+  config.before :all do |foo|
+    database.extension :pg_json
+  end
+  config.before :each do |example|
     clean_db
     system("LEIHS_DATABASE_NAME=#{db_name} ../database/scripts/restore-seeds")
     set_default_locale('de-CH')

@@ -6,9 +6,13 @@ trial_attachments:
 scripts:
   test:
     body: |
-      set -euxo
-      cd ${LEIHS_INTEGRATION_TESTS_DIR}
+      #!/usr/bin/env bash
+      set -euo pipefail
+      cd $LEIHS_INTEGRATION_TESTS_DIR
+      echo "# FEATURE_NAME: $FEATURE_NAME"
+      echo "# FEATURE: $FEATURE"
       mkdir -p log
-      xvfb-run -a -e log/xvfb.log \
-        bundle exec rspec "$CIDER_CI_TASK_FILE"
-
+      unset PGPORT; unset PGUSER
+      PGPORT=${PG10PORT} PGUSER=${PG10USER} \
+        xvfb-run -a -e log/xvfb.log  \
+        ./bin/rspec "${FEATURE}"

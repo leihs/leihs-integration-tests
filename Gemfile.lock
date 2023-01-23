@@ -36,6 +36,7 @@ GEM
       cucumber-messages (~> 12.4, >= 12.4.0)
     cucumber-messages (12.4.0)
       protobuf-cucumber (~> 3.10, >= 3.10.8)
+    date (3.3.3)
     diff-lcs (1.5.0)
     exiftool (1.2.4)
       json
@@ -65,6 +66,15 @@ GEM
     minitest (5.15.0)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
+    net-imap (0.3.4)
+      date
+      net-protocol
+    net-pop (0.1.2)
+      net-protocol
+    net-protocol (0.2.1)
+      timeout
+    net-smtp (0.3.3)
+      net-protocol
     nio4r (2.5.8)
     nokogiri (1.13.1)
       mini_portile2 (~> 2.7.0)
@@ -119,6 +129,7 @@ GEM
     thor (1.2.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
+    timeout (0.3.1)
     tzinfo (1.2.9)
       thread_safe (~> 0.1)
     xpath (3.2.0)
@@ -138,6 +149,9 @@ DEPENDENCIES
   haml
   jwt
   mail (~> 2.7)
+  net-imap
+  net-pop
+  net-smtp
   pg (~> 1.1)
   post_office
   pry (~> 0.11)

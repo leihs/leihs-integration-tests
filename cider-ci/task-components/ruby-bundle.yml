@@ -1,5 +1,5 @@
 traits:
-  Bash: true
+  asdf: true
 
 scripts:
 
@@ -8,10 +8,9 @@ scripts:
     timeout: 20 Minutes
     body: |
       #!/usr/bin/env bash
-      set -euxo
+      set -euo pipefail
       cd $LEIHS_INTEGRATION_TESTS_DIR
-      asdf install ruby
-      bundle install
+      ./bin/env/ruby-setup
 
   test:
     start_when:
