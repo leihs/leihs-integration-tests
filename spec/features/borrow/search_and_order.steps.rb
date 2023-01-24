@@ -18,7 +18,7 @@ step "the search field contains :term" do |term|
 end
 
 step "I choose to filter by availabilty" do
-  check("Show available only")
+  check("Select date (from/until)")
 end
 
 step "I choose next working day as start date" do

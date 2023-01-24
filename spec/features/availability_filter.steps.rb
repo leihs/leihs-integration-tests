@@ -1,5 +1,5 @@
 step "I choose to filter by availability" do
-  check("Show available only")
+  check("Select date (from/until)")
 end
 
 step "I see one model with the title :name" do |name|
