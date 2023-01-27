@@ -10,11 +10,12 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (5.2.6)
+    activesupport (6.1.7.1)
       concurrent-ruby (~> 1.0, >= 1.0.2)
-      i18n (>= 0.7, < 2)
-      minitest (~> 5.1)
-      tzinfo (~> 1.1)
+      i18n (>= 1.6, < 2)
+      minitest (>= 5.1)
+      tzinfo (~> 2.0)
+      zeitwerk (~> 2.3)
     addressable (2.8.0)
       public_suffix (>= 2.0.2, < 5.0)
     archive-zip (0.12.0)
@@ -31,7 +32,7 @@ GEM
       xpath (~> 3.2)
     childprocess (3.0.0)
     coderay (1.1.3)
-    concurrent-ruby (1.1.9)
+    concurrent-ruby (1.2.0)
     cucumber-gherkin (14.2.0)
       cucumber-messages (~> 12.4, >= 12.4.0)
     cucumber-messages (12.4.0)
@@ -51,7 +52,7 @@ GEM
     haml (5.2.2)
       temple (>= 0.8.0)
       tilt
-    i18n (1.9.1)
+    i18n (1.12.0)
       concurrent-ruby (~> 1.0)
     io-like (0.3.1)
     json (2.6.1)
@@ -63,7 +64,7 @@ GEM
     middleware (0.1.0)
     mini_mime (1.1.2)
     mini_portile2 (2.7.1)
-    minitest (5.15.0)
+    minitest (5.17.0)
     mustermann (1.1.1)
       ruby2_keywords (~> 0.0.1)
     net-imap (0.3.4)
@@ -130,16 +131,17 @@ GEM
     thread_safe (0.3.6)
     tilt (2.0.10)
     timeout (0.3.1)
-    tzinfo (1.2.9)
-      thread_safe (~> 0.1)
+    tzinfo (2.0.5)
+      concurrent-ruby (~> 1.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
+    zeitwerk (2.6.6)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  activesupport (~> 5.2)
+  activesupport (~> 6.1)
   base32-crockford
   capybara (~> 3.8)
   exiftool_vendored
