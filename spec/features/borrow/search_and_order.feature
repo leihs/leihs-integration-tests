@@ -113,7 +113,7 @@ Feature: Search and order
     And I accept the "Order submitted" dialog
     And the "Order submitted" dialog has closed
     Then I have been redirected to the orders list
-    And there is a notification for the user with the title "[leihs] Reservation Submitted"
+    And there is an email for the user with the title "[leihs] Reservation Submitted"
 
     # approve the order in legacy
     When I visit the orders page of the pool "Pool A"
