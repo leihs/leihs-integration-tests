@@ -173,3 +173,7 @@ end
 step "I wait a little" do
   sleep 1
 end
+
+step "I click on the cart icon" do
+  find("a.ui-cart-item-link").click
+end

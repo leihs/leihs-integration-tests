@@ -42,7 +42,7 @@ Feature: Search and order
     # PENDING: Then the maximum quantity shows 1
 
     # check the cart
-    When I click on "Cart"
+    When I click on the cart icon
     And the cart page is loaded
     Then I see the following lines in the "Items" section:
       | title     | body   |
@@ -73,7 +73,7 @@ Feature: Search and order
     And I accept the "Item added" dialog
 
     # check the cart
-    When I click on "Cart"
+    When I click on the cart icon
     Then the cart page is loaded
     And I wait for 1 second
     Then I see the following lines in the "Items" section:
@@ -121,7 +121,7 @@ Feature: Search and order
 
     # check the new status of the order
     When I visit "/app/borrow/"
-    And I click on "My Orders"
+    And I click on "Orders"
     Then I see the order "Order 1" under open orders
 
     # check the content of the order

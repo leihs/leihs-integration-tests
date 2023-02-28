@@ -26,7 +26,7 @@ Feature: Swap order's user
     And I click on "OK"
 
     # Submit order
-    When I click on "Cart"
+    When I click on the cart icon
     When I click on "Send order"
     And I see the "Send order" dialog
     And I enter "Test Swap" in the "Title" field
@@ -40,7 +40,7 @@ Feature: Swap order's user
 
     # Check the order lists of the old borrower
     When I visit "/app/borrow/"
-    And I click on "My Orders"
+    And I click on "Orders"
     Then I see "No orders yet"
 
     # Check the order lists of the new borrower
@@ -48,7 +48,7 @@ Feature: Swap order's user
     And I click on "Logout"
     And I log in as the user "Normal Customer"
     When I visit "/app/borrow/"
-    And I click on "My Orders"
+    And I click on "Orders"
     Then I see the order "Test Swap" under open orders
 
   Scenario: Customer order with multiple pool orders
@@ -67,7 +67,7 @@ Feature: Swap order's user
     And I click on "OK"
 
     # Submit order
-    When I click on "Cart"
+    When I click on the cart icon
     And I click on "Send order"
     And I see the "Send order" dialog
     And I enter "Test Swap" in the "Title" field
@@ -81,7 +81,7 @@ Feature: Swap order's user
 
     # Check the order lists of the old borrower
     When I visit "/app/borrow/"
-    And I click on "My Orders"
+    And I click on "Orders"
     Then I see the order "Test Swap" under open orders
     When I click on the order "Test Swap"
     Then I see "Beamer"
@@ -94,7 +94,7 @@ Feature: Swap order's user
     And I click on "Logout"
     And I log in as the user "Normal Customer"
     When I visit "/app/borrow/"
-    And I click on "My Orders"
+    And I click on "Orders"
     Then I see the order "Test Swap" under open orders
     When I click on the order "Test Swap"
     Then I see "Kamera"
