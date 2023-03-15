@@ -72,8 +72,6 @@ FactoryBot.define do
     end
 
     after(:create) do |user, trans|
-      user.add_delegation_user(trans.responsible)
-
       trans.members.each do |member|
         user.add_delegation_user(member)
       end
