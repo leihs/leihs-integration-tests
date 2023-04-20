@@ -125,7 +125,7 @@ Feature: Search and order
     Then I see the order "Order 1" under open orders
 
     # check the content of the order
-    When I click on "Order 1"
+    When I click on the order "Order 1"
     Then I see "0 of 4 items picked up" in the "State" section
     And I see the following lines in the "Items" section:
       | title     | body   |

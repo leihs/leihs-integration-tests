@@ -165,3 +165,6 @@ step "there is an email for the user with the title :title" do |title|
   puts "\n----------"
 end
 
+step "I click on the order :title" do |title|
+  find(".ui-list-card", text: title).click
+end
