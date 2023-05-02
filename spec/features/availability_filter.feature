@@ -328,4 +328,4 @@ Feature: Availability Filter
     And I log in as the user
 
     When I visit "/app/borrow/models?only-available=true&start-date=${Date.today}&end-date=${12.months.from_now.to_date}&quantity=1&term=Matus"
-    And I see "No items found"
+    Then I see one model with the title "Oppo Earphones Matus"
