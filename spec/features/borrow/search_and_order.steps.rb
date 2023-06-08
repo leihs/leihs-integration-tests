@@ -115,7 +115,7 @@ step "the search filters are persisted in the url" do
 end
 
 step "I clear ls from the borrow app-db" do
-  visit "/app/borrow/debug"
+  visit "/borrow/debug"
   click_on("Clear :ls")
 end
 
@@ -146,7 +146,7 @@ step "I see :n times :name" do |n, name|
 end
 
 step "I have been redirected to the orders list" do
-  expect(current_path).to eq "/app/borrow/rentals/"
+  expect(current_path).to eq "/borrow/rentals/"
 end
 
 step "I see :text in the :section section" do |text, section|

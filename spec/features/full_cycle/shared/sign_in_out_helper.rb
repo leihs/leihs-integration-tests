@@ -5,7 +5,7 @@ def sign_in_as user, pool=nil
   fill_in 'password', with: user.password
   click_on 'Continue'
   wait_until do
-    ["/admin/", '/borrow',
+    ["/admin/", '/borrow/',
      "/manage/#{pool.try(:id)}/inventory",
      "/manage/#{pool.try(:id)}/daily" ].include? current_path
   end
@@ -13,8 +13,11 @@ def sign_in_as user, pool=nil
   when '/admin/'
     find('.fa-user-circle').click
     wait_until { page.has_content? user.lastname }
-  when '/borrow'
-    wait_until { page.has_content? user.lastname }
+  when '/borrow/'
+    wait_until do
+      find(".ui-user-profile-button").click
+      page.has_content? "#{user.firstname} #{user.lastname}"
+    end
   when "/manage/#{pool.try(:id)}/inventory"
     wait_until { page.has_content? user.lastname }
   when "/manage/#{pool.try(:id)}/daily"

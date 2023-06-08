@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+DYLD_LIBRARY_PATH=/opt/homebrew/opt/apache2/lib/httpd/modules/ \
+  httpd \
+  -C 'LoadModule mpm_worker_module mod_mpm_worker.so' \
+  -d reverse-proxy \
+  -f conf/httpd.conf \
+  -e info \
+  -DFOREGROUND

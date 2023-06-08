@@ -34,13 +34,17 @@ Feature: Lending Terms acceptance
 
     When I visit "/borrow"
     And I add one item of model "Beamer" to the cart
-    And I click on "Complete order"
-    Then I see "I accept the lending terms: https://example.org/fileadmin/leihs-terms_2001-01-01.pdf"
+    And I click on "OK"
+    And I click on the cart icon
+    And I click on "Bestellung abschicken"
+    Then I see "Ich akzeptiere die Ausleihbedingungen:"
+    And I see "https://example.org/fileadmin/leihs-terms_2001-01-01.pdf"
 
-    When I enter "my purpose" in the "purpose" field
-    And I click on "Submit Order"
+    When I enter "my title" in the "title" field
+    And I click on "Abschicken"
     Then the order is not submitted
 
-    When I check "accept_lending_terms"
-    And I click on "Submit Order"
+    When I check "lending-terms-accepted"
+    And I click on "Abschicken"
+    And I click on "OK"
     Then the order is submitted

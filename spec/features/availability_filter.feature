@@ -1,7 +1,6 @@
 Feature: Availability Filter
 
   Use the scenario from https://github.com/leihs/leihs/wiki/Availability and test the model availability filter for several time periods.
-  Also test whether classic borrow model filter has the same behaviour (with the difference that quantity is not supported in classic borrow).
 
   # Same reference reservations dates are used as in /documentation/sources/business_logic, but with relative dates
   # Periods (with their corresponding dates in the documentation):
@@ -52,19 +51,8 @@ Feature: Availability Filter
     And the user is customer of pool "Fotopool"
     And I log in as the user
 
-    # == Classic Borrow
-    When I classic click on category "Foto"
-
-    # Period 1 / overall
-    And I classic filter by date "${Date.today}" to "${14.days.from_now}"
-    Then I classic see one model "Kamera" being grayed out
-
-    # Period after all existing reservations
-    When I classic filter by date "${15.days.from_now}" to "${15.days.from_now}"
-    Then I classic see one model "Kamera" not being grayed out
-
     # == Borrow Mobile App
-    When I visit "/app/borrow/"
+    When I visit "/borrow/"
 
     # Period 1 / overall
     When I filter by 1 available item from "${Date.today}" to "${14.days.from_now}"
@@ -91,27 +79,8 @@ Feature: Availability Filter
     And the user is member of entitlement group "Fotokurs 201"
     And I log in as the user
 
-    # == Classic Borrow
-    When I classic click on category "Foto"
-
-    # Overall
-    And I classic filter by date "${Date.today}" to "${14.days.from_now}"
-    Then I classic see one model "Kamera" being grayed out
-
-    # Period 1
-    And I classic filter by date "${Date.today}" to "${Date.tomorrow}"
-    Then I classic see one model "Kamera" being grayed out
-
-    # Period 2
-    And I classic filter by date "${2.days.from_now}" to "${14.days.from_now}"
-    Then I classic see one model "Kamera" not being grayed out
-
-    # Period after all existing reservations
-    And I classic filter by date "${15.days.from_now}" to "${15.days.from_now}"
-    Then I classic see one model "Kamera" not being grayed out
-
     # == Borrow Mobile App
-    When I visit "/app/borrow/"
+    When I visit "/borrow/"
 
     # Overall
     When I filter by 1 available item from "${Date.today}" to "${14.days.from_now}"
@@ -140,39 +109,8 @@ Feature: Availability Filter
     And the user is member of entitlement group "Fotokurs 201"
     And I log in as the user
 
-    # == Classic Borrow
-    When I classic click on category "Foto"
-
-    # Overall
-    When I classic filter by date "${Date.today}" to "${14.days.from_now}"
-    Then I classic see one model "Kamera" not being grayed out
-
-    # Period 1
-    When I classic filter by date "${Date.today}" to "${Date.tomorrow}"
-    Then I classic see one model "Kamera" not being grayed out
-
-    # Period 2
-    When I classic filter by date "${2.days.from_now}" to "${4.days.from_now}"
-    Then I classic see one model "Kamera" not being grayed out
-
-    # Period 3
-    When I classic filter by date "${5.days.from_now}" to "${6.days.from_now}"
-    Then I classic see one model "Kamera" not being grayed out
-
-    # Period 4
-    When I classic filter by date "${7.days.from_now}" to "${8.days.from_now}"
-    Then I classic see one model "Kamera" not being grayed out
-
-    # Period 5
-    When I classic filter by date "${9.days.from_now}" to "${14.days.from_now}"
-    Then I classic see one model "Kamera" not being grayed out
-
-    # Period after all existing reservations
-    When I classic filter by date "${15.days.from_now}" to "${15.days.from_now}"
-    Then I classic see one model "Kamera" not being grayed out
-
     # == Borrow Mobile App
-    When I visit "/app/borrow/"
+    When I visit "/borrow/"
 
     # Overall
     When I filter by 1 available item from "${Date.today}" to "${14.days.from_now}"
@@ -229,61 +167,38 @@ Feature: Availability Filter
 
     # When Uwe U is not entitled
 
-    # == Classic Borrow
-    When I classic click on category "Foto"
-    And I classic filter by date "${13.days.from_now}" to "${14.days.from_now}"
-    Then I classic see one model "Kamera" being grayed out
-
     # == Borrow Mobile App
-    When I visit "/app/borrow/"
+    When I visit "/borrow/"
     And I filter by 1 available item from "${13.days.from_now}" to "${14.days.from_now}"
     Then I see "No items found"
 
     # When Uwe U is entitled in Fotokurs 101
     When the user is member of entitlement group "Fotokurs 101"
 
-    # == Classic Borrow
-    When I visit "/borrow/"
-    And I classic click on category "Foto"
-    And I classic filter by date "${13.days.from_now}" to "${14.days.from_now}"
-    Then I classic see one model "Kamera" being grayed out
-
     # == Borrow Mobile App
-    When I visit "/app/borrow/"
+    When I visit "/borrow/"
     And I clear ls from the borrow app-db
-    And I visit "/app/borrow/"
+    And I visit "/borrow/"
     And I filter by 1 available item from "${13.days.from_now}" to "${14.days.from_now}"
     Then I see "No items found"
 
     # When Uwe U is entitled in Fotokurs 201
     When the user is member of entitlement group "Fotokurs 201"
 
-    # == Classic Borrow
-    When I visit "/borrow/"
-    And I classic click on category "Foto"
-    And I classic filter by date "${13.days.from_now}" to "${14.days.from_now}"
-    Then I classic see one model "Kamera" not being grayed out
-
     # == Borrow Mobile App
-    When I visit "/app/borrow/"
+    When I visit "/borrow/"
     And I clear ls from the borrow app-db
-    And I visit "/app/borrow/"
+    And I visit "/borrow/"
     And I filter by 1 available item from "${13.days.from_now}" to "${14.days.from_now}"
     Then I see one model with the title "Kamera"
 
     # Soft overbooking with no item left
     Given "Cecile C" has a reservation for "Kamera" in pool "Fotopool" from "${13.days.from_now}" to "${14.days.from_now}"
 
-    # == Classic Borrow
-    When I visit "/borrow/"
-    And I classic click on category "Foto"
-    And I classic filter by date "${13.days.from_now}" to "${14.days.from_now}"
-    Then I classic see one model "Kamera" being grayed out
-
     # == Borrow Mobile App
-    When I visit "/app/borrow/"
+    When I visit "/borrow/"
     And I clear ls from the borrow app-db
-    And I visit "/app/borrow/"
+    And I visit "/borrow/"
     And I filter by 1 available item from "${13.days.from_now}" to "${14.days.from_now}"
     Then I see "No items found"
 
@@ -291,16 +206,10 @@ Feature: Availability Filter
     # From the app filter perspective this is rather trivial, the item still is not available.
     Given "Cecile C" has a reservation for "Kamera" in pool "Fotopool" from "${13.days.from_now}" to "${14.days.from_now}"
 
-    # == Classic Borrow
-    When I visit "/borrow/"
-    And I classic click on category "Foto"
-    And I classic filter by date "${13.days.from_now}" to "${14.days.from_now}"
-    Then I classic see one model "Kamera" being grayed out
-
     # == Borrow Mobile App
-    When I visit "/app/borrow/"
+    When I visit "/borrow/"
     And I clear ls from the borrow app-db
-    And I visit "/app/borrow/"
+    And I visit "/borrow/"
     And I filter by 1 available item from "${13.days.from_now}" to "${14.days.from_now}"
     Then I see "No items found"
 
@@ -327,5 +236,5 @@ Feature: Availability Filter
     And the user is customer of pool "Pool B"
     And I log in as the user
 
-    When I visit "/app/borrow/models?only-available=true&start-date=${Date.today}&end-date=${12.months.from_now.to_date}&quantity=1&term=Matus"
+    When I visit "/borrow/models?only-available=true&start-date=${Date.today}&end-date=${12.months.from_now.to_date}&quantity=1&term=Matus"
     Then I see one model with the title "Oppo Earphones Matus"

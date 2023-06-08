@@ -39,7 +39,7 @@ Feature: Swap order's user
     And I change the orderer to "Normal Customer"
 
     # Check the order lists of the old borrower
-    When I visit "/app/borrow/"
+    When I visit "/borrow/"
     And I click on "Orders"
     Then I see "No orders yet"
 
@@ -47,7 +47,7 @@ Feature: Swap order's user
     When I open the user menu
     And I click on "Logout"
     And I log in as the user "Normal Customer"
-    When I visit "/app/borrow/"
+    When I visit "/borrow/"
     And I click on "Orders"
     Then I see the order "Test Swap" under open orders
 
@@ -80,7 +80,7 @@ Feature: Swap order's user
     And I change the orderer to "Normal Customer"
 
     # Check the order lists of the old borrower
-    When I visit "/app/borrow/"
+    When I visit "/borrow/"
     And I click on "Orders"
     Then I see the order "Test Swap" under open orders
     When I click on the order "Test Swap"
@@ -93,7 +93,7 @@ Feature: Swap order's user
     When I open the user menu
     And I click on "Logout"
     And I log in as the user "Normal Customer"
-    When I visit "/app/borrow/"
+    When I visit "/borrow/"
     And I click on "Orders"
     Then I see the order "Test Swap" under open orders
     When I click on the order "Test Swap"

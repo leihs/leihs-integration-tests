@@ -9,8 +9,9 @@ Feature: Global navbar
     Given there is a user
     And the user is customer of some pool
     When I log in as the user
-    Then I am redirected to "/borrow"
-    And there is no section with subapps in the navbar for the "/borrow" subapp
+    Then I am redirected to "/borrow/"
+    And there is a section in the navbar for "/borrow" with following subapps:
+      | Ausleihen         |
 
   Scenario: Navbar for a procurer only
     Given there is a user

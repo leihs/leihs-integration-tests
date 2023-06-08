@@ -13,7 +13,6 @@ Feature: Global session
     Examples:
       | subapp path       |
       | /admin/           |
-      | /app/borrow       |
       | /borrow           |
       | /procure          |
       | /manage           |

@@ -1,2 +1,0 @@
-[leihs_server]
-leihs-integration.example.com ansible_ssh_common_args='-F ../integration-tests/vagrant-ssh-config' ansible_ssh_user='vagrant' ansible_become='yes' ansible_become_method='sudo'

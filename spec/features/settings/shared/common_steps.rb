@@ -12,8 +12,8 @@ end
 
 step "I add one item of model :name to the cart" do |name|
   visit "/borrow/models/#{LeihsModel.find(product: name).id}"
-  click_on("Add to order")
-  click_on("Add")
+  click_on("Gegenstand hinzufügen")
+  click_on("Hinzufügen")
 end
 
 step "the order is not submitted" do
@@ -22,6 +22,6 @@ step "the order is not submitted" do
 end
 
 step "the order is submitted" do
-  expect(current_path).to eq "/borrow"
+  expect(current_path).to eq "/borrow/rentals/"
   expect(Order.where(user_id: @user.id, state: "submitted").count).to eq 1
 end

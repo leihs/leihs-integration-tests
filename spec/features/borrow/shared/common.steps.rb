@@ -19,7 +19,7 @@ end
 
 step "I visit the model show page of model :name" do |name|
   m = LeihsModel.find(product: name)
-  visit "/app/borrow/models/#{m.id}"
+  visit "/borrow/models/#{m.id}"
 end
 
 step "I accept the :title dialog" do |title|

@@ -32,7 +32,15 @@ step "there is a section in the navbar for :subapp with following subapps:" \
         expect_subsections(table)
       end
     end
-  when "/borrow", "/manage"
+  when "/borrow"
+    sleep 0.5
+    find(".ui-app-menu-link").click
+    sleep 0.5
+    expect(page).to have_content "Bereich wechseln"
+    within first("#app-menu") do
+      expect_subsections(table)
+    end
+  when "/manage"
     within "nav.topbar .topbar-navigation.float-right" do
       first(".topbar-item").hover
       within find(".dropdown-holder", match: :first) do
@@ -49,10 +57,17 @@ def expect_user_sections(table)
   expect(current_scope.text).to eq subsecs.join("\n")
 end
 
+step "I see in the borrow subapp following entries in the user section:" do |table|
+  subsecs = table.raw.flatten
+  within "#user-menu" do
+    expect(current_scope.text).to eq subsecs.join("\n")
+  end
+end
+
 step "I see following entries in the user section for the :subapp :" \
   do |subapp, table|
   case subapp
-  when "/borrow", /\/manage/
+  when /\/manage/
     within find(".topbar-item", text: "F. Bar") do
       expect_user_sections(table)
     end
@@ -79,7 +94,9 @@ step "I open the user dropdown for the :subapp" do |subapp|
     within ".navbar-leihs" do
       find("svg[data-icon='user-circle']").click
     end
-  when "/borrow", /\/manage/
+  when "/borrow"
+    find(".ui-user-profile-button").click
+  when /\/manage/
     # we need to move the pointer out and then in again to make this work
     # reliably (e.g. wenn called multipe times) ; do not remove the first hover
     # even if seems pointless

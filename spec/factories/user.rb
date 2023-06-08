@@ -1,6 +1,7 @@
 class User < Sequel::Model
   attr_accessor :password
   one_to_one :procurement_admin
+  one_to_one :language, primary_key: :language_locale 
   many_to_one(:delegator_user, class: self)
   many_to_many(:delegation_users,
                left_key: :delegation_id,

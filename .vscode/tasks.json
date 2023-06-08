@@ -27,7 +27,6 @@
       "label": "Start All Services",
       "detail": "assumes prepartion is already done",
       "dependsOn": [
-        "Start Reverse-Proxy",
         "Start Service Admin",
         "Start Service Borrow",
         "Start Service My",

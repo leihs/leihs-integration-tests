@@ -15,7 +15,7 @@ Feature: Search and order
     When I log in as the user
 
     # search for a model
-    And I visit "/app/borrow/"
+    And I visit "/borrow/"
     And I click on "Filter"
     And I enter "Kamera" in the search field in the search panel
     Then the search field contains "Kamera"
@@ -58,7 +58,7 @@ Feature: Search and order
 
     # test query params and filters
     When I clear ls from the borrow app-db
-    And I visit "/app/borrow/models" with query params for dates as before but "Beamer" as term
+    And I visit "/borrow/models" with query params for dates as before but "Beamer" as term
     And I click on "Filter"
     Then "Beamer" is pre-filled as the search term in the search panel
     And the start date chosen previously is pre-filled in the search panel
@@ -120,7 +120,7 @@ Feature: Search and order
     Then I approve the order of the user
 
     # check the new status of the order
-    When I visit "/app/borrow/"
+    When I visit "/borrow/"
     And I click on "Orders"
     Then I see the order "Order 1" under open orders
 

@@ -5,7 +5,6 @@ Feature: Global navbar
   Background:
     Given there is an initial admin
 
-
   Scenario: Navbar for a manager of different pools, an admin and procurer
     Given there is a user
     And the user is inventory manager of pool "Pool A"
@@ -20,10 +19,11 @@ Feature: Global navbar
       | Pool A            |
       | Pool B            |
     When I click on "Ausleihen"
-    Then I am redirected to "/borrow"
+    Then I am redirected to "/borrow/"
     And there is a section in the navbar for "/borrow" with following subapps:
+      | Ausleihen         |
       | Admin             |
-      | Procurement       |
+      | Bedarfsermittlung |
       | Pool A            |
       | Pool B            |
     When I click on "Admin"
@@ -41,9 +41,8 @@ Feature: Global navbar
     And I click on "Pool A"
     Then I am redirected to the daily path of pool "Pool A"
     Then there is a section in the navbar for "/manage" with following subapps:
-      | Borrow            |
+      | Ausleihen         |
       | Admin             |
-      | Procurement       |
+      | Bedarfsermittlung |
       | Pool A            |
       | Pool B            |
-

@@ -15,8 +15,9 @@ Feature: Global navbar
       | Ausleihen |
       | Pool A    |
     When I click on "Ausleihen"
-    Then I am redirected to "/borrow"
+    Then I am redirected to "/borrow/"
     And there is a section in the navbar for "/borrow" with following subapps:
+      | Ausleihen |
       | Admin     |
       | Pool A    |
     When I click on "Admin"
@@ -25,7 +26,7 @@ Feature: Global navbar
     And I click on "Pool A"
     Then I am redirected to the daily path of pool "Pool A"
     And there is a section in the navbar for "/manage" with following subapps:
-      | Borrow    |
+      | Ausleihen |
       | Admin     |
       | Pool A    |
     When I click on "Admin"

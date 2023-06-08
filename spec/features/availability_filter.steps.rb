@@ -17,7 +17,7 @@ step "I filter by :n available item(s) from :start_date to :end_date" do |n, sta
 end
 
 step "I clear ls from the borrow app-db" do
-  visit "/app/borrow/debug"
+  visit "/borrow/debug"
   click_on("Clear :ls")
 end
 

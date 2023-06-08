@@ -44,15 +44,18 @@ end
 
 def order model
   visit '/borrow'
-  find('input#search_term').fill_in with: @model.product
+  fill_in "term", with: @model.product
+  click_on "Search"
   click_on @model.product
-  click_on 'Add to order'
+  click_on 'Add item'
   click_on 'Add'
-  click_on 'Complete order'
+  click_on 'OK'
+  find(".ui-cart-item-link").click
+  click_on "Send order"
   purpose = Faker::Lorem.unique.sentence
-  find("textarea[name='purpose']").fill_in with: purpose
-  click_on 'Submit Order'
-  wait_until{ page.has_content? 'Your order has been successfully submitted' }
+  fill_in "title", with: purpose
+  click_on 'Send'
+  click_on 'OK'
   Order.find(purpose: purpose)
 end
 

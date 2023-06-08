@@ -214,35 +214,30 @@
     FEATURE_NAME: "Global session Logged in everywhere 05"
     FEATURE: './spec/features/global_session.feature[1:5:1]'
 './spec/features/global_session.feature[1:6:1]':
-  name: "Global session Logged in everywhere 06"
-  environment_variables:
-    FEATURE_NAME: "Global session Logged in everywhere 06"
-    FEATURE: './spec/features/global_session.feature[1:6:1]'
-'./spec/features/global_session.feature[1:7:1]':
   name: "Global session Log out from a particular subapp and thus everywhere 01"
   environment_variables:
     FEATURE_NAME: "Global session Log out from a particular subapp and thus everywhere 01"
-    FEATURE: './spec/features/global_session.feature[1:7:1]'
-'./spec/features/global_session.feature[1:8:1]':
+    FEATURE: './spec/features/global_session.feature[1:6:1]'
+'./spec/features/global_session.feature[1:7:1]':
   name: "Global session Log out from a particular subapp and thus everywhere 02"
   environment_variables:
     FEATURE_NAME: "Global session Log out from a particular subapp and thus everywhere 02"
-    FEATURE: './spec/features/global_session.feature[1:8:1]'
-'./spec/features/global_session.feature[1:9:1]':
+    FEATURE: './spec/features/global_session.feature[1:7:1]'
+'./spec/features/global_session.feature[1:8:1]':
   name: "Global session Log out from a particular subapp and thus everywhere 03"
   environment_variables:
     FEATURE_NAME: "Global session Log out from a particular subapp and thus everywhere 03"
-    FEATURE: './spec/features/global_session.feature[1:9:1]'
-'./spec/features/global_session.feature[1:10:1]':
+    FEATURE: './spec/features/global_session.feature[1:8:1]'
+'./spec/features/global_session.feature[1:9:1]':
   name: "Global session Log out from a particular subapp and thus everywhere 04"
   environment_variables:
     FEATURE_NAME: "Global session Log out from a particular subapp and thus everywhere 04"
-    FEATURE: './spec/features/global_session.feature[1:10:1]'
-'./spec/features/global_session.feature[1:11:1]':
+    FEATURE: './spec/features/global_session.feature[1:9:1]'
+'./spec/features/global_session.feature[1:10:1]':
   name: "Global session Log out from a particular subapp and thus everywhere 05"
   environment_variables:
     FEATURE_NAME: "Global session Log out from a particular subapp and thus everywhere 05"
-    FEATURE: './spec/features/global_session.feature[1:11:1]'
+    FEATURE: './spec/features/global_session.feature[1:10:1]'
 './spec/features/initial_admin.feature[1:1:1]':
   name: "Initial admin Create initial admin 01"
   environment_variables:
@@ -304,15 +299,10 @@
     FEATURE_NAME: "Language Switching the language when logged in applies it for all subapps. 05"
     FEATURE: './spec/features/language.feature[1:10:1]'
 './spec/features/language.feature[1:11:1]':
-  name: "Language Switching the language when logged in applies it for all subapps. 06"
-  environment_variables:
-    FEATURE_NAME: "Language Switching the language when logged in applies it for all subapps. 06"
-    FEATURE: './spec/features/language.feature[1:11:1]'
-'./spec/features/language.feature[1:12:1]':
   name: "Language User with deactivated language should be able to change his language 01"
   environment_variables:
     FEATURE_NAME: "Language User with deactivated language should be able to change his language 01"
-    FEATURE: './spec/features/language.feature[1:12:1]'
+    FEATURE: './spec/features/language.feature[1:11:1]'
 './spec/features/navbar/global_navbar_admin_manager.feature[1:1:1]':
   name: "Global navbar Navbar for a sysadmin and manager 01"
   environment_variables:
@@ -349,29 +339,29 @@
     FEATURE_NAME: "Global navbar Navbar for a manager of different pools, an admin and procurer 01"
     FEATURE: './spec/features/navbar/global_navbar_pool_managers_procurer.feature[1:1:1]'
 './spec/features/navbar/global_navbar_user_section.feature[1:1:1]':
-  name: "Global navbar Links in the user section 01"
+  name: "Global navbar Links in the user section for all subapps except borrow 01"
   environment_variables:
-    FEATURE_NAME: "Global navbar Links in the user section 01"
+    FEATURE_NAME: "Global navbar Links in the user section for all subapps except borrow 01"
     FEATURE: './spec/features/navbar/global_navbar_user_section.feature[1:1:1]'
 './spec/features/navbar/global_navbar_user_section.feature[1:2:1]':
-  name: "Global navbar Links in the user section 02"
+  name: "Global navbar Links in the user section for all subapps except borrow 02"
   environment_variables:
-    FEATURE_NAME: "Global navbar Links in the user section 02"
+    FEATURE_NAME: "Global navbar Links in the user section for all subapps except borrow 02"
     FEATURE: './spec/features/navbar/global_navbar_user_section.feature[1:2:1]'
 './spec/features/navbar/global_navbar_user_section.feature[1:3:1]':
-  name: "Global navbar Links in the user section 03"
+  name: "Global navbar Links in the user section for all subapps except borrow 03"
   environment_variables:
-    FEATURE_NAME: "Global navbar Links in the user section 03"
+    FEATURE_NAME: "Global navbar Links in the user section for all subapps except borrow 03"
     FEATURE: './spec/features/navbar/global_navbar_user_section.feature[1:3:1]'
 './spec/features/navbar/global_navbar_user_section.feature[1:4:1]':
-  name: "Global navbar Links in the user section 04"
+  name: "Global navbar Links in the user section for all subapps except borrow 04"
   environment_variables:
-    FEATURE_NAME: "Global navbar Links in the user section 04"
+    FEATURE_NAME: "Global navbar Links in the user section for all subapps except borrow 04"
     FEATURE: './spec/features/navbar/global_navbar_user_section.feature[1:4:1]'
 './spec/features/navbar/global_navbar_user_section.feature[1:5:1]':
-  name: "Global navbar Links in the user section 05"
+  name: "Global navbar Links in the user section for borrow subapp 01"
   environment_variables:
-    FEATURE_NAME: "Global navbar Links in the user section 05"
+    FEATURE_NAME: "Global navbar Links in the user section for borrow subapp 01"
     FEATURE: './spec/features/navbar/global_navbar_user_section.feature[1:5:1]'
 './spec/features/password_reset/password_reset.feature[1:1:1]':
   name: "Password Reset Via Email, following the link 01"

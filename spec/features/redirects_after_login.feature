@@ -36,7 +36,7 @@ Feature: Redirects after login
   Scenario: Customer only
     Given the user is customer of some pool
     When I log in as the user
-    Then I am redirected to "/borrow"
+    Then I am redirected to "/borrow/"
 
   Scenario: Procurer only
     Given the user does not have any pool access rights
@@ -48,7 +48,7 @@ Feature: Redirects after login
     Given the user is procurement requester
     And the user is customer of some pool
     When I log in as the user
-    Then I am redirected to "/borrow"
+    Then I am redirected to "/borrow/"
 
   Scenario: Procurer and manager
     Given the user is procurement requester
@@ -74,5 +74,5 @@ Feature: Redirects after login
     Then I am redirected to "<path>"
     Examples:
       | path                               |
-      | /app/borrow/debug?foo=bar&baz=quux |
+      | /borrow/debug?foo=bar&baz=quux |
       | /procure/requests                  |

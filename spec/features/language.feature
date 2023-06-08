@@ -63,8 +63,7 @@ Feature: Language
     Examples:
       | subapp path  |
       | /admin/      |
-      | /app/borrow/ |
-      | /borrow      |
+      | /borrow/     |
       | /procure     |
       | /manage      |
       | /my/user/me  |

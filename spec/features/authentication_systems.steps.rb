@@ -50,8 +50,8 @@ step "there is no password authentication section with a password field" do
 end
 
 step "I am logged in successfully" do
-  within "nav.topbar" do
-    expect(current_scope).to have_content @user.short_name
+  within ".topnav" do
+    expect(current_scope).to have_content "#{@user.firstname.first}#{@user.lastname.first}"
   end
 end
 

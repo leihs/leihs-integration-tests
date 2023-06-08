@@ -78,7 +78,7 @@ Feature: Authentication systems
     And there is a password authentication section with a password field
     When I enter "password" in the "password" field
     And I click on "Weiter"
-    Then I am redirected to "/borrow"
+    Then I am redirected to "/borrow/"
     And I am logged in successfully
 
   Scenario: User with password sign-in enabled (but no password) and 1 external authentication
