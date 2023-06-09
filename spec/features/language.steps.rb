@@ -93,7 +93,9 @@ step "the language was changed to :lang everywhere" do |lang|
       find('.navbar-leihs .dropdown-menu')
         .find('button b', text: lang)
     when '/borrow/'
+      sleep 0.5
       find("nav .ui-user-profile-button").click
+      sleep 0.5
       find('.ui-menu-item-selected', text: lang)
     when '/manage'
       find('footer strong', text: lang)
