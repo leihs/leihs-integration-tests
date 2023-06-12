@@ -52,6 +52,11 @@ step "there is a section in the navbar for :subapp with following subapps:" \
   end
 end
 
+step "there is no app menu link in the borrow navbar" do
+  sleep 0.5
+  expect(page).not_to have_selector(".ui-app-menu-link")
+end
+
 def expect_user_sections(table)
   subsecs = table.raw.flatten
   expect(current_scope.text).to eq subsecs.join("\n")

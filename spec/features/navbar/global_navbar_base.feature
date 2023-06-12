@@ -10,8 +10,7 @@ Feature: Global navbar
     And the user is customer of some pool
     When I log in as the user
     Then I am redirected to "/borrow/"
-    And there is a section in the navbar for "/borrow" with following subapps:
-      | Ausleihen         |
+    And there is no app menu link in the borrow navbar
 
   Scenario: Navbar for a procurer only
     Given there is a user
