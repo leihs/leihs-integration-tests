@@ -51,7 +51,6 @@ Feature: Availability Filter
     And the user is customer of pool "Fotopool"
     And I log in as the user
 
-    # == Borrow Mobile App
     When I visit "/borrow/"
 
     # Period 1 / overall
@@ -79,7 +78,6 @@ Feature: Availability Filter
     And the user is member of entitlement group "Fotokurs 201"
     And I log in as the user
 
-    # == Borrow Mobile App
     When I visit "/borrow/"
 
     # Overall
@@ -109,7 +107,6 @@ Feature: Availability Filter
     And the user is member of entitlement group "Fotokurs 201"
     And I log in as the user
 
-    # == Borrow Mobile App
     When I visit "/borrow/"
 
     # Overall
@@ -167,7 +164,6 @@ Feature: Availability Filter
 
     # When Uwe U is not entitled
 
-    # == Borrow Mobile App
     When I visit "/borrow/"
     And I filter by 1 available item from "${13.days.from_now}" to "${14.days.from_now}"
     Then I see "No items found"
@@ -175,7 +171,6 @@ Feature: Availability Filter
     # When Uwe U is entitled in Fotokurs 101
     When the user is member of entitlement group "Fotokurs 101"
 
-    # == Borrow Mobile App
     When I visit "/borrow/"
     And I clear ls from the borrow app-db
     And I visit "/borrow/"
@@ -185,7 +180,6 @@ Feature: Availability Filter
     # When Uwe U is entitled in Fotokurs 201
     When the user is member of entitlement group "Fotokurs 201"
 
-    # == Borrow Mobile App
     When I visit "/borrow/"
     And I clear ls from the borrow app-db
     And I visit "/borrow/"
@@ -195,7 +189,6 @@ Feature: Availability Filter
     # Soft overbooking with no item left
     Given "Cecile C" has a reservation for "Kamera" in pool "Fotopool" from "${13.days.from_now}" to "${14.days.from_now}"
 
-    # == Borrow Mobile App
     When I visit "/borrow/"
     And I clear ls from the borrow app-db
     And I visit "/borrow/"
@@ -206,7 +199,6 @@ Feature: Availability Filter
     # From the app filter perspective this is rather trivial, the item still is not available.
     Given "Cecile C" has a reservation for "Kamera" in pool "Fotopool" from "${13.days.from_now}" to "${14.days.from_now}"
 
-    # == Borrow Mobile App
     When I visit "/borrow/"
     And I clear ls from the borrow app-db
     And I visit "/borrow/"
