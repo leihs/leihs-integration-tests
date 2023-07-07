@@ -1,5 +1,9 @@
 require 'mail'
 
+def smtp_port
+  ENV.fetch('LEIHS_MAIL_SMTP_PORT','32110')
+end
+
 RSpec.configure do |config|
   config.before :suite do
     setup_email_client
