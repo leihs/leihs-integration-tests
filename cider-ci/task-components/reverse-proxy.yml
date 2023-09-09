@@ -12,6 +12,7 @@ scripts:
       #!/usr/bin/env bash
       set -euo pipefail
       cd $LEIHS_INTEGRATION_TESTS_DIR
+      mkdir -p /tmp/leihs-apache2-cache
       LD_LIBRARY_PATH=/usr/lib/apache2/modules/ /usr/sbin/apache2 -d reverse-proxy/ -f conf/httpd.conf -e info -DFOREGROUND
     start_when:
       port configured:

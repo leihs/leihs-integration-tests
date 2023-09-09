@@ -1,9 +1,34 @@
 #!/usr/bin/env bash
+set -euo pipefail
 
-DYLD_LIBRARY_PATH=/opt/homebrew/opt/apache2/lib/httpd/modules/ \
-  httpd \
-  -C 'LoadModule mpm_worker_module mod_mpm_worker.so' \
-  -d reverse-proxy \
-  -f conf/httpd.conf \
-  -e info \
-  -DFOREGROUND
+# clean and stetup disk-cache
+rm -rf /tmp/leihs-apache2-cache
+mkdir -p /tmp/leihs-apache2-cache
+
+# MacPorts vs Brew
+if [ -d '/opt/local/lib/apache2/modules' ]; then 
+
+  DYLD_LIBRARY_PATH=/opt/local/lib/apache2/modules \
+    httpd \
+    -d reverse-proxy \
+    -f conf/httpd.conf \
+    -e debug \
+    -DFOREGROUND
+
+elif [ -d '/opt/homebrew/opt/apache2/lib/httpd/modules' ]; then
+
+  DYLD_LIBRARY_PATH=/opt/homebrew/opt/apache2/lib/httpd/modules \
+    httpd \
+    -C 'LoadModule mpm_worker_module mod_mpm_worker.so' \
+    -d reverse-proxy \
+    -f conf/httpd.conf \
+    -e info \
+    -DFOREGROUND
+
+else
+
+  echo "Install apache2 either from MacPorts or Homebrew"
+
+  exit -1
+
+fi
