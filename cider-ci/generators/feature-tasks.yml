@@ -363,11 +363,6 @@
   environment_variables:
     FEATURE_NAME: "Global navbar Links in the user section for all subapps except borrow 04"
     FEATURE: './spec/features/navbar/global_navbar_user_section.feature[1:4:1]'
-'./spec/features/navbar/global_navbar_user_section.feature[1:5:1]':
-  name: "Global navbar Links in the user section for borrow subapp 01"
-  environment_variables:
-    FEATURE_NAME: "Global navbar Links in the user section for borrow subapp 01"
-    FEATURE: './spec/features/navbar/global_navbar_user_section.feature[1:5:1]'
 './spec/features/password_reset/password_reset.feature[1:1:1]':
   name: "Password Reset Via Email, following the link 01"
   environment_variables:

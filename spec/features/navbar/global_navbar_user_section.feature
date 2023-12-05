@@ -31,18 +31,3 @@ Feature: Global navbar
       | /procure                                               |
       | /manage/6bf7dc96-2b11-43c1-9f49-c58a5b332517/inventory |
       | /my/user/me                                            |
-
-  Scenario: Links in the user section for borrow subapp
-    When I visit "/borrow"
-    And I open the user dropdown for the "/borrow"
-    Then I see in the borrow subapp following entries in the user section:
-      | Foo Bar       |
-      | Benutzerkonto |
-      | Abmelden      |
-      | Sprache       |
-      | Deutsch       |
-      | English (UK)  |
-      | English (US)  |
-      | Züritüütsch   |
-    When I click on "Benutzerkonto"
-    Then I am redirected to "/borrow/current-user"

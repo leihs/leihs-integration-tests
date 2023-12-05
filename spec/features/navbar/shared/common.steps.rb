@@ -35,9 +35,7 @@ step "there is a section in the navbar for :subapp with following subapps:" \
   when "/borrow"
     sleep 0.5
     find(".ui-app-menu-link").click
-    sleep 0.5
-    expect(page).to have_content "Bereich wechseln"
-    within first("#app-menu") do
+    within first(".ui-topnav-dropdown") do
       expect_subsections(table)
     end
   when "/manage"

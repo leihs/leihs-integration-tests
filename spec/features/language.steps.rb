@@ -53,7 +53,7 @@ step "I change the language to :lang in :subapp" do |lang, subapp|
     end
   when '/borrow/'
     find("nav .ui-user-profile-button").click
-    find('.ui-menu-item', text: lang).click
+    select(lang, from: "Language")
   when '/manage'
     find("a", text: lang).click
   else
@@ -68,8 +68,7 @@ step "the language was changed to :lang in :subapp" do |lang, subapp|
     find('.navbar-leihs .dropdown-menu')
       .find('button b', text: lang)
   when '/borrow/'
-    find("nav .ui-user-profile-button").click
-    find('.ui-menu-item-selected', text: lang)
+    expect(page).to have_select("Language", selected: lang)
   when '/manage'
     find('footer strong', text: lang)
   else
@@ -93,10 +92,8 @@ step "the language was changed to :lang everywhere" do |lang|
       find('.navbar-leihs .dropdown-menu')
         .find('button b', text: lang)
     when '/borrow/'
-      sleep 0.5
       find("nav .ui-user-profile-button").click
-      sleep 0.5
-      find('.ui-menu-item-selected', text: lang)
+      expect(page).to have_select("Language", selected: lang)
     when '/manage'
       find('footer strong', text: lang)
     else

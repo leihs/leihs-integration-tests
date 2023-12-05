@@ -21,7 +21,6 @@ Feature: Global navbar
     When I click on "Ausleihen"
     Then I am redirected to "/borrow/"
     And there is a section in the navbar for "/borrow" with following subapps:
-      | Ausleihen         |
       | Admin             |
       | Bedarfsermittlung |
       | Pool A            |
@@ -31,10 +30,10 @@ Feature: Global navbar
     And I open the subapps dropdown
     And I click on "Bedarfsermittlung"
     Then there is a section in the navbar for "/procure" with following subapps:
-      | Ausleihen         |
-      | Admin             |
-      | Pool A            |
-      | Pool B            |
+      | Ausleihen |
+      | Admin     |
+      | Pool A    |
+      | Pool B    |
     When I click on "Admin"
     Then I am redirected to "/admin/"
     And I open the subapps dropdown

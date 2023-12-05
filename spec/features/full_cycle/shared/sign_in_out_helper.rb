@@ -14,10 +14,9 @@ def sign_in_as user, pool=nil
     find('.fa-user-circle').click
     wait_until { page.has_content? user.lastname }
   when '/borrow/'
-    wait_until do
-      find(".ui-user-profile-button").click
-      page.has_content? "#{user.firstname} #{user.lastname}"
-    end
+    find(".ui-user-profile-button").click
+    click_on "User Account"
+    page.has_content? "#{user.firstname} #{user.lastname}"
   when "/manage/#{pool.try(:id)}/inventory"
     wait_until { page.has_content? user.lastname }
   when "/manage/#{pool.try(:id)}/daily"

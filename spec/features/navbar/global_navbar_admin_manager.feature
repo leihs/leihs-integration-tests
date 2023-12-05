@@ -17,9 +17,8 @@ Feature: Global navbar
     When I click on "Ausleihen"
     Then I am redirected to "/borrow/"
     And there is a section in the navbar for "/borrow" with following subapps:
-      | Ausleihen |
-      | Admin     |
-      | Pool A    |
+      | Admin  |
+      | Pool A |
     When I click on "Admin"
     Then I am redirected to "/admin/"
     When I open the subapps dropdown
