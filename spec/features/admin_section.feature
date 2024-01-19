@@ -29,20 +29,6 @@ Feature: Admin section
       | System                 | /admin/system/                 |
       | Users                  | /admin/users/                  |
 
-  Scenario Outline: Links going to old admin
-    When I log in as the initial admin
-    Then I am redirected to "/admin/"
-    Then I see the admin menu
-    When I click on "<menu entry>" within the admin menu
-    Then I am redirected to "<path>"
-    And I see the content of the "<menu entry>" page in the old admin
-    When I click on "Admin Top"
-    Then I am redirected to "/admin/"
-    And I see the admin menu
-    Examples:
-      | menu entry             | path                          |
-      | Audits legacy          | /admin/audits                 |
-
   Scenario: No access to system-admins for a leihs admin
     Given there is a leihs admin
     When I log in as the leihs admin
