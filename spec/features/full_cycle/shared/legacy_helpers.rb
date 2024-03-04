@@ -76,8 +76,8 @@ def hand_over pool, order, model, item
   switch_to_window(windows.second)
   wait_until{ current_path && current_path.match?(%r"/manage/[^/]+/contracts/[^/]+") }
   contract_id = current_path.split('/').last
-  switch_to_window(windows.first)
   windows.second.try(:close)
+  switch_to_window(windows.first)
   wait_until{ page.has_content? "Hand over complete" }
   click_on "Finish this hand over"
   wait_until{ "/manage/#{pool.id}/daily" }
