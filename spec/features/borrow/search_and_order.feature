@@ -16,11 +16,11 @@ Feature: Search and order
 
     # search for a model
     And I visit "/borrow/"
-    And I click on "Filter"
-    And I enter "Kamera" in the search field in the search panel
+    And I enter "Kamera" in the "Search term" field
+    And I click on "Search"
     Then the search field contains "Kamera"
 
-    When I choose to filter by availabilty
+    When I click on "availability"
     And I choose next working day as start date
     And I choose next next working day as end date
     And I click button "Apply"
@@ -34,12 +34,9 @@ Feature: Search and order
     Then the order panel is shown
     And the start date chosen previously is pre-filled in the calendar
     And the end date chosen previously is pre-filled in the calendar
-    # PENDING: And the maximum quantity shows 4
     When I set the quantity to 3
     And I click on "Add"
     And I accept the "Item added" dialog
-
-    # PENDING: Then the maximum quantity shows 1
 
     # check the cart
     When I click on the cart icon
@@ -50,18 +47,14 @@ Feature: Search and order
 
     # make a reservation for another model
     When I click on "Leihs"
-    And I enter "Kamera" in the inline search field
-    And I click on "Filter"
-    Then "Kamera" is pre-filled as the search term in the search panel
-    # And the start date chosen previously is pre-filled in the search panel
-    # And the end date chosen previously is pre-filled in the search panel
+    And I enter "Kamera" in the "Search term" field
+    And I click on "Search"
 
     # test query params and filters
     When I clear ls from the borrow app-db
     And I visit "/borrow/models" with query params for dates as before but "Beamer" as term
-    And I click on "Filter"
-    Then "Beamer" is pre-filled as the search term in the search panel
-    And the start date chosen previously is pre-filled in the search panel
+    And I click on "availability"
+    Then the start date chosen previously is pre-filled in the search panel
     And the end date chosen previously is pre-filled in the search panel
     And I click button "Apply"
     Then I see one model with the title "Beamer"

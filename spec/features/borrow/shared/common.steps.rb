@@ -9,10 +9,6 @@ step "I open the user menu" do
   find("nav .ui-user-profile-button").click
 end
 
-step "I enter :term in the search field in the search panel" do |term|
-  fill_in("Search", with: term)
-end
-
 step "I click on the model with the title :name" do |name|
   find(".ui-models-list-item", text: name).click
 end

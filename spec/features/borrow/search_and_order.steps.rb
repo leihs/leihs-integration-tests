@@ -14,11 +14,7 @@ step "I enter :term in the inline search field" do |term|
 end
 
 step "the search field contains :term" do |term|
-  expect(find_field("Search").value).to eq term
-end
-
-step "I choose to filter by availabilty" do
-  check("Select date (from/until)")
+  expect(find_field("Search term").value).to eq term
 end
 
 step "I choose next working day as start date" do

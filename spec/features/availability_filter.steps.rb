@@ -1,15 +1,10 @@
-step "I choose to filter by availability" do
-  check("Select date (from/until)")
-end
-
 step "I see one model with the title :name" do |name|
   expect(all(".ui-models-list-item").count).to eq 1
   find(".ui-models-list-item", text: name)
 end
 
 step "I filter by :n available item(s) from :start_date to :end_date" do |n, start_date, end_date|
-  step "I click on \"Filter\""
-  step "I choose to filter by availability"
+  step "I click on \"availability\""
   step "I enter the date \"#{start_date}\" in the \"From\" field"
   step "I enter the date \"#{end_date}\" in the \"Until\" field"
   step "I enter \"#{n}\" in the \"Quantity\" field"
