@@ -1,9 +1,9 @@
 step 'I see the admin menu' do
-  find('.admin nav .leihs-nav-right')
+  find('aside nav')
 end
 
 step 'I click on :label within the admin menu' do |label|
-  within '.admin nav .leihs-nav-right' do
+  within 'aside nav' do
     find('a', text: /#{label}/i).click
   end
 end

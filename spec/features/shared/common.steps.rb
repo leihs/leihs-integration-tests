@@ -32,6 +32,11 @@ step "I click on :txt" do |txt|
   click_on txt
 end
 
+
+step "I click on first :txt" do |txt|
+  first(:link_or_button, txt).click
+end
+
 step "I click on :target within :win" do |target, win|
   within(win) do
     click_on target
