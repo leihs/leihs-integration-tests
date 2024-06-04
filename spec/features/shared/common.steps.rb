@@ -182,3 +182,7 @@ end
 step "I click on the cart icon" do
   find("a.ui-cart-item-link").click
 end
+
+step "I toggle :id" do |id|
+  page.execute_script("document.getElementById('#{id}').click()")
+end

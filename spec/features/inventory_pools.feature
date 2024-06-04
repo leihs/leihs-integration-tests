@@ -16,7 +16,7 @@ Feature: Inventory pools
       | name      | New Pool             |
       | shortname | NP                   |
       | email     | new_pool@example.com |
-    And I check "is_active"
+    And I toggle "is_active"
     And I click on "Save"
     Then I am on the show page of the pool "New Pool"
     And I click on "Users" within ".nav-tabs"
