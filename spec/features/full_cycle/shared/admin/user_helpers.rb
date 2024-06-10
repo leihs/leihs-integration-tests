@@ -12,12 +12,15 @@ def add_user opts={}
   wait_until { User.where(email: email).first }
   user = User.where(email: email).first
   user.password = (opts[:password] || Faker::Internet.password)
-  # visit "/my/user/#{user.id}" 
-  click_on 'User Home'
-  click_on 'Password'
-  fill_in 'New password', with: user.password
-  click_on 'Set password'
-  wait_until { current_path == "/my/user/#{user.id}" }
+
+  click_on 'Reset Password'
+  click_on 'Create Reset Link - 3 days'
+  token = find_field('reset-token', disabled: true).value
+  visit '/reset-password'
+  fill_in 'secret token', with: token
+  click_on 'Continue'
+  fill_in 'New Password', with: user.password
+  click_on 'Continue'
+
   user
 end
-

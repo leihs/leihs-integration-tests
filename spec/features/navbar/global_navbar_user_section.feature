@@ -30,4 +30,4 @@ Feature: Global navbar
       | /admin/                                                |
       | /procure                                               |
       | /manage/6bf7dc96-2b11-43c1-9f49-c58a5b332517/inventory |
-      | /my/user/me                                            |
+      | /my/auth-info                                          |

@@ -128,7 +128,7 @@ step "I can log in with the new password" do
     fill_in 'password', with: @the_new_password
   end
   step('I click on "Weiter"')
-  visit '/my/user/me/auth-info'
+  visit '/my/auth-info'
   ['Auth-Info', @user.id].each do |txt|
     expect(page).to have_content(txt)
   end

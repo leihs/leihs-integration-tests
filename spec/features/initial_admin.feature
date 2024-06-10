@@ -4,10 +4,10 @@ Feature: Initial admin
     When I go to "/"
     Then I am redirected to "/my/initial-admin"
     When I fill out the form with:
-      | field                   | value                   |
-      | email                   | admin@leihs.example.com |
-      | password                | secret                  |
-    And I click the button 'Create initial adminstrator'
+      | field    | value                   |
+      | email    | admin@leihs.example.com |
+      | password | secret                  |
+    And I click the button 'Create initial administrator'
     Then I am redirected to "/"
     # And I see the text:
     #   """

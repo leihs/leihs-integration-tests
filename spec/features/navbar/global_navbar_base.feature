@@ -40,7 +40,7 @@ Feature: Global navbar
     Given there is a user
     And the user has no access whatsoever
     When I log in as the user
-    Then I am redirected to "/my/user/me"
-    And there is no section with subapps in the navbar for the "/my/user/me" subapp
+    Then I am redirected to "/my/auth-info"
+    And there is no section with subapps in the navbar for the "/my/auth-info" subapp
 
 

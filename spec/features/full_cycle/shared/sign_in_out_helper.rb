@@ -26,7 +26,7 @@ def sign_in_as user, pool=nil
 end
 
 def sign_out
-  visit "/my/user/me"
+  visit "/my/auth-info"
   find(".fa-user-circle").click
   click_on "Logout"
   wait_until{ current_path == "/" }

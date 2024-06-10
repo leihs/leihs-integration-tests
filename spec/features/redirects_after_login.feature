@@ -59,7 +59,7 @@ Feature: Redirects after login
   Scenario: User with no access whatsoever
     Given the user has no access whatsoever
     When I log in as the user
-    Then I am redirected to "/my/user/me"
+    Then I am redirected to "/my/auth-info"
 
   Scenario Outline: Redirect with return-to param
     Given there is an external authentication system "test ext auth"
@@ -73,6 +73,6 @@ Feature: Redirects after login
     And I confirm my identity
     Then I am redirected to "<path>"
     Examples:
-      | path                               |
+      | path                           |
       | /borrow/debug?foo=bar&baz=quux |
-      | /procure/requests                  |
+      | /procure/requests              |

@@ -11,12 +11,12 @@ Feature: Global session
     And I visit "<subapp path>"
     Then I am logged in for the subapp "<subapp path>"
     Examples:
-      | subapp path       |
-      | /admin/           |
-      | /borrow           |
-      | /procure          |
-      | /manage           |
-      | /my/user/me       |
+      | subapp path   |
+      | /admin/       |
+      | /borrow       |
+      | /procure      |
+      | /manage       |
+      | /my/auth-info |
 
   Scenario Outline: Log out from a particular subapp and thus everywhere
     When I log in as the user
@@ -27,11 +27,11 @@ Feature: Global session
     And I am logged out from "/borrow"
     And I am logged out from "/procure"
     And I am logged out from "/manage"
-    And I am logged out from "/my/user/me"
+    And I am logged out from "/my/auth-info"
     Examples:
-      | subapp path       |
-      | /admin/           |
-      | /borrow           |
-      | /procure          |
-      | /manage           |
-      | /my/user/me       |
+      | subapp path   |
+      | /admin/       |
+      | /borrow       |
+      | /procure      |
+      | /manage       |
+      | /my/auth-info |

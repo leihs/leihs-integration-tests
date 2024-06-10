@@ -132,7 +132,7 @@ step "user does not have a prefered language" do
 end
 
 step "I log out" do
-  visit "/my/user/me"
+  visit "/my/auth-info"
   find(".fa-user-circle").click
   click_on "Logout"
 end

@@ -5,7 +5,7 @@ step "there is no section with subapps in the navbar " \
     expect(all(".topbar-navigation.float-right .topbar-item").count).to eq 1
     expect(find(".topbar-navigation.float-right .topbar-item"))
       .to have_content @user.short_name
-  when "/procure", "/admin", "/my/user/me"
+  when "/procure", "/admin", "/my/auth-info"
     within ".navbar-leihs .navbar-collapse" do
       expect(current_scope).not_to have_selector "svg[data-icon='chart-pie']"
     end
@@ -74,7 +74,7 @@ step "I see following entries in the user section for the :subapp :" \
     within find(".topbar-item", text: "F. Bar") do
       expect_user_sections(table)
     end
-  when "/admin/", "/my/user/me", "/procure"
+  when "/admin/", "/my/auth-info", "/procure"
     within ".navbar-leihs" do
       within ".dropdown-menu" do
         expect_user_sections(table)
@@ -93,7 +93,7 @@ end
 
 step "I open the user dropdown for the :subapp" do |subapp|
   case subapp
-  when "/admin/", "/my/user/me", "/procure"
+  when "/admin/", "/my/auth-info", "/procure"
     within ".navbar-leihs" do
       find("svg[data-icon='user-circle']").click
     end
