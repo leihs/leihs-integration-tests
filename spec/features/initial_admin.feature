@@ -2,7 +2,7 @@ Feature: Initial admin
 
   Scenario: Create initial admin
     When I go to "/"
-    Then I am redirected to "/my/initial-admin"
+    Then I am redirected to "/admin/initial-admin"
     When I fill out the form with:
       | field    | value                   |
       | email    | admin@leihs.example.com |
