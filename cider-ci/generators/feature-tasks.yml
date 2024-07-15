@@ -44,25 +44,15 @@
     FEATURE_NAME: "Admin section Links going to new admin 09"
     FEATURE: './spec/features/admin_section.feature[1:9:1]'
 './spec/features/admin_section.feature[1:10:1]':
-  name: "Admin section Links going to new admin 10"
-  environment_variables:
-    FEATURE_NAME: "Admin section Links going to new admin 10"
-    FEATURE: './spec/features/admin_section.feature[1:10:1]'
-'./spec/features/admin_section.feature[1:11:1]':
-  name: "Admin section Links going to new admin 11"
-  environment_variables:
-    FEATURE_NAME: "Admin section Links going to new admin 11"
-    FEATURE: './spec/features/admin_section.feature[1:11:1]'
-'./spec/features/admin_section.feature[1:12:1]':
-  name: "Admin section Links going to old admin 01"
-  environment_variables:
-    FEATURE_NAME: "Admin section Links going to old admin 01"
-    FEATURE: './spec/features/admin_section.feature[1:12:1]'
-'./spec/features/admin_section.feature[1:13:1]':
   name: "Admin section No access to system-admins for a leihs admin 01"
   environment_variables:
     FEATURE_NAME: "Admin section No access to system-admins for a leihs admin 01"
-    FEATURE: './spec/features/admin_section.feature[1:13:1]'
+    FEATURE: './spec/features/admin_section.feature[1:10:1]'
+'./spec/features/audits_spec.rb[1:1]':
+  name: "Audits 01"
+  environment_variables:
+    FEATURE_NAME: "Audits 01"
+    FEATURE: './spec/features/audits_spec.rb[1:1]'
 './spec/features/authentication_systems.feature[1:1:1]':
   name: "Authentication systems No authentication system enabled for a user 01"
   environment_variables:
