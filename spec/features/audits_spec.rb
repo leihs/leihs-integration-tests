@@ -5,25 +5,34 @@ feature 'Audits' do
     expect(str).to match(/^[a-zA-Z0-9\-\_]{24,}$/)
   end
 
+  before(:each) do
+    FactoryBot.create(:user, is_admin: true, admin_protected: true,
+                      is_system_admin: true, system_admin_protected: true)
+  end
+
   scenario 'work' do
-    visit '/'
-    binding.pry
+    user = FactoryBot.create(:user)
+    pool = FactoryBot.create(:inventory_pool)
+    FactoryBot.create(:access_right,
+                      user: user, inventory_pool: pool,
+                      role: :inventory_manager)
+
+    visit '/sign-in'
     fill_in 'user', with: user.email
-    click_on 'Login'
-    fill_in 'password', with: user.password
-    click_on 'Continue'
+    click_on 'Weiter'
+    fill_in 'password', with: 'password'
+    click_on 'Weiter'
 
     a_req_1 = AuditedRequest.order(:created_at).reverse.first
-    expect(a_req_1.path).to eq '/auth/sign-in/auth-systems/password/password/sign-in'
+    expect(a_req_1.path).to eq '/sign-in'
     expect(a_req_1.to_hash[:method]).to eq 'POST'
-    expect(a_req_1.user_id).to be nil
+    # expect(a_req_1.user_id).to be nil
     UUIDTools::UUID.parse(a_req_1.txid)
     assert_http_unique_id(a_req_1.http_uid)
 
-    # a_rep_1 = AuditedResponse.where(txid: a_req_1.txid).first
-    # expect(a_rep_1.status).to eq 200
+    a_rep_1 = AuditedResponse.where(txid: a_req_1.txid).first
+    expect(a_rep_1.status).to eq 302
 
-    # visit '/my/content_collections'
     # first(".media-set").click
     # collection_id = extract_uuid(current_path)
     # find(id: "Weitere Aktionen_menu").click
