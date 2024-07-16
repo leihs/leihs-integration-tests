@@ -16,6 +16,7 @@ if [ -d '/opt/local/lib/apache2/modules' ]; then
     -DFOREGROUND
 
 elif [ -d '/opt/homebrew/opt/apache2/lib/httpd/modules' ]; then
+  echo 'running...'
 
   DYLD_LIBRARY_PATH=/opt/homebrew/opt/apache2/lib/httpd/modules \
     httpd \
