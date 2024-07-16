@@ -26,61 +26,47 @@ feature 'Audits' do
     a_req_1 = AuditedRequest.order(:created_at).reverse.first
     expect(a_req_1.path).to eq '/sign-in'
     expect(a_req_1.to_hash[:method]).to eq 'POST'
-    # expect(a_req_1.user_id).to be nil
+    expect(a_req_1.user_id).to eq user.id
     UUIDTools::UUID.parse(a_req_1.txid)
     assert_http_unique_id(a_req_1.http_uid)
 
     a_rep_1 = AuditedResponse.where(txid: a_req_1.txid).first
     expect(a_rep_1.status).to eq 302
 
-    # first(".media-set").click
-    # collection_id = extract_uuid(current_path)
-    # find(id: "Weitere Aktionen_menu").click
-    # click_on "Set löschen"
-    # click_on "Löschen"
+    visit "/manage/#{pool.id}/models/new"
+    find("#product input").set 'Test Model'
+    click_on 'Modell speichern'
+    expect(find(id: 'flash')).to have_content 'Modell gespeichert'
 
-    # a_req_2 = AuditedRequest.order(:created_at).reverse.first
-    # expect(a_req_2.path).to eq "/sets/#{collection_id}"
-    # expect(a_req_2.to_hash[:method]).to eq 'DELETE'
-    # expect(a_req_2.user_id).to eq user.id
-    # UUIDTools::UUID.parse(a_req_2.txid)
-    # assert_http_unique_id(a_req_2.http_uid)
+    a_req_2 = AuditedRequest.order(:created_at).reverse.first
+    expect(a_req_2.path).to eq "/manage/#{pool.id}/models"
+    expect(a_req_2.to_hash[:method]).to eq 'POST'
+    expect(a_req_2.user_id).to eq user.id
+    UUIDTools::UUID.parse(a_req_2.txid)
+    assert_http_unique_id(a_req_2.http_uid)
 
-    # person = Person.first
-    # visit "/admin/people/#{person.id}/edit"
-    # fill_in 'person[description]', with: 'test description'
-    # click_on 'Save'
+    a_rep_2 = AuditedResponse.where(txid: a_req_2.txid).first
+    expect(a_rep_2.status).to eq 200
 
-    # a_req_3 = AuditedRequest.order(:created_at).reverse.first
-    # expect(a_req_3.path).to eq "/admin/people/#{person.id}"
-    # expect(a_req_3.to_hash[:method]).to eq 'PATCH'
-    # expect(a_req_3.user_id).to eq user.id
-    # UUIDTools::UUID.parse(a_req_3.txid)
-    # assert_http_unique_id(a_req_3.http_uid)
+    a_change_2 = AuditedChange.order(:created_at).reverse.first
+    expect(a_change_2.txid).to eq a_rep_2.txid
+    expect(a_change_2.tg_op).to eq 'INSERT'
+    expect(a_change_2.table_name).to eq 'models'
+    expect(a_change_2.changed['product']).to eq([nil, 'Test Model'])
 
-    # a_rep_3 = AuditedResponse.where(txid: a_req_3.txid).first
-    # expect(a_rep_3.status).to eq 302
+    find("span", text: "#{user.firstname.first}. #{user.lastname}").hover
+    click_on 'Logout'
 
-    # a_change_3 = AuditedChange.order(:created_at).reverse.first
-    # expect(a_change_3.txid).to eq a_rep_3.txid
-    # expect(a_change_3.tg_op).to eq 'UPDATE'
-    # expect(a_change_3.table_name).to eq 'people'
-    # expect(a_change_3.changed).to eq({"description"=>[nil, "test description"]})
+    a_req_3 = AuditedRequest.order(:created_at).reverse.first
+    expect(a_req_3.path).to eq "/sign-out"
+    expect(a_req_3.to_hash[:method]).to eq 'POST'
+    expect(a_req_3.user_id).to eq user.id
+    UUIDTools::UUID.parse(a_req_3.txid)
+    assert_http_unique_id(a_req_3.http_uid)
 
-    # visit '/my'
-    # find(id: "#{user.first_name} #{user.last_name}_menu").click
-    # click_on 'Abmelden'
+    a_rep_3 = AuditedResponse.where(txid: a_req_3.txid).first
+    expect(a_rep_3.status).to eq 302
 
-    # a_req_4 = AuditedRequest.order(:created_at).reverse.first
-    # expect(a_req_4.path).to eq "/auth/sign-out"
-    # expect(a_req_4.to_hash[:method]).to eq 'POST'
-    # expect(a_req_4.user_id).to eq user.id
-    # UUIDTools::UUID.parse(a_req_4.txid)
-    # assert_http_unique_id(a_req_4.http_uid)
-
-    # a_rep_4 = AuditedResponse.where(txid: a_req_4.txid).first
-    # expect(a_rep_4.status).to eq 302
-
-    # expect(AuditedRequest.where(method: ['GET', 'get']).count).to eq 0
+    expect(AuditedRequest.where(method: ['GET', 'get']).count).to eq 0
   end
 end
