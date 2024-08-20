@@ -42,3 +42,28 @@ def assign_group_to_pool group, pool, role = 'customer'
   wait_until { GroupAccessRight.find(group_id: group.id, role: role) }
 end
 
+def click_on_toggle(id)
+  page.execute_script("document.getElementById('#{id}').click()")
+end
+
+def set_pool_opening_hours pool, opening_hours = {}
+  opening_hours = {
+    "Monday": "Open",
+    "Tuesday": "Open",
+    "Wednesday": "Open",
+    "Thursday": "Open",
+    "Friday": "Open",
+    "Saturday": "Open",
+    "Sunday": "Open"
+  }.merge(opening_hours)
+  visit "/admin/inventory-pools/#{pool.id}/opening-times"
+  within '#workdays' do
+    click_on 'Edit'
+  end
+  opening_hours.each do |day, status|
+    if status == 'Open' and not pool.workday.send(day.downcase)
+      click_on_toggle "#{day.downcase}-switch"
+    end
+  end
+  click_on 'Save'
+end

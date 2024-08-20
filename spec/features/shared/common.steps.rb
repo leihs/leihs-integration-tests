@@ -186,3 +186,8 @@ end
 step "I toggle :id" do |id|
   page.execute_script("document.getElementById('#{id}').click()")
 end
+
+step "I reload the page" do
+  visit current_path
+end
+

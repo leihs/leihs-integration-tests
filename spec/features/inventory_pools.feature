@@ -27,8 +27,12 @@ Feature: Inventory pools
     And I click on "Save"
     And I wait a little
     When I go to the mail templates page of pool "New Pool"
-    And I click on "Edit" for template "approved"
-    And I enter "test" for all languages
-    And I click on "Save Mail Templates"
-    And I click on "Edit" for template "approved"
-    Then all languages contain "test"
+    And I search for "approved" in "term" field
+    And I select "de-CH" from "language_locale" field
+    And I click on "approved"
+    And I click on "Edit"
+    And I fill in body with "test"
+    And I click on "Save"
+    And I reload the page
+    And I click on "Edit"
+    Then there is "test" in the body field

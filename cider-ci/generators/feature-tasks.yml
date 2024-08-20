@@ -298,6 +298,11 @@
   environment_variables:
     FEATURE_NAME: "Language User with deactivated language should be able to change his language 01"
     FEATURE: './spec/features/language.feature[1:11:1]'
+'./spec/features/legacy_vs_admin.feature[1:1:1]':
+  name: "Legacy vs Admin There is a notice with a link to admin in old legacy manage pool section 01"
+  environment_variables:
+    FEATURE_NAME: "Legacy vs Admin There is a notice with a link to admin in old legacy manage pool section 01"
+    FEATURE: './spec/features/legacy_vs_admin.feature[1:1:1]'
 './spec/features/navbar/global_navbar_admin_manager.feature[1:1:1]':
   name: "Global navbar Navbar for a sysadmin and manager 01"
   environment_variables:
