@@ -11,7 +11,7 @@ feature 'sign in and session' do
 
     SystemAndSecuritySetting.first.update(sessions_max_lifetime_secs: 15)
 
-    find(".fa-circle-user").click
+    find(".fa-user-circle").click
     expect(page).to have_content @admin.lastname
     sleep 15
     visit "/"

@@ -14,7 +14,7 @@ step "I click the button :btn" do |btn|
 end
 
 step 'I am logged in as the user "I. Admin"' do
-  find("a [data-icon='circle-user']").click
+  find("a [data-icon='user-circle']").click
   find(".navbar-leihs .dropdown-menu", text: "I. Admin")
 end
 

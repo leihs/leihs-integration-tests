@@ -11,7 +11,7 @@ def sign_in_as user, pool=nil
   end
   case current_path
   when '/admin/'
-    find('.fa-circle-user').click
+    find('.fa-user-circle').click
     wait_until { page.has_content? user.lastname }
   when '/borrow/'
     find(".ui-user-profile-button").click
@@ -27,7 +27,7 @@ end
 
 def sign_out
   visit "/my/auth-info"
-  find(".fa-circle-user").click
+  find(".fa-user-circle").click
   click_on "Logout"
   wait_until{ current_path == "/" }
 end

@@ -133,7 +133,7 @@ end
 
 step "I log out" do
   visit "/my/auth-info"
-  find(".fa-circle-user").click
+  find(".fa-user-circle").click
   click_on "Logout"
 end
 
