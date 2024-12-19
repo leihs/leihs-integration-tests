@@ -95,7 +95,7 @@ step "I open the user dropdown for the :subapp" do |subapp|
   case subapp
   when "/admin/", "/my/auth-info", "/procure"
     within ".navbar-leihs" do
-      find("svg[data-icon='user-circle']").click
+      find("svg[data-icon='circle-user']").click
     end
   when "/borrow"
     find(".ui-user-profile-button").click
