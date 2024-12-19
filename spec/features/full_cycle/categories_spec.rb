@@ -41,7 +41,7 @@ feature "Integration of category images in borrow ", type: :feature do
       attach_file("user-image", "./spec/files/lisp-machine.jpg")
       click_on "Save"
 
-      find(".fa-pie-chart").click
+      find(".fa-chart-pie").click
       click_on @ip.name
 
       click_on "Inventory"
