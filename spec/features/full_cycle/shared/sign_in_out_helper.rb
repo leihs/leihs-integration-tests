@@ -2,7 +2,7 @@ def sign_in_as user, pool=nil
   visit '/'
   fill_in 'user', with: user.email
   click_on 'Login'
-  fill_in 'password', with: user.password
+  fill_in "password", with: user.password || "password"
   click_on 'Continue'
   wait_until do
     ["/admin/", '/borrow/',
@@ -11,7 +11,7 @@ def sign_in_as user, pool=nil
   end
   case current_path
   when '/admin/'
-    find('.fa-user-circle').click
+    find('.fa-circle-user').click
     wait_until { page.has_content? user.lastname }
   when '/borrow/'
     find(".ui-user-profile-button").click
