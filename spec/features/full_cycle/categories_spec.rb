@@ -20,7 +20,9 @@ feature "Integration of category images in borrow ", type: :feature do
       role: :inventory_manager)
   end
 
+  let(:parent_name) { Faker::Company.name }
   let(:category_name) { Faker::Company.name }
+  let(:category_label) { Faker::Company.name }
   let(:model_name) { Faker::Device.model_name }
 
   context "an admin via the UI " do
@@ -36,9 +38,24 @@ feature "Integration of category images in borrow ", type: :feature do
 
       click_on "Add Category"
       expect(page).to have_content "Add a Category"
-      fill_in "name", with: category_name
-
+      fill_in "name", with: parent_name
       attach_file("user-image", "./spec/files/lisp-machine.jpg")
+      click_on "Save"
+
+      find("nav[role='navigation'] a", text: "Categories").click
+
+      click_on "Add Category"
+      expect(page).to have_content "Add a Category"
+      fill_in "name", with: category_name
+      click_on "Add parent category"
+
+      within(".modal") do
+        find("input[placeholder='Search']").set(parent_name)
+        first("li", text: parent_name).hover
+        click_on "Select"
+        find("input[placeholder='Enter Label']").set(category_label)
+      end
+
       click_on "Save"
 
       find(".fa-chart-pie").click
@@ -86,13 +103,26 @@ feature "Integration of category images in borrow ", type: :feature do
 
       visit "/borrow"
 
-      within find(".ui-square-image-grid-item", text: category_name) do
+      within find(".ui-square-image-grid-item", text: parent_name) do
         img = find("img")
         expect(img[:src]).to be_present
       end
 
+      click_on parent_name
+      within(".list-menu") do
+        click_on category_label
+      end
+
+      find("h1", text: category_label)
+
+      within(".list-menu") do
+        expect(current_scope).to have_content(category_label)
+        expect(current_scope).not_to have_content(category_name)
+      end
+
       visit "/admin/categories/"
-      click_on category_name
+      find("ul.tree li", text: parent_name).find(".fa-plus").click
+      click_on category_label
       expect(page).not_to have_content("Delete")
 
       find(".fa-chart-pie").click
@@ -109,14 +139,15 @@ feature "Integration of category images in borrow ", type: :feature do
 
       visit "/admin/categories/"
 
-      click_on category_name
+      find("ul.tree li", text: parent_name).find(".fa-plus").click
+      click_on category_label
       expect(page).to have_content("Delete")
       click_on "Delete"
       within(".modal") do
         click_on "Delete"
       end
       click_on "reset-tree"
-      expect(page).not_to have_content(category_name)
+      expect(page).not_to have_content(category_label)
     end
   end
 end
