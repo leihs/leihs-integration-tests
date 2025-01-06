@@ -20,7 +20,9 @@ feature "Integration of category images in borrow ", type: :feature do
       role: :inventory_manager)
   end
 
+  let(:parent_name) { Faker::Company.name }
   let(:category_name) { Faker::Company.name }
+  let(:category_label) { Faker::Company.name }
   let(:model_name) { Faker::Device.model_name }
 
   context "an admin via the UI " do
@@ -30,15 +32,32 @@ feature "Integration of category images in borrow ", type: :feature do
     }
 
     scenario "adds image to cateogry in admin and checks borrow" do
+      FactoryBot.create(:category, name: parent_name)
+
       visit "/"
 
       click_on "Categories"
 
       click_on "Add Category"
       expect(page).to have_content "Add a Category"
-      fill_in "name", with: category_name
-
+      fill_in "name", with: parent_name
       attach_file("user-image", "./spec/files/lisp-machine.jpg")
+      click_on "Save"
+
+      find("nav[role='navigation'] a", text: "Categories").click
+
+      click_on "Add Category"
+      expect(page).to have_content "Add a Category"
+      fill_in "name", with: category_name
+      click_on "Add parent category"
+
+      within(".modal") do
+        find("input[placeholder='Search']").set(parent_name)
+        first("li", text: parent_name).hover
+        click_on "Select"
+        find("input[placeholder='Enter Label']").set(category_label)
+      end
+
       click_on "Save"
 
       find(".fa-chart-pie").click
@@ -86,9 +105,16 @@ feature "Integration of category images in borrow ", type: :feature do
 
       visit "/borrow"
 
-      within find(".ui-square-image-grid-item", text: category_name) do
+      within find(".ui-square-image-grid-item", text: parent_name) do
         img = find("img")
         expect(img[:src]).to be_present
+      end
+
+      click_on parent_name
+      find("h1", text: category_label)
+      within(".list-menu") do
+        expect(current_scope).to have_content(category_label)
+        expect(current_scope).not_to have_content(category_name)
       end
 
       visit "/admin/categories/"
