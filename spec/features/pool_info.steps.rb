@@ -96,3 +96,15 @@ step "there is holiday :name" do |name|
     expect(current_scope).to have_content(name)
   end
 end
+
+step "I fill in :id with" do |id, txt|
+  fill_in id, with: txt
+end
+
+step "the column :class_name has text" do |class_name, txt|
+  expect(find("td.#{class_name}").text).to eq txt
+end
+
+step "there is contact information text" do |txt|
+  expect(find("section", text: "Contact").text).to eq "Contact\n#{txt}"
+end
