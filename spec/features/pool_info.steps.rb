@@ -22,9 +22,9 @@ step ":day is :open_closed and has :txt as hours info" do |day, open_closed, txt
   within("#workdays") do
     within find("tr", text: day) do
       on_off = case open_closed
-               when "open" then "on"
-               when "closed" then "off"
-               end
+      when "open" then "on"
+      when "closed" then "off"
+      end
       expect(current_scope).to have_selector(".fa-toggle-#{on_off}")
       expect(current_scope).to have_content(txt)
     end
@@ -35,9 +35,9 @@ step ":day is :open_closed and has no hours info" do |day, open_closed|
   within("#workdays") do
     within find("tr", text: day) do
       on_off = case open_closed
-               when "open" then "on"
-               when "closed" then "off"
-               end
+      when "open" then "on"
+      when "closed" then "off"
+      end
       expect(current_scope).to have_selector(".fa-toggle-#{on_off}")
       expect(current_scope).to have_content("#{day} unlimited")
     end
@@ -103,6 +103,17 @@ end
 
 step "the column :class_name has text" do |class_name, txt|
   expect(find("td.#{class_name}").text).to eq txt
+end
+
+step "there is contact information text for pool :name" do |name, txt|
+  @searched_pool = InventoryPool.find(name: name)
+  expect(@searched_pool).not_to be_nil, "Pool with name '#{name}' not found"
+
+  expected_email = @searched_pool.email
+  expect(expected_email).not_to be_nil, "Email for pool '#{name}' not found"
+
+  contact_section = find("section", text: "Contact").text
+  expect(contact_section).to include("Contact\n#{expected_email}\n#{txt}")
 end
 
 step "there is contact information text" do |txt|

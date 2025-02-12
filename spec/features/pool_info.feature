@@ -29,6 +29,7 @@ Feature: Pool information
     stuff on line 2
     """
 
+
     When I click on "Opening Times"
     And I click on "Edit" within "Workdays"
     And I mark "Monday" as closed
@@ -53,9 +54,10 @@ Feature: Pool information
 
     When I visit "/borrow/"
     And I click on "Inventory Pools"
+    And I see "Pool X"
     And I click on inventory pool "Pool X"
 
-    Then there is contact information text
+    Then there is contact information text for pool "Pool X"
     """
     stuff on line 1
     stuff on line 2
