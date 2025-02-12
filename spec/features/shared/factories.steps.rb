@@ -5,6 +5,10 @@ def get_user(full_name)
   User.find(firstname: first, lastname: last)
 end
 
+step "sending of emails is enabled" do
+  SmtpSetting.first.update(enabled: true)
+end
+
 step 'there is a user' do
   @user = FactoryBot.create(:user)
 end
@@ -53,12 +57,14 @@ end
 step "there is a user with an ultimate access" do
   @user = FactoryBot.create(:user,is_admin: true, admin_protected: true,
                             is_system_admin: true, system_admin_protected: true)
-  ip = FactoryBot.create(:inventory_pool, id: IP_UUID)
+  FactoryBot.create(:inventory_pool, id: IP_UUID)
   FactoryBot.create(:procurement_admin, user_id: @user.id)
-  FactoryBot.create(:access_right,
-                    user: @user,
-                    inventory_pool: ip,
-                    role: :inventory_manager)
+  InventoryPool.all.each do |pool|
+    FactoryBot.create(:access_right,
+                      user: @user,
+                      inventory_pool: pool,
+                      role: :inventory_manager)
+  end
 end
 
 step "the user does not have any pool access rights" do
@@ -224,7 +230,7 @@ step "there is a room :room for building :building" do |room, building|
 end
 
 step 'there is an inventory pool :name' do |name|
-  FactoryBot.create(:inventory_pool, name: name)
+  @pool = FactoryBot.create(:inventory_pool, name: name)
 end
 
 step 'there is a model :name' do |name|

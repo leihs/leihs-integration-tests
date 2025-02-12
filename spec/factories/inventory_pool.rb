@@ -1,5 +1,6 @@
 class InventoryPool < Sequel::Model
   one_to_one(:workday)
+  one_to_many(:holidays)
 end
 
 FactoryBot.define do

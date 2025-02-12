@@ -163,6 +163,11 @@
   environment_variables:
     FEATURE_NAME: "Debug ... 01"
     FEATURE: './spec/features/debug.feature[1:1:1]'
+'./spec/features/email_variables.feature[1:1:1]':
+  name: "Email template variables Email template variables 01"
+  environment_variables:
+    FEATURE_NAME: "Email template variables Email template variables 01"
+    FEATURE: './spec/features/email_variables.feature[1:1:1]'
 './spec/features/external-auth_sign-in_spec.rb[1:1]':
   name: "Sign in via an external authentication system 01"
   environment_variables:
