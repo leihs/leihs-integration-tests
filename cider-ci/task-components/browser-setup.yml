@@ -1,0 +1,35 @@
+traits:
+  asdf: true
+
+scripts:
+
+
+  integration-tests-setup-geckodriver:
+    exclusive_executor_resource: asdf-geckodriver
+    timeout: 5 Minutes
+    body: |
+      #!/usr/bin/env bash
+      set -euo pipefail
+      cd $LEIHS_INTEGRATION_TESTS_DIR
+      ./bin/env/geckodriver-setup
+
+
+  integration-tests-setup-firefox:
+    exclusive_executor_resource: asdf-firefox
+    timeout: 5 Minutes
+    body: |
+      #!/usr/bin/env bash
+      set -euo pipefail
+      cd $LEIHS_INTEGRATION_TESTS_DIR
+      ./bin/env/firefox-setup
+
+  test:
+    start_when:
+
+      geckodriver is installed:
+        script_key: integration-tests-setup-geckodriver
+        states: [passed]
+
+      firefox is installed:
+        script_key: integration-tests-setup-firefox
+        states: [passed]

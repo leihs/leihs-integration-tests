@@ -26,8 +26,6 @@ export LEIHS_SECRET
 
 export RAILS_ENV
 
-export FIREFOX_ESR_60_PATH
-
 # and for compatibility with rails:
 export DATABASE_URL="postgresql://${DB_HOST}:${DB_PORT}/${DB_NAME}"
 

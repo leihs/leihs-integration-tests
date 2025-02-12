@@ -1,4 +1,4 @@
 # ruby version is defined one up in the leihs dir,
 # could be overriden here in the future if needed
 firefox 115.8.0esr
-geckodriver 0.30.0
+geckodriver 0.34.0
