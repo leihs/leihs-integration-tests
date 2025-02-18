@@ -38,8 +38,10 @@ Feature: Email template variables
     When I visit the borrow page for model "Model M"
     And I click on "Add item"
     And as start date I choose the next monday
-    And as end date I choose the tuesday after that
+    And as end date I choose the thursday after that
+    And I see "Add"
     And I click on "Add"
+    And I see "OK"
     And I click on "OK"
     And I visit "/borrow/order"
     And I click on "Send order"

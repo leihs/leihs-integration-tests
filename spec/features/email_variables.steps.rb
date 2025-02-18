@@ -34,8 +34,8 @@ step "as start date I choose the next monday" do
   fill_in 'startDate', with: @next_monday.strftime('%d/%m/%Y')
 end
 
-step "as end date I choose the tuesday after that" do
-  fill_in 'endDate', with: (@next_monday + 1.day).strftime('%d/%m/%Y')
+step "as end date I choose the thursday after that" do
+  fill_in 'endDate', with: (@next_monday + 3.day).strftime('%d/%m/%Y')
 end
 
 step "I add :var variable to the :tmpl template of locale :locale of the pool" do |var, tmpl, locale|
