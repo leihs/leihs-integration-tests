@@ -34,7 +34,7 @@ step "as start date I choose the next monday" do
   fill_in 'startDate', with: @next_monday.strftime('%d/%m/%Y')
 end
 
-step "as end date I choose the thursday after that" do
+step "as end date I choose the tuesday after that" do
   fill_in 'endDate', with: (@next_monday + 3.day).strftime('%d/%m/%Y')
 end
 

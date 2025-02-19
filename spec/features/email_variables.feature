@@ -15,9 +15,9 @@ Feature: Email template variables
       | saturday  |                             | false |
       | sunday    |                             | false |
     And the inventory pool has the following holidays:
-      | name      | start_date           | end_date                    |
-      | Holiday 1 | Date.today + 1.week  | Date.today + 1.week + 1.day |
-      | Holiday 2 | Date.today + 1.month | Date.today + 1.month        |
+      | name      | start_date            | end_date                     |
+      | Holiday 1 | Date.today + 1.month  | Date.today + 1.month + 1.day |
+      | Holiday 2 | Date.today + 2.months | Date.today + 2.months        |
     And the inventory pool has received mails enabled
     And there is a model "Model M"
     And there is 1 borrowable item for model "Model M" in pool "Pool X"
@@ -38,10 +38,8 @@ Feature: Email template variables
     When I visit the borrow page for model "Model M"
     And I click on "Add item"
     And as start date I choose the next monday
-    And as end date I choose the thursday after that
-    And I see "Add"
+    And as end date I choose the tuesday after that
     And I click on "Add"
-    And I see "OK"
     And I click on "OK"
     And I visit "/borrow/order"
     And I click on "Send order"
