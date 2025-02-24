@@ -87,7 +87,7 @@ step "the email with subject :subject contains correct holidays according to loc
     span = if hday.start_date == hday.end_date
              hday.start_date.strftime(formats[locale]['default'])
            else
-             "#{hday.start_date.strftime(formats[locale]['short'])} - #{hday.end_date.strftime(formats[locale]['default'])}"
+             "#{hday.start_date.strftime(formats[locale]['short'])}\u2013#{hday.end_date.strftime(formats[locale]['default'])}"
            end
     body << "#{hday.name}: #{span}"
   end
