@@ -24,8 +24,8 @@ step "I accept the :title dialog" do |title|
   end
 end
 
-step "I see the order :purpose under open orders" do |purpose|
-  within find("section", text: "Open") do
+step "I see the order :purpose" do |purpose|
+  within find(".tab-content") do
     expect(current_scope).to have_content purpose
   end
 end

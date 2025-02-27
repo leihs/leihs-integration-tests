@@ -49,7 +49,8 @@ Feature: Swap order's user
     And I log in as the user "Normal Customer"
     When I visit "/borrow/"
     And I click on "Orders"
-    Then I see the order "Test Swap" under open orders
+    And I click on "Active orders"
+    Then I see the order "Test Swap"
 
   Scenario: Customer order with multiple pool orders
     Given I log in as the user "Lending Manager"
@@ -82,7 +83,8 @@ Feature: Swap order's user
     # Check the order lists of the old borrower
     When I visit "/borrow/"
     And I click on "Orders"
-    Then I see the order "Test Swap" under open orders
+    And I click on "Active orders"
+    Then I see the order "Test Swap"
     When I click on the order "Test Swap"
     Then I see "Beamer"
     And I see "Pool B"
@@ -95,7 +97,8 @@ Feature: Swap order's user
     And I log in as the user "Normal Customer"
     When I visit "/borrow/"
     And I click on "Orders"
-    Then I see the order "Test Swap" under open orders
+    And I click on "Active orders"
+    Then I see the order "Test Swap"
     When I click on the order "Test Swap"
     Then I see "Kamera"
     And I see "Pool A"

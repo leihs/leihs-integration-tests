@@ -42,8 +42,8 @@ Feature: Search and order
     When I click on the cart icon
     And the cart page is loaded
     Then I see the following lines in the "Items" section:
-      | title     | body   |
-      | 3× Kamera | Pool A |
+      | title     |
+      | 3× Kamera |
 
     # make a reservation for another model
     When I click on "Leihs"
@@ -70,9 +70,9 @@ Feature: Search and order
     Then the cart page is loaded
     And I wait for 1 second
     Then I see the following lines in the "Items" section:
-      | title     | body   |
-      | 1× Beamer | Pool A |
-      | 3× Kamera | Pool A |
+      | title     |
+      | 1× Beamer |
+      | 3× Kamera |
 
     # change the quantity and the dates of a reservation in the cart
     When I click on the line of the model "Kamera"
@@ -82,9 +82,9 @@ Feature: Search and order
     And I click on "Confirm"
     And I wait for 1 second
     Then I see the following lines in the "Items" section:
-      | title     | body   |
-      | 1× Beamer | Pool A |
-      | 4× Kamera | Pool A |
+      | title     |
+      | 1× Beamer |
+      | 4× Kamera |
 
     # delete a reservation
     When I wait for 1 second
@@ -93,8 +93,8 @@ Feature: Search and order
     And I click on "Remove reservation"
     And the "Edit reservation" dialog has closed
     Then I see the following lines in the "Items" section:
-      | title     | body   |
-      | 4× Kamera | Pool A |
+      | title     |
+      | 4× Kamera |
 
     # submit the order
     When I wait for 1 second
@@ -115,14 +115,12 @@ Feature: Search and order
     # check the new status of the order
     When I visit "/borrow/"
     And I click on "Orders"
-    Then I see the order "Order 1" under open orders
-
-    # check the content of the order
-    When I click on the order "Order 1"
+    And I click on "Active orders"
+    And I click on the order "Order 1"
     Then I see "0 of 4 items picked up" in the "State" section
     And I see the following lines in the "Items" section:
-      | title     | body   |
-      | 1× Kamera | Pool A |
-      | 1× Kamera | Pool A |
-      | 1× Kamera | Pool A |
-      | 1× Kamera | Pool A |
+      | title                       |
+      | 1× Kamera\nPick up tomorrow |
+      | 1× Kamera\nPick up tomorrow |
+      | 1× Kamera\nPick up tomorrow |
+      | 1× Kamera\nPick up tomorrow |
