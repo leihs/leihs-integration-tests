@@ -11,9 +11,9 @@ end
 
 step "I change the orderer to :full_name" do |full_name|
   step 'I click on "Change orderer"'
-  within '.modal' do
-    find('input#user-id', match: :first).set full_name
-    find('.ui-menu-item a', match: :first, text: full_name).click
+  within ".modal" do
+    find("input#user-id", match: :first).set full_name
+    find(".ui-menu-item a", match: :first, text: full_name).click
     find(".button[type='submit']", match: :first).click
   end
 end

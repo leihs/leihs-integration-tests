@@ -2,7 +2,7 @@ class UserPasswordReset < Sequel::Model(:user_password_resets)
   many_to_one :user
 end
 
-CROCKFORD_BASE_32_ALPHABET = ('0'..'9').to_a + ('A'..'Z').to_a - ['I', 'L', 'O', 'U']
+CROCKFORD_BASE_32_ALPHABET = ("0".."9").to_a + ("A".."Z").to_a - ["I", "L", "O", "U"]
 
 FactoryBot.define do
   factory :user_password_reset do

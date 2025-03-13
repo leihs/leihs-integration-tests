@@ -1,12 +1,15 @@
 def simulate_typing(el, val)
   el.set("")
-  val.chars.each { |c| el.send_keys(c); sleep(0.1) }
+  val.chars.each { |c|
+    el.send_keys(c)
+    sleep(0.1)
+  }
 end
 
 # spec args given as "${some_ruby_code}" -> eval(some_ruby_code)
 def custom_eval(spec_string)
   ruby_code = spec_string.to_s.match(/^\$\{(.*)\}$/)[1]
-  eval(ruby_code)
+  eval(ruby_code) # standard:disable Security/Eval
 end
 
 # spec args given as "A${1+1}Z" -> "A#{1+1}Z" -> "A2Z"
@@ -17,7 +20,7 @@ def custom_interpolation(spec_string, format_func = ->(x) { x })
 end
 
 step "I pry" do
-  binding.pry
+  binding.pry # standard:disable Lint/Debugger
 end
 
 step "I debug :code" do |code|
@@ -31,7 +34,6 @@ end
 step "I click on :txt" do |txt|
   click_on txt
 end
-
 
 step "I click on first :txt" do |txt|
   first(:link_or_button, txt).click
@@ -83,15 +85,15 @@ step "I am redirected to :url" do |url|
 end
 
 step "I see the text:" do |txt|
-  expect(page).to have_content(txt.to_s.strip())
+  expect(page).to have_content(txt.to_s.strip)
 end
 
 step "I see :txt" do |txt|
-  expect(page).to have_content(txt.to_s.strip())
+  expect(page).to have_content(txt.to_s.strip)
 end
 
 step "I don't see :txt" do |txt|
-  expect(page).not_to have_content(txt.to_s.strip())
+  expect(page).not_to have_content(txt.to_s.strip)
 end
 
 step "I log in with the email :email" do |email|
@@ -146,7 +148,7 @@ step "I wait for :n second(s)" do |n|
 end
 
 step "I eval :code" do |code|
-  eval(code)
+  eval(code) # standard:disable Security/Eval
 end
 
 step "I click button :name" do |name|
@@ -190,4 +192,3 @@ end
 step "I reload the page" do
   visit current_path
 end
-

@@ -1,7 +1,7 @@
-require 'mail'
+require "mail"
 
 def smtp_port
-  ENV.fetch('LEIHS_MAIL_SMTP_PORT','32025')
+  ENV.fetch("LEIHS_MAIL_SMTP_PORT", "32025")
 end
 
 RSpec.configure do |config|
@@ -16,10 +16,8 @@ end
 private
 
 def empty_mailbox
-  begin
-    Mail.delete_all
-  rescue
-  end
+  Mail.delete_all
+rescue
 end
 
 def setup_email_client
@@ -27,10 +25,11 @@ def setup_email_client
     Mail.defaults do
       retriever_method(
         :pop3,
-        address: ENV.fetch('LEIHS_MAIL_SMTP_ADDRESS', 'localhost'),
-        port: ENV.fetch('LEIHS_MAIL_POP3_PORT', '32110'),
-        user_name: 'any',
-        password: 'any',
-        enable_ssl: false)
+        address: ENV.fetch("LEIHS_MAIL_SMTP_ADDRESS", "localhost"),
+        port: ENV.fetch("LEIHS_MAIL_POP3_PORT", "32110"),
+        user_name: "any",
+        password: "any",
+        enable_ssl: false
+      )
     end
 end

@@ -1,20 +1,20 @@
 class User < Sequel::Model
   attr_accessor :password
   one_to_one :procurement_admin
-  one_to_one :language, primary_key: :language_locale 
+  one_to_one :language, primary_key: :language_locale
   many_to_one(:delegator_user, class: self)
   many_to_many(:delegation_users,
-               left_key: :delegation_id,
-               right_key: :user_id,
-               class: self,
-               join_table: :delegations_users)
+    left_key: :delegation_id,
+    right_key: :user_id,
+    class: self,
+    join_table: :delegations_users)
 
   def name
     "#{firstname} #{lastname}"
   end
 
   def short_name
-    "#{firstname.presence && firstname[0] + '.'} #{lastname}"
+    "#{firstname.presence && firstname[0] + "."} #{lastname}"
       .strip.presence \
     || login.to_s.strip.presence \
     || email
@@ -26,7 +26,7 @@ FactoryBot.define do
     firstname { Faker::Name.first_name }
     lastname { Faker::Name.last_name }
     email { Faker::Internet.email }
-    login { email.split('@').first }
+    login { email.split("@").first }
     organization { Faker::Lorem.characters(number: 8) }
   end
 
@@ -34,7 +34,7 @@ FactoryBot.define do
     base
 
     transient do
-      password { 'password' }
+      password { "password" }
     end
 
     after(:create) do |user, trans|
@@ -49,7 +49,7 @@ FactoryBot.define do
 
         database[:authentication_systems_users].insert(
           user_id: user.id,
-          authentication_system_id: 'password',
+          authentication_system_id: "password",
           data: pw_hash
         )
       end

@@ -182,3 +182,9 @@ lsmod | grep vboxdrv
 ```
 
 [leihs]: https://github.com/leihs/leihs
+
+### Formatting Code
+
+#### Ruby
+
+Use `./bin/rblint` and `./bin/rblint --fix`.

@@ -25,14 +25,11 @@ RSpec.configure do |config|
     srand 1
   end
 
-
-
   # Turnip:
   config.raise_error_for_unimplemented_steps = true # TODO: fix
 
   config.before(type: :feature) do
-
-    feature_file_absolute = absolute_feature_file()
+    feature_file_absolute = absolute_feature_file
     require_shared_files feature_file_absolute
     require_feature_steps feature_file_absolute
 
@@ -41,7 +38,7 @@ RSpec.configure do |config|
       page.driver.browser.manage.window.resize_to(*BROWSER_WINDOW_SIZE)
     rescue => e
       fail e
-      page.driver.browser.manage.window.maximize
+      page.driver.browser.manage.window.maximize # standard:disable Lint/UnreachableCode
     end
   end
 
@@ -50,46 +47,44 @@ RSpec.configure do |config|
   end
 
   config.after(type: :feature) do |example|
-    if ENV['CIDER_CI_TRIAL_ID'].present?
+    if ENV["CIDER_CI_TRIAL_ID"].present?
       unless example.exception.nil?
-        take_screenshot('tmp/error-screenshots')
+        take_screenshot("tmp/error-screenshots")
       end
     end
     page.driver.quit
     Capybara.current_driver = Capybara.default_driver
   end
 
-  #
   config.after(:each) do |example|
     # auto-pry after failures, except in CI!
-    if ( not ENV['CIDER_CI_TRIAL_ID'].present? and ENV['PRY_ON_EXCEPTION'].present? )
+    if !ENV["CIDER_CI_TRIAL_ID"].present? && ENV["PRY_ON_EXCEPTION"].present?
       unless example.exception.nil?
         puts decorate_exception(example.exception)
-        binding.pry if example.exception
+        binding.pry if example.exception # standard:disable Lint/Debugger
       end
     end
   end
 end
 
-
 def absolute_feature_file
-    spec_file_argument = ARGV.first.split(/\[|:/).first
+  spec_file_argument = ARGV.first.split(/\[|:/).first
 
-    feature_file_absolute =
-      if Pathname.new(spec_file_argument).absolute?
-        Pathname.new(spec_file_argument)
-      else
-        Pathname.pwd.join(spec_file_argument)
-      end
-
-    unless feature_file_absolute.absolute? and feature_file_absolute.exist?
-      raise <<~ERR.strip
-        feature_file_absolute #{feature_file_absolute} must exist and be absolute
-        check arguments and #{__FILE__} code
-      ERR
+  feature_file_absolute =
+    if Pathname.new(spec_file_argument).absolute?
+      Pathname.new(spec_file_argument)
+    else
+      Pathname.pwd.join(spec_file_argument)
     end
 
-    feature_file_absolute
+  unless feature_file_absolute.absolute? && feature_file_absolute.exist?
+    raise <<~ERR.strip
+      feature_file_absolute #{feature_file_absolute} must exist and be absolute
+      check arguments and #{__FILE__} code
+    ERR
+  end
+
+  feature_file_absolute
 end
 
 def require_feature_steps feature_file_absolute
@@ -97,24 +92,22 @@ def require_feature_steps feature_file_absolute
   require(feature_steps_file) if feature_steps_file.exist?
 end
 
-
 def require_shared_files(feature_file_absolute)
   features_dir = Pathname.pwd.join("spec", "features")
   relative_dirs_to_feature_file = feature_file_absolute.relative_path_from(features_dir)
   ([features_dir] + relative_dirs_to_feature_file.to_s.split(File::Separator)).reduce do |current_dir, sub|
-    current_dir.join("shared").glob('**/*.rb').each do |ruby_file|
+    current_dir.join("shared").glob("**/*.rb").each do |ruby_file|
       require(ruby_file)
     end
     current_dir.join(sub)
   end
 end
 
-
 def decorate_exception(ex)
-  div = Array.new(80, '-').join
-  msg = case true
+  div = Array.new(80, "-").join
+  msg = case true # standard:disable Lint/LiteralAsCondition
   when ex.is_a?(Turnip::Pending)
-    "MISSING STEP! try this:\n\n"\
+    "MISSING STEP! try this:\n\n" \
     "step \"#{ex.message}\" do\n  binding.pry\nend"
   else
     "GOT ERROR: #{ex.class}: #{ex.message}"
@@ -128,16 +121,16 @@ def log_turnip_step(file, step)
   line_nr = step.line.to_s.rjust(3, " ")
   step_text = "#{step.keyword}#{step.text}"
   args = if step.argument.is_a?(Turnip::Table)
-      table = step.argument
-      json_line = table.hashes.to_json
-      if json_line.length < 120
-        "\n#{inner_indent}#{json_line}"
-      else
-        dat = JSON.pretty_generate(table.hashes).split("\n")
-          .map { |l| "#{inner_indent}#{l}" }.join("\n")
-        "\n#{dat}"
-      end
+    table = step.argument
+    json_line = table.hashes.to_json
+    if json_line.length < 120
+      "\n#{inner_indent}#{json_line}"
+    else
+      dat = JSON.pretty_generate(table.hashes).split("\n")
+        .map { |l| "#{inner_indent}#{l}" }.join("\n")
+      "\n#{dat}"
     end
+  end
   puts "#{indent}#{line_nr} | #{step_text}#{args}"
 end
 
@@ -145,7 +138,7 @@ module TurnipExtensions
   module CustomStepRunner
     def run_step(*args)
       log_turnip_step(*args)
-      super(*args)
+      super
       # This is causing problems with the CI
       # begin; spec_screenshot(RSpec.current_example, args.second);       rescue => e; end
     end

@@ -19,7 +19,7 @@ end
 # == Leihs Classic
 
 step "I classic click on category :name" do |name|
-  find("h2", text: name).click()
+  find("h2", text: name).click
 end
 
 step "I classic filter by date :start_date to :end_date" do |start_date, end_date|
@@ -46,7 +46,7 @@ step "I classic see one model :model_name not being grayed out" do |model_name|
 end
 
 step "I classic expand the :text line" do |text|
-  line = find('.table .line', text: text)
+  line = find(".table .line", text: text)
   line.find('[data-type="inventory-expander"]').click
 end
 
@@ -59,4 +59,3 @@ end
 step "I take a screenshot named :filename" do |filename|
   doc_screenshot(filename)
 end
-

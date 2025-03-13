@@ -1,6 +1,6 @@
 def format_date(date, user)
-  format = { "en-GB" => { :date => "%d/%m/%Y" },
-             "de-CH" => { :date => "%d.%m.%Y" } }
+  format = {"en-GB" => {date: "%d/%m/%Y"},
+            "de-CH" => {date: "%d.%m.%Y"}}
 
   l = (user.language_locale or Language.where(default: true).first.locale)
   f = format[l][:date]
@@ -8,7 +8,7 @@ def format_date(date, user)
 end
 
 step "I enter :term in the inline search field" do |term|
-  within('.ui-model-search-filter') do
+  within(".ui-model-search-filter") do
     fill_in(:term, with: term)
   end
 end
@@ -96,7 +96,7 @@ step "I approve the order of the user" do
 end
 
 step "the maximum quantity shows :n" do |n|
-  expect(page).to have_content /#{n}.max/
+  expect(page).to have_content(/#{n}.max/)
 end
 
 step "the search filters are persisted in the url" do
@@ -106,7 +106,7 @@ step "the search filters are persisted in the url" do
     "quantity" => "1",
     "start-date" => Date.today.to_s,
     "end-date" => Date.tomorrow.to_s,
-    "term" => "Kamera",
+    "term" => "Kamera"
   })
 end
 

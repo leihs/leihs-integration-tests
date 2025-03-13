@@ -7,7 +7,7 @@ FactoryBot.define do
     inspection_comments do
       Array(3)
         .map { |_| Faker::Lorem.sentence }
-        .to_json 
+        .to_json
     end
   end
 end

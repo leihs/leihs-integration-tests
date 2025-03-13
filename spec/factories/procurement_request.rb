@@ -14,7 +14,7 @@ FactoryBot.define do
     association :category, factory: :procurement_category
     association :organization, factory: :procurement_organization
     requested_quantity { 1 }
-    motivation { Faker::Lorem.sentence } 
+    motivation { Faker::Lorem.sentence }
     article_name { Faker::Commerce.product_name }
 
     after :build do |r|

@@ -1,7 +1,7 @@
 step "I am on the show page of the pool :name" do |name|
-  wait_until{ InventoryPool.find(name: "New Pool") }
+  wait_until { InventoryPool.find(name: "New Pool") }
   @pool ||= InventoryPool.find(name: name)
-  wait_until { current_path.match "^\/admin\/inventory-pools\/#{@pool.id}" }
+  wait_until { current_path.match "^/admin/inventory-pools/#{@pool.id}" }
 end
 
 step "I go to the mail templates page of pool :name" do |name|
@@ -17,13 +17,13 @@ end
 
 step "I give myself the role of an inventory manager for the pool" do
   FactoryBot.create(:access_right,
-                    user: @current_user,
-                    inventory_pool: @pool,
-                    role: :inventory_manager)
+    user: @current_user,
+    inventory_pool: @pool,
+    role: :inventory_manager)
 end
 
 step "I click on :label within the navigation" do |label|
-  within '.nav-component' do
+  within ".nav-component" do
     click_on label
   end
 end

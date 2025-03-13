@@ -9,13 +9,13 @@ FactoryBot.define do
     email { Faker::Internet.email }
 
     after :build do |ip|
-      short = 
+      short =
         ip
-        .name
-        .split(/[\,\s\&]/)
-        .select(&:presence)
-        .map(&:first)
-        .join
+          .name
+          .split(/[\,\s\&]/)
+          .select(&:presence)
+          .map(&:first)
+          .join
 
       ip.shortname = short
     end
