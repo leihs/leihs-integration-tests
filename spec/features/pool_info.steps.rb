@@ -51,7 +51,7 @@ end
 
 step "for :day there is no message" do |day|
   expect(find("#opening-times .row", text: day).text)
-    .to eq "#{day}"
+    .to eq day.to_s
 end
 
 step "I click on inventory pool :name" do |name|

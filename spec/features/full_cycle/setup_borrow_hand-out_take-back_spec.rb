@@ -1,10 +1,8 @@
-require 'spec_helper'
-require 'pry'
+require "spec_helper"
+require "pry"
 
-
-feature 'full cycle' do
-
-  scenario 'setup leihs, create users with direct roles, create inventory, order, hand out, take back' do
+feature "full cycle" do
+  scenario "setup leihs, create users with direct roles, create inventory, order, hand out, take back" do
     set_default_locale("en-GB")
 
     #################################################################
@@ -17,16 +15,15 @@ feature 'full cycle' do
     @pool = create_inventory_pool
 
     @lending_manager = add_user
-    assign_user_to_pool @lending_manager, @pool, 'lending_manager'
+    assign_user_to_pool @lending_manager, @pool, "lending_manager"
 
     @customer = add_user
-    assign_user_to_pool @customer, @pool, 'customer'
+    assign_user_to_pool @customer, @pool, "customer"
 
     @inventory_manager = add_user
-    assign_user_to_pool @inventory_manager, @pool, 'inventory_manager'
+    assign_user_to_pool @inventory_manager, @pool, "inventory_manager"
 
     sign_out
-
 
     #################################################################
     # the inventory_manager sets up model and item
@@ -38,7 +35,6 @@ feature 'full cycle' do
     @item = create_an_item @pool, @model
     sign_out
 
-
     #################################################################
     # the customer orders
     #################################################################
@@ -47,7 +43,6 @@ feature 'full cycle' do
     @order = order @model
     sign_out
 
-
     #################################################################
     # the lending_manager hands out
     #################################################################
@@ -55,13 +50,10 @@ feature 'full cycle' do
     sign_in_as @lending_manager, @pool
     @contract = hand_over @pool, @order, @model, @item
 
-
     #################################################################
     # the lending_manager takes back
     #################################################################
 
     take_back @pool, @order, @model, @item, @contract
-
-
   end
 end

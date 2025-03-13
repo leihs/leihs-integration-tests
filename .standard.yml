@@ -1,0 +1,5 @@
+ignore:
+  - "cider-ci/**/*"
+  - "spec/**/*":
+      - Security/Eval
+      - Style/GlobalVars

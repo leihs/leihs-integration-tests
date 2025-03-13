@@ -16,7 +16,7 @@ step "I hand over something to myself" do
   click_on("Hand Over Selection")
   fill_in("purpose", with: "purpose")
   click_on("Hand Over")
-  wait_until{ windows.size == 2 }
+  wait_until { windows.size == 2 }
   windows.second.try(:close)
 end
 
@@ -30,14 +30,14 @@ step "I hand over something to my delegation me being the contact person" do
   click_on("Hand Over Selection")
   fill_in("purpose", with: "purpose")
 
-  within '#contact-person' do
-    find('input#user-id', match: :first).set @user.name
-    find('.ui-menu-item a', match: :first, text: @user.name).click
-    find('#selected-user', text: @user.name)
+  within "#contact-person" do
+    find("input#user-id", match: :first).set @user.name
+    find(".ui-menu-item a", match: :first, text: @user.name).click
+    find("#selected-user", text: @user.name)
   end
 
   click_on("Hand Over")
-  wait_until{ windows.size == 2 }
+  wait_until { windows.size == 2 }
   windows.second.try(:close)
 end
 

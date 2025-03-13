@@ -35,7 +35,7 @@ step "there is no password authentication system" do
 end
 
 step "the user has password authentication" do
-  expect(AuthenticationSystemUser.where(user_id: @user.id, type: 'password')).to be
+  expect(AuthenticationSystemUser.where(user_id: @user.id, type: "password")).to be
 end
 
 step "there is a password authentication section with a password field" do
@@ -57,8 +57,8 @@ end
 
 step "there is an external authentication section with a button" do
   @action_url = ["/sign-in/external-authentication/",
-                 @external_authentication_system.id,
-                 "/request"].join
+    @external_authentication_system.id,
+    "/request"].join
 
   within("form[action='#{@action_url}']") do
     find("button", text: @external_authentication_system.name)
@@ -80,7 +80,7 @@ step "I click on the button within the external authentication section" do
 end
 
 step "I am redirected to the url of that authentication system" do
-  expect(current_url).to match /#{@external_authentication_system.external_sign_in_url}/
+  expect(current_url).to match(/#{@external_authentication_system.external_sign_in_url}/)
 end
 
 step 'I click on "Login" *' do

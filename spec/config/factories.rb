@@ -1,11 +1,9 @@
-require 'config/database.rb'
-require 'factory_bot'
-require 'faker'
+require "config/database"
+require "factory_bot"
+require "faker"
 
 RSpec.configure do |config|
-
-  config.before(:all) do |ctx| 
-
+  config.before(:all) do |ctx|
     Sequel::Model.db = database
 
     FactoryBot.define do

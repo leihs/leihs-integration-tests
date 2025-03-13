@@ -22,7 +22,6 @@ FactoryBot.define do
     created_at { DateTime.now }
     updated_at { DateTime.now }
 
-
     trait :with_signed_contract do
       status { :signed }
 

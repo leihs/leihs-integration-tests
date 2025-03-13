@@ -9,9 +9,9 @@ step "there is an external authentication system :name" do |name|
 
   @test_authentication_system = FactoryBot.create(
     :authentication_system, :external,
-    id: 'test',
+    id: "test",
     name: name,
-    external_sign_in_url: "http://localhost:#{ENV['TEST_AUTH_SYSTEM_PORT']}/sign-in"
+    external_sign_in_url: "http://localhost:#{ENV["TEST_AUTH_SYSTEM_PORT"]}/sign-in"
   )
 end
 

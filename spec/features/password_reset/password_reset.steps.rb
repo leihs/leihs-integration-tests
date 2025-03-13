@@ -1,4 +1,4 @@
-require 'mail'
+require "mail"
 
 step "sending of emails is disabled" do
   SmtpSetting.first.update(enabled: false)
@@ -7,12 +7,12 @@ end
 step "the following Users exist:" do |table|
   table.hashes.each do |user|
     FactoryBot.create(:user, {
-      firstname: user['name'],
-      lastname: user['name'],
-      login: user['login'],
-      email: yamlval(user['email']),
-      password_sign_in_enabled: yamlval(user['password_sign_in']),
-      password: user['password'].presence
+      firstname: user["name"],
+      lastname: user["name"],
+      login: user["login"],
+      email: yamlval(user["email"]),
+      password_sign_in_enabled: yamlval(user["password_sign_in"]),
+      password: user["password"].presence
     })
   end
 end
@@ -26,35 +26,35 @@ step "I am :user" do |user|
 end
 
 step "I fill out my :user_param" do |user_param|
-  fill_in('user', with: (user_param === 'email' ? @user.email : @user.login))
+  fill_in("user", with: ((user_param === "email") ? @user.email : @user.login))
 end
 
 step "I click :text" do |text|
-  find('a, button', text: text).click
+  find("a, button", text: text).click
 end
 
 step "I see the login form with a password field" do
-  within('.ui-form-signin') do
-    expect(page).to have_selector('input[type=password]')
+  within(".ui-form-signin") do
+    expect(page).to have_selector("input[type=password]")
   end
 end
 
 step "I :whether_to the :text button" do |positive, text|
   expectation = positive ? :to : :not_to
-  expect(page).send(expectation, have_selector('button', text: text))
+  expect(page).send(expectation, have_selector("button", text: text))
 end
 
 step "I see :pfx :field filled out" do |pfx, field|
-  within('.ui-form-signin') do
+  within(".ui-form-signin") do
     case [pfx, field]
-    when ['my', 'email']
-      expect(find_field_val('user', @user.email)).to be
-    when ['my', 'login']
-      expect(find_field_val('user', @user.login)).to be
-    when ['the', 'token']
-      expect(find_field_val('token', @the_password_reset_token)).to be
+    when ["my", "email"]
+      expect(find_field_val("user", @user.email)).to be
+    when ["my", "login"]
+      expect(find_field_val("user", @user.login)).to be
+    when ["the", "token"]
+      expect(find_field_val("token", @the_password_reset_token)).to be
     else
-      fail 'dont know which field to check!'
+      fail "dont know which field to check!"
     end
   end
 end
@@ -88,11 +88,11 @@ step "the email body contains :text" do |text|
 end
 
 step "the email body contains the password reset link and token" do
-  links = URI.extract(get_email_body(@the_email)).map {|s| URI.parse(s) }
-  the_link = links.find {|uri| uri.path.include? 'reset' }
+  links = URI.extract(get_email_body(@the_email)).map { |s| URI.parse(s) }
+  the_link = links.find { |uri| uri.path.include? "reset" }
   the_params = Rack::Utils.parse_query(the_link.query)
   @the_password_reset_link = the_link.to_s
-  @the_password_reset_token = the_params['token']
+  @the_password_reset_token = the_params["token"]
   expect(@the_password_reset_link).to be
   expect(@the_password_reset_token).to be
 end
@@ -102,13 +102,13 @@ step "I open the password reset link" do
 end
 
 step "I fill out the secret token" do
-  fill_in 'token', with: @the_password_reset_token
+  fill_in "token", with: @the_password_reset_token
 end
 
 step "I fill out a new password in the password field" do
-  @the_new_password = Faker::String.random(length: [8,16])
-  within('.ui-form-signin') do
-    fill_in 'newPassword', with: @the_new_password
+  @the_new_password = Faker::String.random(length: [8, 16])
+  within(".ui-form-signin") do
+    fill_in "newPassword", with: @the_new_password
   end
 end
 
@@ -119,35 +119,36 @@ step "I see the message :msg" do |msg|
 end
 
 step "I can log in with the new password" do
-  visit '/sign-in'
-  within('.ui-form-signin') do
-    fill_in('user', with: @user.email || @user.login)
+  visit "/sign-in"
+  within(".ui-form-signin") do
+    fill_in("user", with: @user.email || @user.login)
   end
   step('I click on "Weiter"')
-  within('.ui-form-signin') do
-    fill_in 'password', with: @the_new_password
+  within(".ui-form-signin") do
+    fill_in "password", with: @the_new_password
   end
   step('I click on "Weiter"')
-  visit '/my/auth-info'
-  ['Auth-Info', @user.id].each do |txt|
+  visit "/my/auth-info"
+  ["Auth-Info", @user.id].each do |txt|
     expect(page).to have_content(txt)
   end
 end
 
 step "I have a current password reset with props :code" do |code|
   @my_current_password_reset = create(
-    :user_password_reset, user: @user, **eval(code))
+    :user_password_reset, user: @user, **eval(code)
+  )
 end
 
 step "I fill out the secret token from my current password reset" do
-  fill_in 'token', with: @my_current_password_reset.token
+  fill_in "token", with: @my_current_password_reset.token
 end
 
 placeholder :whether_to do
-  match /dont see|do not see|can not|cant/ do
+  match(/dont see|do not see|can not|cant/) do
     false
   end
-  match /see|can/ do
+  match(/see|can/) do
     true
   end
 end
@@ -155,11 +156,11 @@ end
 private
 
 def yamlval(raw_value)
-  YAML.load("{ parsed_value: #{raw_value} }")['parsed_value']
+  YAML.load("{ parsed_value: #{raw_value} }")["parsed_value"]
 end
 
 def find_field_val(name, val)
-  all("input[name=#{name}]").find {|f| f[:value] === val}
+  all("input[name=#{name}]").find { |f| f[:value] === val }
 end
 
 def fetch_emails_for_user(email_address)

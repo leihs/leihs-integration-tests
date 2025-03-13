@@ -1,8 +1,8 @@
-require 'spec_helper'
-require 'pry'
+require "spec_helper"
+require "pry"
 
-feature 'sign in and session' do
-  scenario 'a signed in user will be signed out if the user_session expires' do
+feature "sign in and session" do
+  scenario "a signed in user will be signed out if the user_session expires" do
     set_default_locale("en-GB")
 
     @admin = create_initial_admin
