@@ -1,7 +1,7 @@
 require 'mail'
 
 def smtp_port
-  ENV.fetch('LEIHS_MAIL_SMTP_PORT','32110')
+  ENV.fetch('LEIHS_MAIL_SMTP_PORT','32025')
 end
 
 RSpec.configure do |config|

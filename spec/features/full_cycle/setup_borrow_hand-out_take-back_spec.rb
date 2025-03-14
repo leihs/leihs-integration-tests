@@ -3,18 +3,36 @@ require 'pry'
 
 
 feature 'full cycle' do
+  let(:default_locale) { "en-GB" }
+  let(:submitted_subject_1) { Faker::Lorem.sentence }
+  let(:approved_subject_1) { Faker::Lorem.sentence }
+  let(:submitted_subject_2) { Faker::Lorem.sentence }
+  let(:approved_subject_2) { Faker::Lorem.sentence }
 
   scenario 'setup leihs, create users with direct roles, create inventory, order, hand out, take back' do
-    set_default_locale("en-GB")
-
-    #################################################################
-    # the admin creates users, sets roles, and permissions
-    #################################################################
+    set_default_locale(default_locale)
 
     @admin = create_initial_admin
     sign_in_as @admin
 
+    #################################################################
+    # the admin adjusts mail templates and creates a pool
+    #################################################################
+
+    adjust_mail_template_subject('submitted', default_locale, submitted_subject_1)
+    adjust_mail_template_subject('approved', default_locale, approved_subject_1)
+
     @pool = create_inventory_pool
+
+    check_pool_template_subject('submitted', default_locale, submitted_subject_1, @pool)
+    check_pool_template_subject('approved', default_locale, approved_subject_1, @pool)
+
+    adjust_mail_template_subject('submitted', default_locale, submitted_subject_2, @pool)
+    adjust_mail_template_subject('approved', default_locale, approved_subject_2, @pool)
+
+    #################################################################
+    # the admin creates users, sets roles, and permissions
+    #################################################################
 
     @lending_manager = add_user
     assign_user_to_pool @lending_manager, @pool, 'lending_manager'
@@ -62,6 +80,11 @@ feature 'full cycle' do
 
     take_back @pool, @order, @model, @item, @contract
 
+    #################################################################
+    # emails checks
+    #################################################################
 
+    expect(Mail.all.count).to eq 2
+    expect(Mail.all.map(&:subject).to_set).to eq [submitted_subject_2, approved_subject_2].to_set
   end
 end

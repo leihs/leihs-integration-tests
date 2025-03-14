@@ -23,7 +23,7 @@ gem 'net-pop', require: false
 gem 'net-smtp', require: false
 
 # helpers
-gem 'activesupport', '~> 5.2'
+gem 'activesupport', '~> 7'
 gem 'exiftool_vendored'
 gem 'rb-readline'
 gem 'pry', '~> 0.11'
