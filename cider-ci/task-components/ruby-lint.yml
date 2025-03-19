@@ -1,0 +1,10 @@
+include:
+  - path: cider-ci/task-components/ruby-bundle.yml
+
+scripts:
+  test:
+    body: |
+      #!/usr/bin/env bash
+      set -euo pipefail
+      cd $LEIHS_INTEGRATION_TESTS_DIR
+      ./bin/rblint

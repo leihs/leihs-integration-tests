@@ -19,6 +19,3 @@ scripts:
         script_key: integration-tests-bundle-rspec-ruby
         states: [passed]
 
-      firefox is installed:
-        script_key: integration-tests-setup-firefox
-        states: [passed]
