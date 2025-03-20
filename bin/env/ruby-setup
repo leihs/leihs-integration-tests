@@ -9,7 +9,5 @@ PLUGIN_URL=https://github.com/asdf-vm/asdf-ruby.git
 source $PROJECT_DIR/bin/env/asdf-helper.bash
 asdf-update-plugin
 
-gem install bundler
-asdf reshim ruby
 bundle install --quiet
 # vi: ft=sh
