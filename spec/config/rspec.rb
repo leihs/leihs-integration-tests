@@ -136,8 +136,8 @@ end
 
 module TurnipExtensions
   module CustomStepRunner
-    def run_step(*args)
-      log_turnip_step(*args)
+    def run_step(*)
+      log_turnip_step(*)
       super
       # This is causing problems with the CI
       # begin; spec_screenshot(RSpec.current_example, args.second);       rescue => e; end
