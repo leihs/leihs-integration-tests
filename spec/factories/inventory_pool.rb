@@ -21,7 +21,9 @@ FactoryBot.define do
     end
 
     after(:create) do |ip|
-      ip.workday.update(saturday: true, sunday: true)
+      ip.workday.update(saturday: true, sunday: true,
+        saturday_orders_processing: true,
+        sunday_orders_processing: true)
     end
   end
 end
