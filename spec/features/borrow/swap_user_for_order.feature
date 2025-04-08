@@ -41,7 +41,7 @@ Feature: Swap order's user
     # Check the order lists of the old borrower
     When I visit "/borrow/"
     And I click on "Orders"
-    Then I see "No orders yet"
+    Then I see "No current lendings"
 
     # Check the order lists of the new borrower
     When I open the user menu
