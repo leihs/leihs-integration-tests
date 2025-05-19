@@ -173,6 +173,11 @@
   environment_variables:
     FEATURE_NAME: "Sign in via an external authentication system 01"
     FEATURE: './spec/features/external-auth_sign-in_spec.rb[1:1]'
+'./spec/features/full_cycle/availability_spec.rb[1:1]':
+  name: "Availability 01"
+  environment_variables:
+    FEATURE_NAME: "Availability 01"
+    FEATURE: './spec/features/full_cycle/availability_spec.rb[1:1]'
 './spec/features/full_cycle/categories_spec.rb[1:1:1]':
   name: "Integration of category images in borrow  an admin via the UI 01"
   environment_variables:
