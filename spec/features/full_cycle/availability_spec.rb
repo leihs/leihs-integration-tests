@@ -95,7 +95,11 @@ feature "Availability" do
 
     expect(find(".cal-day", text: Date.today.day).find(".opcal__day-quantity").text).to eq "0"
     expect(find(".cal-day", text: Date.tomorrow.day).find(".opcal__day-quantity").text).to eq "0"
-    expect(find(".cal-day", text: (Date.tomorrow + 1.day).day).find(".opcal__day-quantity").text).to eq "0"
-    expect(find(".cal-day", text: (Date.tomorrow + 2.day).day).find(".opcal__day-quantity").text).to eq "1"
+    expect(
+      find_date_in_borrow_calendar(Date.tomorrow + 1.day).find(".opcal__day-quantity").text
+    ).to eq "0"
+    expect(
+      find_date_in_borrow_calendar(Date.tomorrow + 2.days).find(".opcal__day-quantity").text
+    ).to eq "1"
   end
 end
