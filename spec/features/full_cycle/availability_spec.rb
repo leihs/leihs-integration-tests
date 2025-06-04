@@ -93,8 +93,12 @@ feature "Availability" do
     visit "/borrow/models/#{model.id}"
     click_on "Add item"
 
-    expect(find(".cal-day", text: Date.today.day).find(".opcal__day-quantity").text).to eq "0"
-    expect(find(".cal-day", text: Date.tomorrow.day).find(".opcal__day-quantity").text).to eq "0"
+    expect(
+      find_date_in_borrow_calendar(Date.today).find(".opcal__day-quantity").text
+    ).to eq "0"
+    expect(
+      find_date_in_borrow_calendar(Date.tomorrow).find(".opcal__day-quantity").text
+    ).to eq "0"
     expect(
       find_date_in_borrow_calendar(Date.tomorrow + 1.day).find(".opcal__day-quantity").text
     ).to eq "0"
