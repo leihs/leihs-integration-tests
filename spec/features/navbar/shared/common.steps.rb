@@ -61,23 +61,14 @@ def expect_user_sections(table)
 end
 
 def expect_user_sections_inventory(table)
-  # optional: open the menu if not already open
-  # find("button", text: /Foo Bar/).click
-
-  # wait for the Radix dropdown
   menu = page.find('[data-radix-menu-content][data-state="open"]', visible: :all)
-
-  # collect the visible texts from <a> and <button> elements
   actual = menu.all("a, button", visible: :all).map do |el|
     el.text(:all).strip
   end.reject(&:empty?)
 
   expected = table.raw.flatten.map(&:strip)
-
   puts "Expected: #{expected.inspect}"
   puts "Actual:   #{actual.inspect}"
-
-  binding.pry
   expect(actual).to eq(expected)
 end
 
@@ -96,15 +87,7 @@ step "I see following entries in the user section for the :subapp :" \
       expect_user_sections(table)
     end
   when /\/inventory/
-
-    # binding.pry
-
-    # within "nav.container" do
-    #   # within find("button", text: /Foo Bar/) do
-    #   #   expect_user_sections_inventory(table)
-    #   # end
-      expect_user_sections_inventory(table)
-    # end
+    expect_user_sections_inventory(table)
   when "/admin/", "/my/auth-info", "/procure"
     within ".navbar-leihs" do
       within ".dropdown-menu" do

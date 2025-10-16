@@ -29,7 +29,7 @@ Feature: Global navbar
       | subapp path                                            |
       | /admin/                                                |
       | /procure                                               |
-      | /manage/6bf7dc96-2b11-43c1-9f49-c58a5b332517/inventory |
+#      | /manage/6bf7dc96-2b11-43c1-9f49-c58a5b332517/inventory |
       | /my/auth-info                                          |
 
 
@@ -51,8 +51,4 @@ Feature: Global navbar
 #    Then I am redirected to "/borrow/current-user"
     Examples:
       | subapp path |
-      #      | /admin/                                                |
-      #      | /procure                                               |
       | /inventory  |
-  #      | /manage/6bf7dc96-2b11-43c1-9f49-c58a5b332517/inventory |
-  #      | /my/auth-info     |
