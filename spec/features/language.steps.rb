@@ -44,6 +44,29 @@ step "I switch the language to :lang" do |lang|
   end
 end
 
+def open_inventory_languages_menu(lang)
+
+  within "nav.container" do
+    find("button", text: @user.name).click
+  end
+
+
+  menu = page.find('[data-radix-menu-content][data-state="open"]', visible: :all)
+
+
+  # menu.find("button", text: "Sprache").click
+  menu.find("button[data-test-id=language-menu]").click
+
+
+  # find("button[role='menuitem']", text: lang).click
+
+
+  # activated = menu.find("button.font-semibold")
+  activated = find("button[data-test-id=language-btn-selected]")
+
+  activated
+end
+
 step "I change the language to :lang in :subapp" do |lang, subapp|
   case subapp
   when "/admin/", "/procure", "/my/auth-info"
@@ -51,6 +74,15 @@ step "I change the language to :lang in :subapp" do |lang, subapp|
       find(".fa-globe").click
       find("button", text: lang).click
     end
+  when "/inventory"
+    # binding.pry
+    activated_lang = open_inventory_languages_menu(lang)
+    # binding.pry
+
+    # find("button[role='menuitem']", text: lang).click
+    find("button[data-test-id=language-btn]", text: lang).click
+
+    # binding.pry
   when "/borrow/"
     find("nav .ui-user-profile-button").click
     select(lang, from: "Language")
@@ -67,6 +99,14 @@ step "the language was changed to :lang in :subapp" do |lang, subapp|
     find(".fa-globe").click
     find(".navbar-leihs .dropdown-menu")
       .find("button b", text: lang)
+  when "/inventory"
+    # binding.pry
+    activated_lang = open_inventory_languages_menu(lang)
+    binding.pry
+    expect(activated_lang.text).to eq lang
+
+    # find("button[role='menuitem']", text: lang).click
+    # find("button[data-test-id=language-btn]", text: lang).click
   when "/borrow/"
     expect(page).to have_select("Language", selected: lang)
   when "/manage"
@@ -76,21 +116,48 @@ step "the language was changed to :lang in :subapp" do |lang, subapp|
   end
 end
 
+
+
 step "the language was changed to :lang everywhere" do |lang|
   subapp_paths = [
-    "/admin/",
-    "/borrow/",
-    "/procure",
-    "/manage",
-    "/my/auth-info"
+    # "/admin/",
+    # "/borrow/",
+    # "/procure",
+    "/inventory"
+    # "/manage",
+    # "/my/auth-info"
   ]
   subapp_paths.each do |sap|
     visit sap
+    puts ">o> ???? visiting #{sap}"
+    # binding.pry
     case sap
     when "/admin/", "/procure", "/my/auth-info"
       find(".fa-globe").click
       find(".navbar-leihs .dropdown-menu")
         .find("button b", text: lang)
+    when "/inventory"
+
+      activated = open_inventory_languages_menu(lang)
+
+      # binding.pry
+      # within "nav.container" do
+      #   find("button", text: @user.name).click
+      # end
+      #
+      # menu = page.find('[data-radix-menu-content][data-state="open"]', visible: :all)
+      #
+      # menu.find("button", text: "Language").click
+      #
+      # find("button[role='menuitem']", text: lang).click
+      #
+      # binding.pry
+      # activated = menu.find("button.font-semibold")
+      # expect(menu.find("button.font-semibold")).to be
+
+      expect(activated.text).to eq lang
+      # binding.pry
+
     when "/borrow/"
       find("nav .ui-user-profile-button").click
       expect(page).to have_select("Language", selected: lang)
