@@ -53,7 +53,6 @@ Feature: Language
   Scenario Outline: Switching the language when logged in applies it for all subapps.
     Given user's preferred language is "Français (CH)"
     When I log in as the user
-#    And I pry
     And I visit "<subapp path>"
     And I change the language to "English (UK)" in "<subapp path>"
     Then the language was changed to "English (UK)" in "<subapp path>"
@@ -63,12 +62,12 @@ Feature: Language
     Then the current language is "English (UK)"
     Examples:
       | subapp path   |
-#      | /admin/       |
-#      | /borrow/      |
-#      | /procure      |
+      | /admin/       |
+      | /borrow/      |
+      | /procure      |
       | /inventory    |
-#      | /manage       |
-#      | /my/auth-info |
+      | /manage       |
+      | /my/auth-info |
 
   Scenario: User with deactivated language should be able to change his language
     Given user's preferred language is "English (UK)"

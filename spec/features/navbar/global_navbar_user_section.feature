@@ -44,8 +44,7 @@ Feature: Global navbar
     Then I am redirected to "/borrow/current-user"
     When I visit "<subapp path>"
     And I open the user dropdown for the "<subapp path>"
-    And I click on "header.user-menu.my-documents"
-#    And I click on "Meine Dokumente" # FIXME
+    And I click on "Meine Dokumente"
     Then I am redirected to "/borrow/current-user"
     Examples:
       | subapp path |

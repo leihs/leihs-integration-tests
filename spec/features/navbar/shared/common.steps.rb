@@ -67,8 +67,6 @@ def expect_user_sections_inventory(table)
   end.reject(&:empty?)
 
   expected = table.raw.flatten.map(&:strip)
-  puts "Expected: #{expected.inspect}"
-  puts "Actual:   #{actual.inspect}"
   expect(actual).to eq(expected)
 end
 
