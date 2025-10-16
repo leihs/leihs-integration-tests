@@ -29,10 +29,8 @@ Feature: Global navbar
       | subapp path                                            |
       | /admin/                                                |
       | /procure                                               |
-#      | /manage/6bf7dc96-2b11-43c1-9f49-c58a5b332517/inventory |
+      | /manage/6bf7dc96-2b11-43c1-9f49-c58a5b332517/inventory |
       | /my/auth-info                                          |
-
-
 
   Scenario Outline: Links in the user section for /inventory
     When I visit "<subapp path>"
@@ -42,13 +40,13 @@ Feature: Global navbar
       | Meine Dokumente |
       | Logout          |
       | Sprache         |
-
     When I click on "Benutzerdaten"
     Then I am redirected to "/borrow/current-user"
     When I visit "<subapp path>"
     And I open the user dropdown for the "<subapp path>"
-#    And I click on "Meine Dokumente"
-#    Then I am redirected to "/borrow/current-user"
+    And I click on "header.user-menu.my-documents"
+#    And I click on "Meine Dokumente" # FIXME
+    Then I am redirected to "/borrow/current-user"
     Examples:
       | subapp path |
       | /inventory  |
