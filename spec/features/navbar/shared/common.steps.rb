@@ -60,6 +60,27 @@ def expect_user_sections(table)
   expect(current_scope.text).to eq subsecs.join("\n")
 end
 
+def expect_user_sections_inventory(table)
+  # optional: open the menu if not already open
+  # find("button", text: /Foo Bar/).click
+
+  # wait for the Radix dropdown
+  menu = page.find('[data-radix-menu-content][data-state="open"]', visible: :all)
+
+  # collect the visible texts from <a> and <button> elements
+  actual = menu.all("a, button", visible: :all).map do |el|
+    el.text(:all).strip
+  end.reject(&:empty?)
+
+  expected = table.raw.flatten.map(&:strip)
+
+  puts "Expected: #{expected.inspect}"
+  puts "Actual:   #{actual.inspect}"
+
+  binding.pry
+  expect(actual).to eq(expected)
+end
+
 step "I see in the borrow subapp following entries in the user section:" do |table|
   subsecs = table.raw.flatten
   within "#user-menu" do
@@ -74,6 +95,16 @@ step "I see following entries in the user section for the :subapp :" \
     within find(".topbar-item", text: "F. Bar") do
       expect_user_sections(table)
     end
+  when /\/inventory/
+
+    # binding.pry
+
+    # within "nav.container" do
+    #   # within find("button", text: /Foo Bar/) do
+    #   #   expect_user_sections_inventory(table)
+    #   # end
+      expect_user_sections_inventory(table)
+    # end
   when "/admin/", "/my/auth-info", "/procure"
     within ".navbar-leihs" do
       within ".dropdown-menu" do
@@ -96,6 +127,10 @@ step "I open the user dropdown for the :subapp" do |subapp|
   when "/admin/"
     within ".navbar-leihs" do
       find("svg[data-icon='circle-user']").click
+    end
+  when "/inventory"
+    within "nav.container" do
+      find("button", text: /Foo Bar/).click
     end
   when "/my/auth-info", "/procure"
     within ".navbar-leihs" do
