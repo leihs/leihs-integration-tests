@@ -44,6 +44,16 @@ step "I switch the language to :lang" do |lang|
   end
 end
 
+def open_inventory_languages_menu(lang)
+  within "nav.container" do
+    find("button", text: @user.name).click
+  end
+
+  page.find('[data-radix-menu-content][data-state="open"]', visible: :all)
+  find("button[data-test-id=language-menu]").click
+  find("button[data-test-id=language-btn-selected]")
+end
+
 step "I change the language to :lang in :subapp" do |lang, subapp|
   case subapp
   when "/admin/", "/procure", "/my/auth-info"
@@ -51,6 +61,9 @@ step "I change the language to :lang in :subapp" do |lang, subapp|
       find(".fa-globe").click
       find("button", text: lang).click
     end
+  when "/inventory"
+    open_inventory_languages_menu(lang)
+    find("button[data-test-id=language-btn]", text: lang).click
   when "/borrow/"
     find("nav .ui-user-profile-button").click
     select(lang, from: "Language")
@@ -67,6 +80,9 @@ step "the language was changed to :lang in :subapp" do |lang, subapp|
     find(".fa-globe").click
     find(".navbar-leihs .dropdown-menu")
       .find("button b", text: lang)
+  when "/inventory"
+    activated_lang = open_inventory_languages_menu(lang)
+    expect(activated_lang.text).to eq lang
   when "/borrow/"
     expect(page).to have_select("Language", selected: lang)
   when "/manage"
@@ -81,6 +97,7 @@ step "the language was changed to :lang everywhere" do |lang|
     "/admin/",
     "/borrow/",
     "/procure",
+    "/inventory",
     "/manage",
     "/my/auth-info"
   ]
@@ -91,6 +108,9 @@ step "the language was changed to :lang everywhere" do |lang|
       find(".fa-globe").click
       find(".navbar-leihs .dropdown-menu")
         .find("button b", text: lang)
+    when "/inventory"
+      activated = open_inventory_languages_menu(lang)
+      expect(activated.text).to eq lang
     when "/borrow/"
       find("nav .ui-user-profile-button").click
       expect(page).to have_select("Language", selected: lang)
