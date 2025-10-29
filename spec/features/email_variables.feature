@@ -17,7 +17,7 @@ Feature: Email template variables
     And the inventory pool has the following holidays:
       | name      | start_date            | end_date                     |
       | Holiday 1 | Date.today + 1.month  | Date.today + 1.month + 1.day |
-      | Holiday 2 | Date.today + 2.months | Date.today + 2.months        |
+      | Holiday 2 | Date.today + 50.days  | Date.today + 50.days         |
     And the inventory pool has received mails enabled
     And there is a model "Model M"
     And there is 1 borrowable item for model "Model M" in pool "Pool X"
