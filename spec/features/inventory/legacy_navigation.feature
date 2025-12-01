@@ -8,7 +8,7 @@ Feature: Inventory - Navigation to Legacy
     And I log in as the user
     And I visit "/inventory/"
     And I open the app menu
-    And I click on "Pool A"
+    And I click on "Pool A" within "[data-test-id='app-menu']"
 
   Scenario: Global search
     When I enter "hello" in the global search field and press enter
