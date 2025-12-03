@@ -75,7 +75,7 @@ GEM
     mini_mime (1.1.2)
     mini_portile2 (2.8.9)
     minitest (5.25.5)
-    mustermann (1.1.1)
+    mustermann (3.0.4)
       ruby2_keywords (~> 0.0.1)
     mutex_m (0.3.0)
     net-imap (0.3.4)
@@ -87,7 +87,7 @@ GEM
       timeout
     net-smtp (0.3.3)
       net-protocol
-    nio4r (2.7.3)
+    nio4r (2.7.5)
     nokogiri (1.18.10)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
@@ -101,12 +101,13 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (4.0.6)
-    puma (6.4.2)
+    puma (6.6.1)
       nio4r (~> 2.0)
     racc (1.8.1)
-    rack (2.2.19)
-    rack-protection (2.1.0)
-      rack
+    rack (2.2.21)
+    rack-protection (3.2.0)
+      base64 (>= 0.1.0)
+      rack (~> 2.2, >= 2.2.4)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rainbow (3.1.1)
@@ -150,10 +151,10 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     sequel (5.53.0)
-    sinatra (2.1.0)
-      mustermann (~> 1.0)
-      rack (~> 2.2)
-      rack-protection (= 2.1.0)
+    sinatra (3.2.0)
+      mustermann (~> 3.0)
+      rack (~> 2.2, >= 2.2.4)
+      rack-protection (= 3.2.0)
       tilt (~> 2.0)
     standard (1.39.2)
       language_server-protocol (~> 3.17.0.2)
@@ -168,7 +169,7 @@ GEM
       lint_roller (~> 1.1)
       rubocop-performance (~> 1.23.0)
     temple (0.8.2)
-    tilt (2.0.10)
+    tilt (2.6.1)
     timeout (0.3.1)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
@@ -196,7 +197,7 @@ DEPENDENCIES
   pg (~> 1.1)
   post_office
   pry (~> 0.11)
-  puma
+  puma (~> 6.0)
   rb-readline
   rexml
   rspec (~> 3.0)

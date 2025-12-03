@@ -33,7 +33,7 @@ gem "base32-crockford"
 gem "haml"
 gem "jwt"
 gem "sinatra"
-gem "puma"
+gem "puma", "~> 6.0"
 gem "rexml"
 gem "uuidtools"
 gem "standard", group: [:development, :test]
