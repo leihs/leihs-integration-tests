@@ -9,7 +9,11 @@ LEIHS_HTTP_PORT = Addressable::URI.parse(LEIHS_HTTP_BASE_URL).port.presence || "
 BROWSER_WINDOW_SIZE = [1200, 800]
 Capybara.app_host = LEIHS_HTTP_BASE_URL
 
-firefox_bin_path = Pathname.new(`asdf where firefox`.strip).join("bin/firefox").expand_path.to_s
+firefox_bin_path = if ENV["TOOL_VERSIONS_MANAGER"] == "mise"
+  Pathname.new(`mise where firefox`.strip).join("bin/firefox").expand_path.to_s
+else
+  Pathname.new(`asdf where firefox`.strip).join("bin/firefox").expand_path.to_s
+end
 Selenium::WebDriver::Firefox.path = firefox_bin_path
 
 Capybara.register_driver :firefox do |app|
