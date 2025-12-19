@@ -53,7 +53,7 @@ Feature: Pool information
     And I see a holiday "Holiday Future"
 
     When I visit "/borrow/"
-    And I click on "Inventory Pools"
+    And I visit "/borrow/inventory-pools"
     And I see "Pool X"
     And I click on inventory pool "Pool X"
 

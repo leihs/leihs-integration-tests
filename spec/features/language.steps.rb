@@ -66,7 +66,7 @@ step "I change the language to :lang in :subapp" do |lang, subapp|
     find("button[data-test-id=language-btn]", text: lang).click
   when "/borrow/"
     find("nav .ui-user-profile-button").click
-    select(lang, from: "Language")
+    select(lang, from: "language-select")
   when "/manage"
     find("a", text: lang).click
   else
@@ -84,7 +84,7 @@ step "the language was changed to :lang in :subapp" do |lang, subapp|
     activated_lang = open_inventory_languages_menu(lang)
     expect(activated_lang.text).to eq lang
   when "/borrow/"
-    expect(page).to have_select("Language", selected: lang)
+    expect(page).to have_select("language-select", selected: lang)
   when "/manage"
     find("footer strong", text: lang)
   else
@@ -113,7 +113,7 @@ step "the language was changed to :lang everywhere" do |lang|
       expect(activated.text).to eq lang
     when "/borrow/"
       find("nav .ui-user-profile-button").click
-      expect(page).to have_select("Language", selected: lang)
+      expect(page).to have_select("language-select", selected: lang)
     when "/manage"
       find("footer strong", text: lang)
     else
