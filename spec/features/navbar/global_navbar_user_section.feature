@@ -40,6 +40,7 @@ Feature: Global navbar
       | Meine Dokumente |
       | Logout          |
       | Sprache         |
+      | Anzeige         |
     When I click on "Benutzerdaten"
     Then I am redirected to "/borrow/current-user"
     When I visit "<subapp path>"
