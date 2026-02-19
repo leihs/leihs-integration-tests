@@ -18,7 +18,7 @@ gem "faker"
 
 # for mailing tests
 gem "post_office"
-gem "net-imap", require: false
+gem "net-imap", ">= 0.3.9", require: false
 gem "net-pop", require: false
 gem "net-smtp", require: false
 
@@ -32,7 +32,7 @@ gem "base32-crockford"
 
 gem "haml"
 gem "jwt"
-gem "sinatra"
+gem "sinatra", ">= 4.2.0"
 gem "puma", "~> 6.0"
 gem "rexml"
 gem "uuidtools"
