@@ -263,6 +263,31 @@
   environment_variables:
     FEATURE_NAME: "Inventory - Navigation to Legacy Navigate to lending 01"
     FEATURE: './spec/features/inventory/legacy_navigation.feature[1:2:1]'
+'./spec/features/inventory/legacy_vs_inventory_item_spec.rb[1:1]':
+  name: "Legacy vs Inventory - item create/update parity 01"
+  environment_variables:
+    FEATURE_NAME: "Legacy vs Inventory - item create/update parity 01"
+    FEATURE: './spec/features/inventory/legacy_vs_inventory_item_spec.rb[1:1]'
+'./spec/features/inventory/legacy_vs_inventory_item_spec.rb[1:2]':
+  name: "Legacy vs Inventory - item create/update parity 02"
+  environment_variables:
+    FEATURE_NAME: "Legacy vs Inventory - item create/update parity 02"
+    FEATURE: './spec/features/inventory/legacy_vs_inventory_item_spec.rb[1:2]'
+'./spec/features/inventory/legacy_vs_inventory_item_spec.rb[1:3]':
+  name: "Legacy vs Inventory - item create/update parity 03"
+  environment_variables:
+    FEATURE_NAME: "Legacy vs Inventory - item create/update parity 03"
+    FEATURE: './spec/features/inventory/legacy_vs_inventory_item_spec.rb[1:3]'
+'./spec/features/inventory/legacy_vs_inventory_item_spec.rb[1:4]':
+  name: "Legacy vs Inventory - item create/update parity 04"
+  environment_variables:
+    FEATURE_NAME: "Legacy vs Inventory - item create/update parity 04"
+    FEATURE: './spec/features/inventory/legacy_vs_inventory_item_spec.rb[1:4]'
+'./spec/features/inventory/legacy_vs_inventory_item_spec.rb[1:5]':
+  name: "Legacy vs Inventory - item create/update parity 05"
+  environment_variables:
+    FEATURE_NAME: "Legacy vs Inventory - item create/update parity 05"
+    FEATURE: './spec/features/inventory/legacy_vs_inventory_item_spec.rb[1:5]'
 './spec/features/inventory_pools.feature[1:1:1]':
   name: "Inventory pools Create an inventory pool and edit a mail template 01"
   environment_variables:
