@@ -27,7 +27,7 @@ end
 
 def sign_out
   visit "/my/auth-info"
-  find(".fa-user-circle").click
+  find(".fa-circle-user").click
   click_on "Logout"
   wait_until { current_path == "/" }
 end

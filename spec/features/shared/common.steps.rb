@@ -14,7 +14,7 @@ end
 
 # spec args given as "A${1+1}Z" -> "A#{1+1}Z" -> "A2Z"
 def custom_interpolation(spec_string, format_func = ->(x) { x })
-  spec_string.gsub(/\$\{([^\$]*)\}/) do |s|
+  spec_string.gsub(/\$\{([^$]*)\}/) do |s|
     format_func.call(custom_eval(s))
   end
 end
@@ -135,7 +135,7 @@ end
 
 step "I log out" do
   visit "/my/auth-info"
-  find(".fa-user-circle").click
+  find(".fa-circle-user").click
   click_on "Logout"
 end
 

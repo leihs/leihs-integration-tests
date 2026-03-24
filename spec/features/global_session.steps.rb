@@ -7,7 +7,7 @@ step "I am logged in for the subapp :subapp" do |subapp|
     end
   when %r{^/my.*}, "/procure"
     within ".navbar-leihs" do
-      find(".fa-user-circle").click
+      find(".fa-circle-user").click
       expect(current_scope).to have_content @user.short_name
     end
   when "/manage"
@@ -55,7 +55,7 @@ step "I log out from :subpath" do |subpath|
     end
   when %r{^/my.*}, "/procure"
     within ".navbar-leihs" do
-      find(".fa-user-circle").click
+      find(".fa-circle-user").click
       click_on "Logout"
     end
   when "/manage"
