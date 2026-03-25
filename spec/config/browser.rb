@@ -14,20 +14,17 @@ firefox_bin_path = if ENV["TOOL_VERSIONS_MANAGER"] == "mise"
 else
   Pathname.new(`asdf where firefox`.strip).join("bin/firefox").expand_path.to_s
 end
-Selenium::WebDriver::Firefox.path = firefox_bin_path
 
 Capybara.register_driver :firefox do |app|
   profile = Selenium::WebDriver::Firefox::Profile.new
 
-  opts = Selenium::WebDriver::Firefox::Options.new(
-    # binary: ENV['FIREFOX_ESR_60_PATH'],
-    profile: profile,
-    log_level: :trace
-  )
+  opts = Selenium::WebDriver::Firefox::Options.new
+  opts.binary = firefox_bin_path
+  opts.profile = profile
 
   # NOTE: good for local dev
   if ENV["LEIHS_TEST_HEADLESS"].present?
-    opts.args << "--headless"
+    opts.add_argument("--headless")
   end
 
   Capybara::Selenium::Driver.new(app, browser: :firefox, options: opts)

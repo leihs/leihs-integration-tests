@@ -1,5 +1,3 @@
-# ruby version is defined one up in the leihs dir,
-# could be overriden here in the future if needed
 firefox 115.8.0esr
 geckodriver 0.34.0
-ruby 3.2.4
+ruby 3.3.8

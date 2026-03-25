@@ -4,9 +4,9 @@ source "https://rubygems.org"
 gem "rspec", "~> 3.0"
 gem "turnip", github: "leihs/turnip"
 
-# test in browser
-gem "capybara", "~> 3.8"
-gem "selenium-webdriver", "~> 3.14"
+# test in browser (Selenium 4 for Ruby 3.3+)
+gem "capybara", "~> 3.40"
+gem "selenium-webdriver", "~> 4.26"
 
 # DB
 gem "sequel"
