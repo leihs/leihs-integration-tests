@@ -5,3 +5,4 @@
 /vagrant-ssh-config
 /reverse-proxy/tmp
 .env.local
+.cider-ci_private/
