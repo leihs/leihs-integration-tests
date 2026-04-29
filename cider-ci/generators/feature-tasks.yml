@@ -593,3 +593,8 @@
   environment_variables:
     FEATURE_NAME: "Lending Terms acceptance Acceptance of lending terms is enforced when configured 01"
     FEATURE: './spec/features/settings/lending_terms_acceptance.feature[1:2:1]'
+'./spec/features/settings/logo_variant_from_db.feature[1:1:1]':
+  name: "Logo variants from DB Upload logo variants in admin and verify in inventory 01"
+  environment_variables:
+    FEATURE_NAME: "Logo variants from DB Upload logo variants in admin and verify in inventory 01"
+    FEATURE: './spec/features/settings/logo_variant_from_db.feature[1:1:1]'
