@@ -6,7 +6,7 @@ gem "turnip", github: "leihs/turnip"
 
 # test in browser
 gem "capybara", "~> 3.8"
-gem "selenium-webdriver", "~> 3.14"
+gem "selenium-webdriver", "~> 4.10"
 
 # DB
 gem "sequel"
