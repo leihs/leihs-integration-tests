@@ -16,14 +16,6 @@ RSpec.configure do |config|
   end
 end
 
-def with_disabled_trigger(table, trigger)
-  t_sql = (trigger == :all) ? "ALL" : trigger
-  database.run "ALTER TABLE #{table} DISABLE TRIGGER #{t_sql}"
-  result = yield
-  database.run "ALTER TABLE #{table} ENABLE TRIGGER #{t_sql}"
-  result
-end
-
 def set_default_locale(locale)
   database.run(<<-SQL.strip_heredoc)
     UPDATE languages AS ls

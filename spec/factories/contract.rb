@@ -12,39 +12,18 @@ class Contract < Sequel::Model
     state = :open,
     compact_id = id,
     purpose = Faker::Lorem.word)
-    with_disabled_triggers do
-      database.run <<-SQL
-        INSERT INTO contracts(
-          id,
-          user_id,
-          inventory_pool_id,
-          compact_id,
-          purpose,
-          created_at,
-          updated_at,
-          state
-        )
-        VALUES (
-          '#{id}',
-          '#{user_id}',
-          '#{inventory_pool_id}',
-          '#{compact_id}',
-          '#{purpose}',
-          now(),
-          now(),
-          '#{state}'
-          );
-      SQL
+    db_with_disabled_triggers do
+      database[:contracts].insert(
+        id: id,
+        user_id: user_id,
+        inventory_pool_id: inventory_pool_id,
+        compact_id: compact_id,
+        purpose: purpose,
+        created_at: Sequel.lit("now()"),
+        updated_at: Sequel.lit("now()"),
+        state: state.to_s
+      )
     end
-
-    def self.update_with_disabled_triggers(id, column, value) # standard:disable Lint/NestedMethodDefinition
-      with_disabled_triggers do
-        database.run <<-SQL
-          UPDATE contracts SET #{column} = #{value} WHERE id = '#{id}'
-        SQL
-      end
-    end
-
     find(id: id)
   end
 end
