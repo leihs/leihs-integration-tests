@@ -17,6 +17,7 @@ Feature: Global session
       | /procure      |
       | /manage       |
       | /my/auth-info |
+      | /lending      |
 
   Scenario Outline: Log out from a particular subapp and thus everywhere
     When I log in as the user
@@ -28,6 +29,7 @@ Feature: Global session
     And I am logged out from "/procure"
     And I am logged out from "/manage"
     And I am logged out from "/my/auth-info"
+    And I am logged out from "/lending"
     Examples:
       | subapp path   |
       | /admin/       |
@@ -35,3 +37,4 @@ Feature: Global session
       | /procure      |
       | /manage       |
       | /my/auth-info |
+      | /lending      |

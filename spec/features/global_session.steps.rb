@@ -17,6 +17,8 @@ step "I am logged in for the subapp :subapp" do |subapp|
   when "/borrow"
     visit("#{subapp}/current-user")
     expect(page).to have_content @user.email
+  when "/lending"
+    expect(page).to have_content @user.login
   else
     raise
   end
@@ -41,6 +43,9 @@ step "I am logged out from :subpath" do |subpath|
     visit subpath
     expect(current_path).to eq "/sign-in"
     expect(page).to have_content "Log into leihs"
+  when "/lending"
+    visit subpath
+    expect(current_path).to eq "/lending/sign-in"
   else
     raise
   end
@@ -66,6 +71,8 @@ step "I log out from :subpath" do |subpath|
   when "/borrow"
     find("nav .ui-user-profile-button").click
     click_on "Logout"
+  when "/lending"
+    click_button "Sign out"
   else
     raise
   end

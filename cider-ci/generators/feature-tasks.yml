@@ -224,30 +224,40 @@
     FEATURE_NAME: "Global session Logged in everywhere 05"
     FEATURE: './spec/features/global_session.feature[1:5:1]'
 './spec/features/global_session.feature[1:6:1]':
+  name: "Global session Logged in everywhere 06"
+  environment_variables:
+    FEATURE_NAME: "Global session Logged in everywhere 06"
+    FEATURE: './spec/features/global_session.feature[1:6:1]'
+'./spec/features/global_session.feature[1:7:1]':
   name: "Global session Log out from a particular subapp and thus everywhere 01"
   environment_variables:
     FEATURE_NAME: "Global session Log out from a particular subapp and thus everywhere 01"
-    FEATURE: './spec/features/global_session.feature[1:6:1]'
-'./spec/features/global_session.feature[1:7:1]':
+    FEATURE: './spec/features/global_session.feature[1:7:1]'
+'./spec/features/global_session.feature[1:8:1]':
   name: "Global session Log out from a particular subapp and thus everywhere 02"
   environment_variables:
     FEATURE_NAME: "Global session Log out from a particular subapp and thus everywhere 02"
-    FEATURE: './spec/features/global_session.feature[1:7:1]'
-'./spec/features/global_session.feature[1:8:1]':
+    FEATURE: './spec/features/global_session.feature[1:8:1]'
+'./spec/features/global_session.feature[1:9:1]':
   name: "Global session Log out from a particular subapp and thus everywhere 03"
   environment_variables:
     FEATURE_NAME: "Global session Log out from a particular subapp and thus everywhere 03"
-    FEATURE: './spec/features/global_session.feature[1:8:1]'
-'./spec/features/global_session.feature[1:9:1]':
+    FEATURE: './spec/features/global_session.feature[1:9:1]'
+'./spec/features/global_session.feature[1:10:1]':
   name: "Global session Log out from a particular subapp and thus everywhere 04"
   environment_variables:
     FEATURE_NAME: "Global session Log out from a particular subapp and thus everywhere 04"
-    FEATURE: './spec/features/global_session.feature[1:9:1]'
-'./spec/features/global_session.feature[1:10:1]':
+    FEATURE: './spec/features/global_session.feature[1:10:1]'
+'./spec/features/global_session.feature[1:11:1]':
   name: "Global session Log out from a particular subapp and thus everywhere 05"
   environment_variables:
     FEATURE_NAME: "Global session Log out from a particular subapp and thus everywhere 05"
-    FEATURE: './spec/features/global_session.feature[1:10:1]'
+    FEATURE: './spec/features/global_session.feature[1:11:1]'
+'./spec/features/global_session.feature[1:12:1]':
+  name: "Global session Log out from a particular subapp and thus everywhere 06"
+  environment_variables:
+    FEATURE_NAME: "Global session Log out from a particular subapp and thus everywhere 06"
+    FEATURE: './spec/features/global_session.feature[1:12:1]'
 './spec/features/initial_admin.feature[1:1:1]':
   name: "Initial admin Create initial admin 01"
   environment_variables:
