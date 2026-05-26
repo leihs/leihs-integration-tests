@@ -263,6 +263,11 @@
   environment_variables:
     FEATURE_NAME: "Initial admin Create initial admin 01"
     FEATURE: './spec/features/initial_admin.feature[1:1:1]'
+'./spec/features/inventory/group_manager_inventory_list_spec.rb[1:1]':
+  name: "Inventory list read-only pool (group_manager) 01"
+  environment_variables:
+    FEATURE_NAME: "Inventory list read-only pool (group_manager) 01"
+    FEATURE: './spec/features/inventory/group_manager_inventory_list_spec.rb[1:1]'
 './spec/features/inventory/legacy_navigation.feature[1:1:1]':
   name: "Inventory - Navigation to Legacy Global search 01"
   environment_variables:
@@ -298,6 +303,16 @@
   environment_variables:
     FEATURE_NAME: "Legacy vs Inventory - item create/update parity 05"
     FEATURE: './spec/features/inventory/legacy_vs_inventory_item_spec.rb[1:5]'
+'./spec/features/inventory/manager_inventory_list_timeline_spec.rb[1:1]':
+  name: "Inventory list manager timeline actions 01"
+  environment_variables:
+    FEATURE_NAME: "Inventory list manager timeline actions 01"
+    FEATURE: './spec/features/inventory/manager_inventory_list_timeline_spec.rb[1:1]'
+'./spec/features/inventory/manager_inventory_list_timeline_spec.rb[1:2]':
+  name: "Inventory list manager timeline actions 02"
+  environment_variables:
+    FEATURE_NAME: "Inventory list manager timeline actions 02"
+    FEATURE: './spec/features/inventory/manager_inventory_list_timeline_spec.rb[1:2]'
 './spec/features/inventory_pools.feature[1:1:1]':
   name: "Inventory pools Create an inventory pool and edit a mail template 01"
   environment_variables:

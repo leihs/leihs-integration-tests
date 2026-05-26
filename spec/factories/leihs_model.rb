@@ -1,4 +1,7 @@
 class LeihsModel < Sequel::Model(:models)
+  def name
+    [product, version].compact.join(" ")
+  end
 end
 
 FactoryBot.define do
