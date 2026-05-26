@@ -5,7 +5,7 @@ end
 
 FactoryBot.define do
   factory :inventory_pool do
-    name { Faker::Commerce.department }
+    name { Faker::Commerce.unique.department }
     email { Faker::Internet.email }
 
     after :build do |ip|
