@@ -31,7 +31,7 @@ gem "mail", "~>2.7"
 gem "base32-crockford"
 
 gem "haml"
-gem "jwt"
+gem "jwt", "~> 3.0"
 gem "sinatra", ">= 4.2.0"
 gem "puma", "~> 6.0"
 gem "rexml"
