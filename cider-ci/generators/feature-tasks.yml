@@ -48,6 +48,11 @@
   environment_variables:
     FEATURE_NAME: "Admin section No access to system-admins for a leihs admin 01"
     FEATURE: './spec/features/admin_section.feature[1:10:1]'
+'./spec/features/admin_section.feature[1:11:1]':
+  name: "Admin section Create dynamic fields for inventory pool and test appearance in /inventory 01"
+  environment_variables:
+    FEATURE_NAME: "Admin section Create dynamic fields for inventory pool and test appearance in /inventory 01"
+    FEATURE: './spec/features/admin_section.feature[1:11:1]'
 './spec/features/audits_spec.rb[1:1]':
   name: "Audits 01"
   environment_variables:
@@ -263,6 +268,16 @@
   environment_variables:
     FEATURE_NAME: "Initial admin Create initial admin 01"
     FEATURE: './spec/features/initial_admin.feature[1:1:1]'
+'./spec/features/inventory/advanced_search.feature[1:1:1]':
+  name: "Advanced search Search and edit 01"
+  environment_variables:
+    FEATURE_NAME: "Advanced search Search and edit 01"
+    FEATURE: './spec/features/inventory/advanced_search.feature[1:1:1]'
+'./spec/features/inventory/advanced_search.feature[1:2:1]':
+  name: "Advanced search Bulk edit search-edit fields via selection 01"
+  environment_variables:
+    FEATURE_NAME: "Advanced search Bulk edit search-edit fields via selection 01"
+    FEATURE: './spec/features/inventory/advanced_search.feature[1:2:1]'
 './spec/features/inventory/group_manager_inventory_list_spec.rb[1:1]':
   name: "Inventory list read-only pool (group_manager) 01"
   environment_variables:
@@ -313,6 +328,21 @@
   environment_variables:
     FEATURE_NAME: "Inventory list manager timeline actions 02"
     FEATURE: './spec/features/inventory/manager_inventory_list_timeline_spec.rb[1:2]'
+'./spec/features/inventory/scan_and_edit.feature[1:1:1]':
+  name: "Scan and edit Edit by barcode 01"
+  environment_variables:
+    FEATURE_NAME: "Scan and edit Edit by barcode 01"
+    FEATURE: './spec/features/inventory/scan_and_edit.feature[1:1:1]'
+'./spec/features/inventory/scan_and_edit.feature[1:2:1]':
+  name: "Scan and edit Edit by selection 01"
+  environment_variables:
+    FEATURE_NAME: "Scan and edit Edit by selection 01"
+    FEATURE: './spec/features/inventory/scan_and_edit.feature[1:2:1]'
+'./spec/features/inventory/scan_and_edit.feature[1:3:1]':
+  name: "Scan and edit Edit all built-in fields 01"
+  environment_variables:
+    FEATURE_NAME: "Scan and edit Edit all built-in fields 01"
+    FEATURE: './spec/features/inventory/scan_and_edit.feature[1:3:1]'
 './spec/features/inventory_pools.feature[1:1:1]':
   name: "Inventory pools Create an inventory pool and edit a mail template 01"
   environment_variables:
