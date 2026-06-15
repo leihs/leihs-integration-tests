@@ -9,7 +9,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    activesupport (8.1.2)
+    activesupport (8.1.3)
       base64
       bigdecimal
       concurrent-ruby (~> 1.0, >= 1.3.1)
@@ -27,7 +27,7 @@ GEM
     ast (2.4.2)
     base32-crockford (0.1.0)
     base64 (0.3.0)
-    bigdecimal (4.0.1)
+    bigdecimal (4.1.2)
     capybara (3.40.0)
       addressable
       matrix
@@ -61,7 +61,7 @@ GEM
       tilt
     i18n (1.14.8)
       concurrent-ruby (~> 1.0)
-    json (2.6.1)
+    json (2.19.9)
     jwt (3.2.0)
       base64
     language_server-protocol (3.17.0.4)
@@ -73,12 +73,10 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.5)
     mini_portile2 (2.8.9)
-    minitest (6.0.2)
+    minitest (6.0.6)
       drb (~> 2.0)
       prism (~> 1.5)
-    mustermann (3.0.4)
-      ruby2_keywords (~> 0.0.1)
-    net-imap (0.6.4)
+    net-imap (0.6.4.1)
       date
       net-protocol
     net-pop (0.1.2)
@@ -102,17 +100,10 @@ GEM
       coderay (~> 1.1)
       method_source (~> 1.0)
     public_suffix (7.0.5)
-    puma (6.6.1)
+    puma (7.2.1)
       nio4r (~> 2.0)
     racc (1.8.1)
     rack (3.2.6)
-    rack-protection (4.2.1)
-      base64 (>= 0.1.0)
-      logger (>= 1.6.0)
-      rack (>= 3.0.0, < 4)
-    rack-session (2.1.2)
-      base64 (>= 0.1.0)
-      rack (>= 3.0.0)
     rack-test (2.2.0)
       rack (>= 1.3)
     rainbow (3.1.1)
@@ -149,7 +140,6 @@ GEM
       rubocop (>= 1.48.1, < 2.0)
       rubocop-ast (>= 1.31.1, < 2.0)
     ruby-progressbar (1.13.0)
-    ruby2_keywords (0.0.5)
     rubyzip (3.3.0)
     securerandom (0.4.1)
     selenium-webdriver (4.43.0)
@@ -159,13 +149,6 @@ GEM
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
     sequel (5.53.0)
-    sinatra (4.2.1)
-      logger (>= 1.6.0)
-      mustermann (~> 3.0)
-      rack (>= 3.0.0, < 4)
-      rack-protection (= 4.2.1)
-      rack-session (>= 2.0.0, < 3)
-      tilt (~> 2.0)
     standard (1.39.2)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.0)
@@ -209,13 +192,12 @@ DEPENDENCIES
   pg (~> 1.1)
   post_office
   pry (~> 0.11)
-  puma (~> 6.0)
+  puma (~> 7.0)
   rb-readline
   rexml
   rspec (~> 3.0)
   selenium-webdriver (~> 4.10)
   sequel
-  sinatra (>= 4.2.0)
   standard
   turnip!
   uuidtools
