@@ -12,7 +12,7 @@ FactoryBot.define do
       short =
         ip
           .name
-          .split(/[,\s&]/)
+          .split(/[\,\s\&]/)
           .select(&:presence)
           .map(&:first)
           .join

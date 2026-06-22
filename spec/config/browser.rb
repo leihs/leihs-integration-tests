@@ -8,7 +8,6 @@ LEIHS_HTTP_BASE_URL = ENV["LEIHS_HTTP_BASE_URL"].presence || "http://localhost:3
 LEIHS_HTTP_PORT = Addressable::URI.parse(LEIHS_HTTP_BASE_URL).port.presence || "3200"
 BROWSER_WINDOW_SIZE = [1200, 800]
 Capybara.app_host = LEIHS_HTTP_BASE_URL
-Capybara.test_id = "data-test-id"
 
 firefox_bin_path = if ENV["TOOL_VERSIONS_MANAGER"] == "mise"
   Pathname.new(`mise where firefox`.strip).join("bin/firefox").expand_path.to_s

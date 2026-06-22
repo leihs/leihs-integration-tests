@@ -106,7 +106,7 @@ feature "Inventory list read-only pool (group_manager)", type: :feature do
     expect_no_timeline_on_model_row(product_label: "#{option.product} #{option.version}")
 
     within find('[data-row="model"]', text: model.name) do
-      click_on "expand-button"
+      find('[data-test-id="expand-button"]', wait: 10).click
     end
 
     expect_no_timeline_in_row(find('[data-row="item"]'))
@@ -116,7 +116,7 @@ feature "Inventory list read-only pool (group_manager)", type: :feature do
     end
 
     within find('[data-row="model"]', text: rented_package_model.name) do
-      click_on "expand-button"
+      find('[data-test-id="expand-button"]', wait: 10).click
     end
 
     expect_no_timeline_in_row(find('[data-row="package"]'))

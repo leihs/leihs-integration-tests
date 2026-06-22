@@ -97,7 +97,7 @@ module InventoryListTestHelpers
     label = product_label || model.name
     expect(page).to have_css('[data-row="model"]', text: label, wait: 10)
     within find('[data-row="model"]', text: label) do
-      click_on "edit-dropdown"
+      find('[data-test-id="edit-dropdown"]', wait: 10).click
     end
     expect(page).to have_link("Timeline", wait: 10)
     timeline_link = find(:link, "Timeline")
