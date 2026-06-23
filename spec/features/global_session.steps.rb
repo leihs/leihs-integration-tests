@@ -71,8 +71,15 @@ step "I log out from :subpath" do |subpath|
   when "/borrow"
     find("nav .ui-user-profile-button").click
     click_on "Logout"
+
   when "/lending"
-    click_button "Sign out"
+    within("header") do
+      # Find and click the user menu button (contains firstname and lastname)
+      user_name = "#{@user.firstname} #{@user.lastname}"
+      user_menu_button = find("button", text: user_name)
+      user_menu_button.click
+    end
+    click_button "Logout"
   else
     raise
   end
