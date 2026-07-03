@@ -146,6 +146,7 @@ def search_edit_bulk_field_values
     ampere: "16A",
     electrical_power: "2.5",
     note: "Search edit bulk note",
+    price: "150.00",
     shelf: "B-02",
     status_note: "Search edit bulk status",
     is_borrowable: false,
@@ -187,6 +188,10 @@ def set_search_edit_bulk_fields
   fill_scan_edit_text(idx, values[:electrical_power])
   idx += 1
 
+  add_scan_edit_patch_field(idx, "Initial Price")
+  fill_scan_edit_price(idx, values[:price])
+  idx += 1
+
   add_scan_edit_patch_field(idx, "Shelf")
   fill_scan_edit_text(idx, values[:shelf])
   idx += 1
@@ -207,6 +212,7 @@ def assert_item_has_search_edit_bulk_values(code)
   expect(props["ampere"]).to eq(expected[:ampere])
   expect(props["electrical_power"]).to eq(expected[:electrical_power])
   expect(item.note).to eq(expected[:note])
+  expect(item.price.to_f).to eq(expected[:price].to_f)
   expect(item.shelf).to eq(expected[:shelf])
   expect(item.status_note).to eq(expected[:status_note])
   expect(item.is_borrowable).to be(expected[:is_borrowable])

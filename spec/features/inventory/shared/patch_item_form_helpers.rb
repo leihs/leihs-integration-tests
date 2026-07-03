@@ -71,11 +71,14 @@ def fill_scan_edit_text(index, value)
 end
 
 def fill_scan_edit_price(index, value)
-  fill_scan_edit_text(index, value)
   name = patch_value_name(index)
-  field = find("input[name='#{name}']", visible: :all, wait: 5)
-  field.send_keys(:tab)
-  sleep 0.1
+  within find('[id="patch-item-form"]') do
+    field = find("input[name='#{name}']", wait: 5)
+    page.execute_script("arguments[0].scrollIntoView({block: 'center', inline: 'nearest'})", field.native)
+    fill_react_controlled_input(field, value)
+    field.send_keys(:tab)
+    sleep 0.1
+  end
 end
 
 def click_scan_edit_radio(index, value)
@@ -132,10 +135,9 @@ end
 
 def fill_scan_edit_calendar(index, date)
   field_name = patch_value_name(index)
-  debug_calendar("fill_scan_edit_calendar index=#{index} name=#{field_name} date=#{date}")
   scroll_and_click(find("button[name='#{field_name}']", visible: :all))
   expect(page).to have_css("button[data-day]", wait: 10)
-  click_calendar_day(date)
+  click_calendar_day(date, dismiss: false)
 end
 
 def set_all_built_in_patch_fields
