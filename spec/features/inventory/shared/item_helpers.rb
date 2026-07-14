@@ -48,10 +48,10 @@ def expect_scan_edit_success(wait: 60)
   end
   if page.has_content?(SCAN_EDIT_ERROR_PATTERN, wait: 5)
     detail = all("[data-sonner-toast]", visible: :all, wait: 1).map(&:text).reject(&:empty?).join(" | ")
-    raise "Scan edit failed: server rejected the update#{detail.empty? ? "" : " (#{detail})"}"
+    raise "Scan edit failed: server rejected the update#{" (#{detail})" unless detail.empty?}"
   end
 
-  wait_until(wait, sleep_secs: 0.3) { barcode_input.value.to_s.blank? }
+  wait_until(wait, sleep_secs: 1) { barcode_input.value.to_s.blank? }
 
   return if page.has_css?("[data-sonner-toast]", text: SCAN_EDIT_SUCCESS_PATTERN, wait: 1)
   nil if page.has_content?(SCAN_EDIT_SUCCESS_PATTERN, wait: 1)
