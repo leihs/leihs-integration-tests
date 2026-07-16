@@ -34,21 +34,21 @@ def fill_react_controlled_input(element, value)
 end
 
 def submit_scan_edit_barcode(code)
-  barcode_input = find("input[data-barcode-scanner-target='true']")
+  barcode_input = find("input[data-test-id='barcode-input']")
   fill_react_controlled_input(barcode_input, code)
   sleep 0.2
   barcode_input.send_keys(:enter)
 end
 
 def expect_scan_edit_success(wait: 60)
-  barcode_input = find("input[data-barcode-scanner-target='true']")
+  barcode_input = find("input[data-test-id='barcode-input']")
 
   if page.has_content?(/Item cannot be updated|Gegenstand kann nicht geändert werden/i, wait: 3)
     raise "Scan edit failed: invalid inventory code"
   end
   if page.has_content?(SCAN_EDIT_ERROR_PATTERN, wait: 5)
     detail = all("[data-sonner-toast]", visible: :all, wait: 1).map(&:text).reject(&:empty?).join(" | ")
-    raise "Scan edit failed: server rejected the update#{detail.empty? ? "" : " (#{detail})"}"
+    raise "Scan edit failed: server rejected the update#{" (#{detail})" unless detail.empty?}"
   end
 
   wait_until(wait, sleep_secs: 0.3) { barcode_input.value.to_s.blank? }
