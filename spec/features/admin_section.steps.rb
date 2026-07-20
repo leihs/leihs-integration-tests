@@ -1,6 +1,9 @@
-require_relative "inventory/advanced_search.steps"
-require_relative "inventory/scan_and_edit.steps"
 require_relative "inventory/shared/patch_item_form_helpers"
+
+def search_edit_filter_q_in_url?
+  query = URI.parse(current_url).query.to_s
+  Rack::Utils.parse_nested_query(query).key?("filter_q")
+end
 
 EMPTY_SEARCH_EDIT_FILTER_Q = "{:$or [{:$and []}]}".freeze
 
@@ -279,6 +282,29 @@ end
 
 step "the item :code has test dynamic field values" do |code|
   assert_item_has_test_dynamic_field_values(code)
+end
+
+step "I go to the search-edit page of pool :name" do |name|
+  @pool ||= InventoryPool.find(name: name)
+  visit "/inventory/#{@pool.id}/search-edit"
+  wait_until { current_path.match %r{^/inventory/#{@pool.id}/search-edit} }
+end
+
+step "I see :count search result items" do |count|
+  expect(search_edit_filter_q_in_url?).to be(true)
+  expect(page).to have_css('[data-test-id="edit-button"]', wait: 60)
+  wait_until(30, sleep_secs: 0.3) { all("tbody tr").size == count.to_i }
+end
+
+step "I go to the scan-edit page of pool :name" do |name|
+  @pool ||= InventoryPool.find(name: name)
+  visit "/inventory/#{@pool.id}/scan-edit"
+  wait_until { current_path.match %r{^/inventory/#{@pool.id}/scan-edit} }
+end
+
+step "I scan inventory code :code" do |code|
+  submit_scan_edit_barcode(code)
+  expect_scan_edit_success(wait: 60)
 end
 
 step "I am on the show page of the pool :name" do |name|
