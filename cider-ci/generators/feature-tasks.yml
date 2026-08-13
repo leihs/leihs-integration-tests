@@ -379,10 +379,15 @@
     FEATURE_NAME: "Language Switching the language when logged in applies it for all subapps. 06"
     FEATURE: './spec/features/language.feature[1:11:1]'
 './spec/features/language.feature[1:12:1]':
+  name: "Language Switching the language when logged in applies it for all subapps. 07"
+  environment_variables:
+    FEATURE_NAME: "Language Switching the language when logged in applies it for all subapps. 07"
+    FEATURE: './spec/features/language.feature[1:12:1]'
+'./spec/features/language.feature[1:13:1]':
   name: "Language User with deactivated language should be able to change his language 01"
   environment_variables:
     FEATURE_NAME: "Language User with deactivated language should be able to change his language 01"
-    FEATURE: './spec/features/language.feature[1:12:1]'
+    FEATURE: './spec/features/language.feature[1:13:1]'
 './spec/features/legacy_vs_admin.feature[1:1:1]':
   name: "Legacy vs Admin There is a notice with a link to admin in old legacy manage pool section 01"
   environment_variables:

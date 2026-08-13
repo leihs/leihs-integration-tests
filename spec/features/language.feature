@@ -66,6 +66,7 @@ Feature: Language
       | /borrow/      |
       | /procure      |
       | /inventory    |
+      | /lending      |
       | /manage       |
       | /my/auth-info |
 
