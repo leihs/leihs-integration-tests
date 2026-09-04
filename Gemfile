@@ -27,7 +27,7 @@ gem "activesupport", "~> 8.1.0"
 gem "exiftool_vendored"
 gem "rb-readline"
 gem "pry", "~> 0.11"
-gem "mail", "~>2.7"
+gem "mail", "~> 2.9"
 gem "base32-crockford"
 
 gem "haml"
