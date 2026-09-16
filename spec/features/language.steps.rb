@@ -44,6 +44,20 @@ step "I switch the language to :lang" do |lang|
   end
 end
 
+# call from within a `.navbar-leihs` scope
+def open_navbar_languages_menu
+  find(".fa-globe").click
+  # the bootstrap dropdown toggle is occasionally flaky right after a
+  # cross-app session/language switch; retry the click once if the menu
+  # didn't actually open in time
+  begin
+    find(".dropdown-menu", wait: 2)
+  rescue Capybara::ElementNotFound
+    find(".fa-globe").click
+    find(".dropdown-menu", wait: 2)
+  end
+end
+
 def open_radix_languages_menu(lang)
   within "nav.container" do
     find("button", text: @user.name).click
@@ -58,7 +72,7 @@ step "I change the language to :lang in :subapp" do |lang, subapp|
   case subapp
   when "/admin/", "/procure", "/my/auth-info"
     within ".navbar-leihs" do
-      find(".fa-globe").click
+      open_navbar_languages_menu
       find("button", text: lang).click
     end
   when "/inventory", "/lending"
@@ -77,8 +91,7 @@ end
 step "the language was changed to :lang in :subapp" do |lang, subapp|
   case subapp
   when "/admin/", "/procure", "/my/auth-info"
-    find(".fa-globe").click
-    find(".navbar-leihs .dropdown-menu")
+    within(".navbar-leihs") { open_navbar_languages_menu }
       .find("button b", text: lang)
   when "/inventory", "/lending"
     activated_lang = open_radix_languages_menu(lang)
@@ -106,8 +119,7 @@ step "the language was changed to :lang everywhere" do |lang|
     visit sap
     case sap
     when "/admin/", "/procure", "/my/auth-info"
-      find(".fa-globe").click
-      find(".navbar-leihs .dropdown-menu")
+      within(".navbar-leihs") { open_navbar_languages_menu }
         .find("button b", text: lang)
     when "/inventory", "/lending"
       activated = open_radix_languages_menu(lang)
@@ -125,7 +137,6 @@ end
 
 step "the current language is :lang" do |lang|
   visit "/my/auth-info"
-  find(".fa-globe").click
-  find(".navbar-leihs .dropdown-menu")
+  within(".navbar-leihs") { open_navbar_languages_menu }
     .find("button b", text: lang)
 end
