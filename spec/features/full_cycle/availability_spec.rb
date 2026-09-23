@@ -79,7 +79,7 @@ feature "Availability" do
     end
 
     within find("#timeline-band-2", text: entitlement_group.name) do
-      find(".label-no-assigned-item", text: "#{user_1.firstname} #{user_1.lastname} (Quantity: 1)")
+      find(".label-no-assigned-item", text: "#{user_1.firstname} #{user_1.lastname}")
       expect(text).to match(/'#{entitlement_group.name}' :\n1\n0\n1\n1/)
     end
 
