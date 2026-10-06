@@ -34,18 +34,18 @@ step "I am logged out from :subpath" do |subpath|
       end
     end
     if ["/manage"].include? subpath
-      expect(current_path).to eq "/"
+      expect(page).to have_current_path("/", ignore_query: true)
     end
   when "/borrow"
     visit subpath
     find("#inputEmail")
   when "/procure"
     visit subpath
-    expect(current_path).to eq "/sign-in"
+    expect(page).to have_current_path("/sign-in", ignore_query: true)
     expect(page).to have_content "Log into leihs"
   when "/lending"
     visit subpath
-    expect(current_path).to eq "/lending/sign-in"
+    expect(page).to have_current_path("/lending/sign-in", ignore_query: true)
   else
     raise
   end

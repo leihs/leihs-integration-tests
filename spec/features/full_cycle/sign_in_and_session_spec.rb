@@ -15,7 +15,7 @@ feature "sign in and session" do
     expect(page).to have_content @admin.lastname
     sleep 15
     visit "/"
-    expect(current_path).to eq "/"
+    expect(page).to have_current_path("/", ignore_query: true)
     find("button", text: "Login")
   end
 end

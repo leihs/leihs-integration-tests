@@ -142,7 +142,7 @@ step "I see :n times :name" do |n, name|
 end
 
 step "I have been redirected to the orders list" do
-  expect(current_path).to eq "/borrow/rentals/"
+  expect(page).to have_current_path("/borrow/rentals/", ignore_query: true)
 end
 
 step "I see :text in the :section section" do |text, section|

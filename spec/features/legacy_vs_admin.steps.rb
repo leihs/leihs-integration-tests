@@ -5,7 +5,7 @@ end
 
 step "the current path are the entitlement groups of pool :name" do |name|
   pool = InventoryPool.find(name: name)
-  expect(current_path).to eq "/manage/#{pool.id}/groups"
+  expect(page).to have_current_path("/manage/#{pool.id}/groups", ignore_query: true)
 end
 
 step "I should see a notice with a link to the admin" do
@@ -21,5 +21,5 @@ end
 
 step "I am redirected to the manage section of the pool :name in admin" do |name|
   pool = InventoryPool.find(name: name)
-  expect(current_path).to eq "/admin/inventory-pools/#{pool.id}"
+  expect(page).to have_current_path("/admin/inventory-pools/#{pool.id}", ignore_query: true)
 end

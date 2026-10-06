@@ -1,5 +1,5 @@
 step "I am redirected to the inventory path of the pool" do
-  expect(current_path).to eq "/manage/#{@pool.id}/inventory"
+  expect(page).to have_current_path("/manage/#{@pool.id}/inventory", ignore_query: true)
 end
 
 step "there is an external authentication system :name" do |name|
@@ -23,7 +23,7 @@ step "the external authentication system is configured for the user" do
 end
 
 step "I am redirected to sign in page" do
-  expect(current_path).to eq "/sign-in"
+  expect(page).to have_current_path("/sign-in", ignore_query: true)
 end
 
 step "I enter my email address" do
