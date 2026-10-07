@@ -1,5 +1,5 @@
 step "the /sign-in page is loaded" do
-  expect(current_path).to eq "/sign-in"
+  expect(page).to have_current_path("/sign-in", ignore_query: true)
   expect(page).to have_selector "form[action='/sign-in']"
 end
 

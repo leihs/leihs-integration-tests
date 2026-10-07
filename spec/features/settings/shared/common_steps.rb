@@ -17,11 +17,11 @@ step "I add one item of model :name to the cart" do |name|
 end
 
 step "the order is not submitted" do
-  expect(current_path).to eq "/borrow/order"
+  expect(page).to have_current_path("/borrow/order", ignore_query: true)
   expect(Order.where(user_id: @user.id, state: "submitted").count).to eq 0
 end
 
 step "the order is submitted" do
-  expect(current_path).to eq "/borrow/rentals/"
+  expect(page).to have_current_path("/borrow/rentals/", ignore_query: true)
   expect(Order.where(user_id: @user.id, state: "submitted").count).to eq 1
 end

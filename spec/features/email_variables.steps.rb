@@ -59,7 +59,9 @@ step "I approve the order" do
 end
 
 step "the email with subject :subject contains correct workdays according to locale :locale" do |subject, locale|
-  email = Email.find(subject: subject)
+  # the email is written by the request behind the preceding UI action
+  # (e.g. the order approval), which may still be in flight on a loaded CI
+  email = wait_until { Email.find(subject: subject) }
   body = ["inventory_pool.workdays-TITLE"]
   days = {"monday" => {"en-GB" => "Monday", "de-CH" => "Montag"},
           "tuesday" => {"en-GB" => "Tuesday", "de-CH" => "Dienstag"},
@@ -78,7 +80,9 @@ step "the email with subject :subject contains correct workdays according to loc
 end
 
 step "the email with subject :subject contains correct holidays according to locale :locale" do |subject, locale|
-  email = Email.find(subject: subject)
+  # the email is written by the request behind the preceding UI action
+  # (e.g. the order approval), which may still be in flight on a loaded CI
+  email = wait_until { Email.find(subject: subject) }
   body = ["inventory_pool.holidays-TITLE"]
   formats = {"en-GB" => {"default" => "%d/%m/%Y", "short" => "%d/%m"},
              "de-CH" => {"default" => "%d.%m.%Y", "short" => "%d.%m"}}
