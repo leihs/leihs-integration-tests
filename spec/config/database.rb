@@ -10,6 +10,8 @@ RSpec.configure do |config|
     srand 1
     db_clean
     db_restore_data seeds_sql
+    # align clj today with Date.today (UTC on CI)
+    Setting.first.update(time_zone: "UTC")
     SystemAndSecuritySetting.first.update(external_base_url: LEIHS_HTTP_BASE_URL)
     set_default_locale("de-CH")
     SmtpSetting.first.update(port: smtp_port, address: "localhost", enabled: true)
