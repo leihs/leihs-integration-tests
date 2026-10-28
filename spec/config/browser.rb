@@ -21,10 +21,10 @@ Capybara.register_driver :firefox do |app|
   profile = Selenium::WebDriver::Firefox::Profile.new
 
   opts = Selenium::WebDriver::Firefox::Options.new(
-    # binary: ENV['FIREFOX_ESR_60_PATH'],
     profile: profile,
     log_level: :trace
   )
+  opts.binary = firefox_bin_path
 
   # NOTE: good for local dev
   if ENV["LEIHS_TEST_HEADLESS"].present?

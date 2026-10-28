@@ -1,27 +1,26 @@
-def sign_in_as user, pool = nil
+def normalize_path(path)
+  path.to_s.sub(%r{/\z}, "")
+end
+
+def signed_in_destination?(path, pool_id)
+  path = normalize_path(path)
+  return true if ["/admin", "/borrow"].include?(path)
+  return true if pool_id && path == "/manage/#{pool_id}/inventory"
+  return true if pool_id && path == "/manage/#{pool_id}/daily"
+  pool_id && path.start_with?("/inventory/#{pool_id}/")
+end
+
+def sign_in_as(user, pool = nil)
+  Capybara.reset_sessions!
   visit "/"
   fill_in "user", with: user.email
   click_on "Login"
   fill_in "password", with: user.password || "password"
   click_on "Continue"
-  wait_until do
-    ["/admin/", "/borrow/",
-      "/manage/#{pool.try(:id)}/inventory",
-      "/manage/#{pool.try(:id)}/daily"].include? current_path
-  end
-  case current_path
-  when "/admin/"
-    find(".fa-circle-user").click
-    wait_until { page.has_content? user.lastname }
-  when "/borrow/"
-    find(".ui-user-profile-button").click
-    click_on "User Account"
-    page.has_content? "#{user.firstname} #{user.lastname}"
-  when "/manage/#{pool.try(:id)}/inventory"
-    wait_until { page.has_content? user.lastname }
-  when "/manage/#{pool.try(:id)}/daily"
-    wait_until { page.has_content? user.lastname }
-  end
+  pool_id = pool.try(:id)
+  wait_until(20) { signed_in_destination?(current_path, pool_id) }
+  visit "/my/auth-info"
+  wait_until(20) { page.has_content?(user.email) }
   visit "/"
 end
 

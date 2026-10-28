@@ -188,6 +188,11 @@
   environment_variables:
     FEATURE_NAME: "Integration of category images in borrow  an admin via the UI 01"
     FEATURE: './spec/features/full_cycle/categories_spec.rb[1:1:1]'
+'./spec/features/full_cycle/pickup_locations_spec.rb[1:1]':
+  name: "full cycle pickup locations 01"
+  environment_variables:
+    FEATURE_NAME: "full cycle pickup locations 01"
+    FEATURE: './spec/features/full_cycle/pickup_locations_spec.rb[1:1]'
 './spec/features/full_cycle/setup_borrow_hand-out_take-back_spec.rb[1:1]':
   name: "full cycle 01"
   environment_variables:
