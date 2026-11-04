@@ -66,8 +66,8 @@ feature "Availability" do
     find(".ui-menu-item", text: @item.inventory_code).click
     click_on "Hand Over Selection"
     find(id: "purpose").set Faker::Lorem.sentence
-    click_on "Hand Over"
-    windows.second.close
+    contract_window = window_opened_by { click_on "Hand Over" }
+    contract_window.close
     click_on "Finish this hand over"
 
     # Check the legacy timeline
