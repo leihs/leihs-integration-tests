@@ -7,8 +7,10 @@ module InventoryListTestHelpers
     login_as_inventory_user(user)
   end
 
-  def await_debounce
-    sleep 0.3
+  def search_in_list(term)
+    find("input[name='search']").set(term)
+    expect(page).to have_current_path(/[?&]search=/)
+    expect(page).to have_no_css('[aria-busy="true"]')
   end
 
   def dismiss_open_menus

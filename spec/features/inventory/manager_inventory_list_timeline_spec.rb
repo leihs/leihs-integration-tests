@@ -23,7 +23,7 @@ feature "Inventory list manager timeline actions", type: :feature do
       version: "v1",
       type: "Software")
   end
-  let(:option) do
+  let!(:option) do
     FactoryBot.create(:option,
       product: "IntMgrOption #{search_token}",
       version: "v1",
@@ -57,16 +57,14 @@ feature "Inventory list manager timeline actions", type: :feature do
       visit "/inventory/#{pool.id}/list?page=1&size=50&with_items=true&retired=false"
 
       expect(page).to have_content(pool.name, wait: 20)
-      find("input[name='search']").set(search_token)
-      await_debounce
+      search_in_list(search_token)
 
       expect_manager_timeline_in_edit_dropdown(pool: pool, model: model)
       expect_manager_timeline_in_edit_dropdown(pool: pool, model: package_model)
       expect_manager_timeline_in_edit_dropdown(pool: pool, model: software_model)
 
       visit "/inventory/#{pool.id}/list?page=1&size=50&retired=false"
-      find("input[name='search']").set(search_token)
-      await_debounce
+      search_in_list(search_token)
 
       expect_manager_option_row_without_timeline(
         product_label: "#{option.product} #{option.version}"

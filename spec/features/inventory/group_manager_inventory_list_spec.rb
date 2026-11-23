@@ -29,7 +29,7 @@ feature "Inventory list read-only pool (group_manager)", type: :feature do
       version: "v1",
       is_package: true)
   end
-  let(:option) do
+  let!(:option) do
     FactoryBot.create(:option,
       product: "IntGMOption #{search_token}",
       version: "v1",
@@ -91,8 +91,7 @@ feature "Inventory list read-only pool (group_manager)", type: :feature do
     expect(page).to have_no_selector('[data-test-id="add-inventory-dropdown"]')
     assert_read_only_inventory_tabs
 
-    find("input[name='search']").set(search_token)
-    await_debounce
+    search_in_list(search_token)
 
     expect_group_manager_timeline_on_model_row(pool: pool, model: model)
     expect_group_manager_timeline_on_model_row(pool: pool, model: package_model)
@@ -100,8 +99,7 @@ feature "Inventory list read-only pool (group_manager)", type: :feature do
     expect_group_manager_timeline_on_model_row(pool: pool, model: rented_package_model)
 
     visit "/inventory/#{pool.id}/list?page=1&size=50&retired=false"
-    find("input[name='search']").set(search_token)
-    await_debounce
+    search_in_list(search_token)
 
     expect_no_timeline_on_model_row(product_label: "#{option.product} #{option.version}")
 
