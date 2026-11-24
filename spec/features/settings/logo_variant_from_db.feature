@@ -28,12 +28,10 @@ Feature: Logo variants from DB
     And in the row "Logo Dark" there is a base64 image
 
     When I visit "/inventory"
-    And I open the inventory user dropdown
-    And I click on "Appearance"
-    And I click on "Light"
+    And I open the inventory theme menu
+    And I select the inventory theme "light"
     Then the app logo alt text is "Logo light"
 
-    When I open the inventory user dropdown
-    And I click on "Appearance"
-    And I click on "Dark"
+    When I open the inventory theme menu
+    And I select the inventory theme "dark"
     Then the app logo alt text is "Logo dark"
