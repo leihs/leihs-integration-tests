@@ -44,10 +44,14 @@ feature "Availability" do
     # Make a borrow order by user_1
 
     visit "/borrow/models/#{model.id}"
-    click_on "Add item"
+    find("button, a", text: "Add item").click
     find(id: "show-day-quants").click
-    fill_in "From", with: Date.tomorrow.strftime("%d/%m/%Y")
-    fill_in "Until", with: Date.tomorrow.strftime("%d/%m/%Y")
+    # DateRangePicker labels are translated; use stable input ids (same as borrow feature specs).
+    # Values apply on blur — tab out after setting.
+    date_str = Date.tomorrow.strftime("%d/%m/%Y")
+    find("#startDate").set date_str
+    find("#endDate").set date_str
+    find("#endDate").send_keys(:tab)
     click_on "Add"
     click_on "OK"
     visit "/borrow/order"
@@ -60,14 +64,27 @@ feature "Availability" do
 
     visit "/manage/#{pool.id}/users/#{user_2.id}/hand_over"
     find(id: "add-end-date").set (Date.tomorrow + 1.day).strftime("%d/%m/%Y")
-    find(id: "assign-or-add-input").find("input").set model.product
-    find(".ui-autocomplete strong", text: model.product).click
-    find("[data-line-type='item_line'] input[data-assign-item]").set @item.inventory_code
-    find(".ui-menu-item", text: @item.inventory_code).click
+    # Assign-or-add by inventory code (legacy assign_or_create / include_customer_email):
+    # creates the line and assigns in one submit. Avoids model-name + line-assign
+    # autocomplete races under Firefox 153.
+    add_input = find("#assign-or-add-input input")
+    add_input.click
+    add_input.set @item.inventory_code
+    find("#assign-or-add button[type='submit']").click
+    expect(page).to have_css(
+      "input[data-assign-item][disabled][value='#{@item.inventory_code}']"
+    )
     click_on "Hand Over Selection"
     find(id: "purpose").set Faker::Lorem.sentence
-    click_on "Hand Over"
+    # Contract.create is async; print_contracts opens a second window after it.
+    # Closing windows.second without waiting flakes under Firefox 153 (CI screenshot
+    # still on the purpose modal). Same wait as legacy_helpers / include_customer_email.
+    # Fail loudly if the window is missing — do not swallow close via try(:close).
+    within(".modal") { find(".button.green[data-hand-over]", text: "Hand Over").click }
+    wait_until { windows.size == 2 }
     windows.second.close
+    switch_to_window(windows.first)
+    wait_until { page.has_content?("Finish this hand over") }
     click_on "Finish this hand over"
 
     # Check the legacy timeline

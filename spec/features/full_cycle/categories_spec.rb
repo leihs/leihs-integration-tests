@@ -70,12 +70,13 @@ feature "Integration of category images in borrow ", type: :feature do
         fill_in("model[product]", with: model_name)
       end
 
-      within "#categories" do
-        find("input[title=Category]").set(category_name)
-        find("input[title=Category]").click.send_keys(:enter)
-      end
+      # Same as legacy manage category_steps: click menu item (Enter is flaky on FF 153).
+      find("#categories input.ui-autocomplete-input").set(category_name)
+      find(".ui-menu-item a", match: :first, text: category_name).click
+      find("#categories .list-of-lines .line", text: category_name)
 
       click_on "Save Model"
+      expect(page).to have_content("Model saved")
 
       find(".dropdown-toggle", text: "Add inventory").click
       click_on "Item"
@@ -84,24 +85,20 @@ feature "Integration of category images in borrow ", type: :feature do
         choose "is_borrowable_true"
       end
 
-      within("div[data-id=model_id]") do
-        fill_in("Model", with: model_name)
-        find('input[title="Model"]').click.send_keys(:enter)
-      end
-
-      within("div[data-id=building_id]") do
-        fill_in("Building", with: "general building (GB)")
-        find('input[title="Building"]').click.send_keys(:enter)
-      end
-
-      within("div[data-id=room_id]") do
-        fill_in("Room", with: "general room")
-        find('input[title="Room"]').click.send_keys(:enter)
-      end
+      # Autocomplete needs a menu click; Enter alone is flaky under Firefox 153
+      # (building id never sticks → dependent room_id field never appears).
+      find("input[title='Model']").fill_in with: model_name
+      find("ul.ui-autocomplete a").click
+      find("input[title='Building']").fill_in with: "general building"
+      find("ul.ui-autocomplete a").click
+      find("input[title='Room']").fill_in with: "general room"
+      find("ul.ui-autocomplete a").click
 
       click_on "Save Item"
+      expect(page).to have_content("Item saved")
 
       visit "/borrow"
+      expect(page).to have_css(".ui-square-image-grid-item", text: parent_name)
 
       within find(".ui-square-image-grid-item", text: parent_name) do
         img = find("img")
