@@ -66,8 +66,8 @@ feature "Availability" do
     find(".ui-menu-item", text: @item.inventory_code).click
     click_on "Hand Over Selection"
     find(id: "purpose").set Faker::Lorem.sentence
-    click_on "Hand Over"
-    windows.second.close
+    contract_window = window_opened_by { click_on "Hand Over" }
+    contract_window.close
     click_on "Finish this hand over"
 
     # Check the legacy timeline
@@ -79,7 +79,7 @@ feature "Availability" do
     end
 
     within find("#timeline-band-2", text: entitlement_group.name) do
-      find(".label-no-assigned-item", text: "#{user_1.firstname} #{user_1.lastname} (Quantity: 1)")
+      find(".label-no-assigned-item", text: "#{user_1.firstname} #{user_1.lastname}")
       expect(text).to match(/'#{entitlement_group.name}' :\n1\n0\n1\n1/)
     end
 

@@ -2,7 +2,7 @@ require "spec_helper"
 
 feature "Audits" do
   def assert_http_unique_id(str)
-    expect(str).to match(/^[a-zA-Z0-9\-\_]{24,}$/)
+    expect(str).to match(/^[a-zA-Z0-9\-_]{24,}$/)
   end
 
   before(:each) do

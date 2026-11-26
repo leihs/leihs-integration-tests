@@ -8,6 +8,7 @@ class Reservation < Sequel::Model
   many_to_one(:item)
   many_to_one(:leihs_model, key: :model_id)
   many_to_one(:option)
+  many_to_one(:pickup_location, class: :PickupLocation, key: :pickup_location_id)
 end
 
 FactoryBot.define do

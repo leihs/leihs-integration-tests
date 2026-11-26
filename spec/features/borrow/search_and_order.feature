@@ -89,9 +89,9 @@ Feature: Search and order
     # delete a reservation
     When I wait for 1 second
     And I click on the line of the model "Beamer"
-    And I see the "Edit reservation" dialog
+    And I see the "Beamer" dialog
     And I click on "Remove reservation"
-    And the "Edit reservation" dialog has closed
+    And the "Beamer" dialog has closed
     Then I see the following lines in the "Items" section:
       | title     |
       | 4× Kamera |
