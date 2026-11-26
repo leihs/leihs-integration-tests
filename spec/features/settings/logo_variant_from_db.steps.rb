@@ -29,8 +29,21 @@ step "in the row :label there is a base64 image" do |label|
   expect(row).to have_css("img[src^='data:image']")
 end
 
-step "I open the inventory user dropdown" do
-  within "nav.container" do
-    find("button", text: /Test User/).click
-  end
+# Firefox 153 + Radix: clicking username text / "Appearance" is flaky (submenu
+# needs pointer-enter; leftover menus toggle closed). Use data-test-ids like
+# inventory/lending theme specs.
+step "I open the inventory theme menu" do
+  page.send_keys(:escape)
+  expect(page).not_to have_css("[data-test-id='user-menu-content']")
+
+  find("[data-test-id='user-menu']").click
+  expect(page).to have_css("[data-test-id='user-menu-content']")
+  find("[data-test-id='theme-menu']").click
+  expect(page).to have_css("[data-test-id='theme-light']")
+  expect(page).to have_css("[data-test-id='theme-dark']")
+end
+
+step "I select the inventory theme :theme" do |theme|
+  find("[data-test-id='theme-#{theme}']").click
+  expect(page).not_to have_css("[data-test-id='user-menu-content']")
 end
