@@ -18,7 +18,9 @@ step "I am logged in for the subapp :subapp" do |subapp|
     visit("#{subapp}/current-user")
     expect(page).to have_content @user.email
   when "/lending"
-    expect(page).to have_content @user.login
+    within("header") do
+      expect(current_scope).to have_button "#{@user.firstname} #{@user.lastname}"
+    end
   else
     raise
   end
