@@ -29,20 +29,19 @@ end
 Selenium::WebDriver::Firefox.path = firefox_bin_path if File.file?(firefox_bin_path)
 
 Capybara.register_driver :firefox do |app|
-  profile = Selenium::WebDriver::Firefox::Profile.new
-  # The legacy contract/document pages call window.print() on load (print=true).
-  # While Firefox's print dialog is open the window is not addressable via
-  # WebDriver ("Unable to locate window", seen with Firefox 140 ESR under Xvfb
-  # on Debian 13 executors): windows.second cannot be switched to or closed.
-  # Print silently (no dialog) so the specs can close the contract window.
-  profile["print.always_print_silent"] = true
-  profile["print.show_print_progress"] = false
-
   opts = Selenium::WebDriver::Firefox::Options.new(
-    profile: profile,
     log_level: :trace
   )
   opts.binary = firefox_bin_path
+  # The legacy contract/document pages call window.print() on load (print=true).
+  # While Firefox's print dialog is open the window is not addressable via
+  # WebDriver ("Unable to locate window", seen with Firefox 140/153 ESR under
+  # Xvfb on Debian 13 executors): windows.second cannot be switched to or closed.
+  # Print silently (no dialog) so the specs can close the contract window.
+  opts.add_preference("print.always_print_silent", true)
+  opts.add_preference("print.show_print_progress", false)
+  # Prefer silent path over the system print dialog when present.
+  opts.add_preference("print.prefer_system_dialog", false)
 
   # NOTE: good for local dev
   if ENV["LEIHS_TEST_HEADLESS"].present?

@@ -44,30 +44,63 @@ feature "Availability" do
     # Make a borrow order by user_1
 
     visit "/borrow/models/#{model.id}"
-    click_on "Add item"
+    find("button, a", text: "Add item").click
     find(id: "show-day-quants").click
-    fill_in "From", with: Date.tomorrow.strftime("%d/%m/%Y")
-    fill_in "Until", with: Date.tomorrow.strftime("%d/%m/%Y")
+    # DateRangePicker labels are translated; use stable input ids (same as borrow feature specs).
+    # Values apply on blur — tab out after setting. Prefer simulate_typing so React
+    # controlled inputs get key events (`.set` alone flakes under FF153).
+    date_str = Date.tomorrow.strftime("%d/%m/%Y")
+    simulate_typing(find("#startDate"), date_str)
+    simulate_typing(find("#endDate"), date_str)
+    find("#endDate").send_keys(:tab)
+    expect(find("#quantity").value).to be_present
     click_on "Add"
-    click_on "OK"
+    # GraphQL add / submit are async — use borrow modal helpers (same as borrow specs).
+    within(find_ui_modal_dialog(title: "Item added")) do
+      find("button.btn-primary").click
+    end
     visit "/borrow/order"
     click_on "Send order"
-    fill_in "Title", with: Faker::Lorem.sentence
-    click_on "Send"
-    click_on "OK"
+    within(find_ui_modal_dialog(title: "Send order")) do
+      fill_in "Title", with: Faker::Lorem.sentence
+      find("button.btn-primary").click
+    end
+    within(find_ui_modal_dialog(title: "Order submitted")) do
+      find("button.btn-primary").click
+    end
 
     # Make an overbooking for user_2 in lending
 
     visit "/manage/#{pool.id}/users/#{user_2.id}/hand_over"
     find(id: "add-end-date").set (Date.tomorrow + 1.day).strftime("%d/%m/%Y")
-    find(id: "assign-or-add-input").find("input").set model.product
+    # Master-era path: model autocomplete then per-line inventory-code assign
+    # (not global assign-or-add by inventory code). FF waits: loading spinner +
+    # simulate_typing for React inputs.
+    add_input = find("#assign-or-add-input input")
+    add_input.click
+    simulate_typing(add_input, model.product)
+    expect(page).to have_no_selector("form#assign-or-add .loading-bg-small")
     find(".ui-autocomplete strong", text: model.product).click
-    find("[data-line-type='item_line'] input[data-assign-item]").set @item.inventory_code
+    line = find("[data-line-type='item_line']", text: model.product, match: :first)
+    assign_input = line.find("input[data-assign-item]")
+    assign_input.click
+    simulate_typing(assign_input, @item.inventory_code)
     find(".ui-menu-item", text: @item.inventory_code).click
+    expect(page).to have_css(
+      "input[data-assign-item][disabled][value='#{@item.inventory_code}']"
+    )
     click_on "Hand Over Selection"
     find(id: "purpose").set Faker::Lorem.sentence
-    contract_window = window_opened_by { click_on "Hand Over" }
-    contract_window.close
+    # Contract.create is async; print_contracts opens a second window after it.
+    # Closing windows.second without waiting flakes (CI screenshot
+    # still on the purpose modal). Same wait as legacy_helpers / include_customer_email.
+    # Fail loudly if the window is missing — do not swallow close via try(:close).
+    within(".modal") { find(".button.green[data-hand-over]", text: "Hand Over").click }
+    wait_until { windows.size == 2 }
+    windows.second.close
+    switch_to_window(windows.first)
+    wait_until { page.has_content?("Finish this hand over") }
+
     click_on "Finish this hand over"
 
     # Check the legacy timeline

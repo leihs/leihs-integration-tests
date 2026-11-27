@@ -58,14 +58,22 @@ def open_navbar_languages_menu
   end
 end
 
-def open_radix_languages_menu(lang)
-  within "nav.container" do
-    find("button", text: @user.name).click
-  end
+# Radix: username-text clicks and nested submenus flake
+# (pointer-enter needed; leftover menus toggle closed). Match the inventory/
+# lending theme helpers — use data-test-ids, Escape first, hover the subtrigger.
+def open_radix_languages_menu(_lang = nil)
+  page.send_keys(:escape)
+  expect(page).not_to have_css("[data-test-id='user-menu-content']")
 
-  page.find('[data-radix-menu-content][data-state="open"]', visible: :all)
-  find("button[data-test-id=language-menu]").click
-  find("button[data-test-id=language-btn-selected]")
+  find("[data-test-id='user-menu']", wait: 10).click
+  expect(page).to have_css("[data-test-id='user-menu-content']", wait: 5)
+
+  # Label is translated (Language / Langue / Sprache) — match by test-id only.
+  # These scenarios often start with preferred locale Français (CH).
+  lang_trigger = find("[data-test-id='language-menu']", wait: 5)
+  lang_trigger.hover
+  lang_trigger.click
+  find("[data-test-id='language-btn-selected']", wait: 5)
 end
 
 step "I change the language to :lang in :subapp" do |lang, subapp|
@@ -76,8 +84,13 @@ step "I change the language to :lang in :subapp" do |lang, subapp|
       find("button", text: lang).click
     end
   when "/inventory", "/lending"
-    open_radix_languages_menu(lang)
-    find("button[data-test-id=language-btn]", text: lang).click
+    open_radix_languages_menu
+    find("[data-test-id='language-btn']", text: lang).click
+    # fetcher.Form PATCH usually closes the menu; if Radix leaves it open, Escape.
+    unless page.has_no_css?("[data-test-id='user-menu-content']", wait: 10)
+      page.send_keys(:escape)
+      expect(page).not_to have_css("[data-test-id='user-menu-content']", wait: 5)
+    end
   when "/borrow/"
     find("nav .ui-user-profile-button").click
     select(lang, from: "language-select")
@@ -94,7 +107,7 @@ step "the language was changed to :lang in :subapp" do |lang, subapp|
     within(".navbar-leihs") { open_navbar_languages_menu }
       .find("button b", text: lang)
   when "/inventory", "/lending"
-    activated_lang = open_radix_languages_menu(lang)
+    activated_lang = open_radix_languages_menu
     expect(activated_lang.text).to eq lang
   when "/borrow/"
     expect(page).to have_select("language-select", selected: lang)
@@ -122,7 +135,7 @@ step "the language was changed to :lang everywhere" do |lang|
       within(".navbar-leihs") { open_navbar_languages_menu }
         .find("button b", text: lang)
     when "/inventory", "/lending"
-      activated = open_radix_languages_menu(lang)
+      activated = open_radix_languages_menu
       expect(activated.text).to eq lang
     when "/borrow/"
       find("nav .ui-user-profile-button").click
